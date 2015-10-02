@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Host: service-partner.pro
+Sitemap: http://service-partner.pro/sitemap.xml
+Crawl-delay: 1
