@@ -1,3 +1,12 @@
 from django.contrib import admin
+from flatlease.models import *
 
-# Register your models here.
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    model = Client
+
+
+@admin.register(FixedProperty)
+class FixedPropertyAdmin(admin.ModelAdmin):
+    model = FixedProperty
