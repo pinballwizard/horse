@@ -6,3 +6,13 @@
 form{
     margin-left: 30px;
 }
+
+div.searchfield{
+    display: inline-flex;
+}
+div.mdl-layout__drawer-button.burger{
+    color: #757575;
+}
+div>nav>a.link{
+    color: #eceff1; !important;
+}

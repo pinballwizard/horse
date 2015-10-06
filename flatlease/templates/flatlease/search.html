@@ -2,44 +2,46 @@
 {% load staticfiles %}
 {% block meta %}
 {% endblock meta %}
-{% block header %}
-{% endblock header %}
 {% block body %}
-    <div class="mdl-grid">
-        <div class="mdl-cell ">
-            <form action="{% url 'search' %}" role="form" method="post">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
-                <div class="mdl-textfield mdl-js-textfield">
-                    {{ form.search }}
+<main class="mdl-layout__content">
+    <div class="page-content">
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--12-col">
+                <form action="{% url 'search' %}" role="form" method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="mdl-textfield mdl-js-textfield searchfield">
+                        {{ form.search }}
+                    </div>
+                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="mdl-grid">
+            {% for client in clients %}
+                <div class="mdl-cell mdl-cell--3-col mdl-shadow--2dp">
+                    <div class="">
+                        <div class="mdl-card__title">
+                            <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }}</h2>
+                        </div>
+                        <div class="mdl-card__media">
+{#                            <img src="{{ client.photo.url }}" width="250" height="auto">#}
+                        </div>
+                        <div class="mdl-card__supporting-text">
+                            День рождения: {{ client.birthday }} </br>
+                            Адрес: {{ client.residence }} </br>
+                            Телефон: {{ client.phone }} </br>
+                            Депозит: {{ client.deposit }} </br>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="">Развернуть</a>
+                        </div>
+                    </div>
                 </div>
-                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" type="submit">
-                    <i class="material-icons">search</i>
-                </button>
-            </form>
+            {% endfor %}
         </div>
     </div>
-    <div class="mdl-grid">
-        {% for client in clients %}
-            <div class="mdl-cell mdl-cell--4-col">
-                <div class="mdl-card mdl-shadow--2dp">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }}</h2>
-                    </div>
-                    <div class="mdl-card__media">
-                        <img src="{{ client.photo.url }}" width="250" height="auto">
-                    </div>
-                    <div class="mdl-card__supporting-text">
-                        День рождения: {{ client.birthday }} </br>
-                        Адрес: {{ client.residence }} </br>
-                        Телефон: {{ client.phone }} </br>
-                        Депозит: {{ client.deposit }} </br>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="">Развернуть</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+</main>
 {% endblock body %}

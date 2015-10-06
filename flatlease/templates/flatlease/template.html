@@ -5,18 +5,18 @@
     {% block meta %}
     {% endblock meta %}
     <meta charset="UTF-8">
-    <script src="{% static 'flatlease/script/main.js' %}"></script>
-    <link href="{% static 'flatlease/style/main.css' %}" rel="stylesheet">
     <link href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css" rel="stylesheet">
     <script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
+    <script src="{% static 'flatlease/script/main.js' %}"></script>
+    <link href="{% static 'flatlease/style/main.css' %}" rel="stylesheet">
     <title></title>
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
-        <div class="mdl-layout__drawer-button">
+        <div class="mdl-layout__drawer-button burger">
             <i class="material-icons">menu</i>
         </div>
         <div class="mdl-layout__header-row">
@@ -45,9 +45,9 @@
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <span class="mdl-layout-title">ЖиЛизинг</span>
-        <nav class="navigation mdl-navigation mdl-color--blue-grey-800">
+        <nav class="navigation mdl-navigation">
             <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" href="{% url 'calculator' %}">Калькулятор</a>
+            <a class="mdl-navigation__link link" href="{% url 'calculator' %}">Калькулятор</a>
             <a class="mdl-navigation__link" href="{% url 'addition' %}">Добавление</a>
             <a class="mdl-navigation__link" href="{% url 'search' %}">Поиск</a>
             <a class="mdl-navigation__link" href="{% url 'statistics' %}">Статистика</a>
