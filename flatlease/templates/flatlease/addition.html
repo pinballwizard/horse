@@ -20,8 +20,12 @@
                                     {{ field }}
                                 </div>
                             {% endfor %}
+                        {{ add_client_form.email }}
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                                Очистить
+                            </button>
                             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
                                 Сохранить
                             </button>
@@ -33,6 +37,9 @@
                         <h2 class="mdl-card__title-text">Финансовая информация</h2>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                            Очистить
+                        </button>
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
                             Сохранить
                         </a>
@@ -56,6 +63,9 @@
                             {% endfor %}
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                                Очистить
+                            </button>
                             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
                                 Сохранить
                             </a>

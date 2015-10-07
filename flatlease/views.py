@@ -24,6 +24,11 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'text',
                 'class': 'mdl-textfield__input',
             }),
+            'birthday': forms.DateInput(attrs={
+                'type': 'date',
+                'class': 'mdl-textfield__input',
+                'required': True,
+            }),
             'residence': forms.TextInput(attrs={
                 'type': 'text',
                 'class': 'mdl-textfield__input',

@@ -21,23 +21,18 @@
         </div>
         <div class="mdl-grid">
             {% for client in clients %}
-                <div class="mdl-cell mdl-cell--3-col mdl-shadow--2dp">
-                    <div class="">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }}</h2>
-                        </div>
-                        <div class="mdl-card__media">
-{#                            <img src="{{ client.photo.url }}" width="250" height="auto">#}
-                        </div>
-                        <div class="mdl-card__supporting-text">
-                            День рождения: {{ client.birthday }} </br>
-                            Адрес: {{ client.residence }} </br>
-                            Телефон: {{ client.phone }} </br>
-                            Депозит: {{ client.deposit }} </br>
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="">Развернуть</a>
-                        </div>
+                <div class="mdl-cell mdl-cell--3-col mdl-shadow--2dp client-card">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }}</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        День рождения: {{ client.birthday }} </br>
+                        Адрес: {{ client.residence }} </br>
+                        Телефон: {{ client.phone }} </br>
+                        Депозит: {{ client.deposit }} </br>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect more">Развернуть</a>
                     </div>
                 </div>
             {% endfor %}
