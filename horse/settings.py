@@ -63,7 +63,7 @@ MANAGERS = (
     ('Vera', 'securicula@gmail.com'),
 )
 
-SERVER_EMAIL = 'meridian@django' # Адрес отправителя почты
+SERVER_EMAIL = 'horse@django' # Адрес отправителя почты
 
 TEMPLATES = [
     {

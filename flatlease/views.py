@@ -8,6 +8,11 @@ class ClientAddForm(forms.ModelForm):
         model = Client
         fields = ['name', 'last_name', 'second_name', 'birthday', 'residence',
                   'phone', 'email', 'photo', 'passport', 'deposit', 'comment']
+        labels = {
+            'passport': '',
+            'photo': '',
+            'deposit': '',
+        }
         widgets = {
             'name': forms.TextInput(attrs={
                 'type': 'text',
@@ -35,11 +40,12 @@ class ClientAddForm(forms.ModelForm):
                 'required': True,
             }),
             'phone': forms.TextInput(attrs={
-                'type': 'text',
+                'type': 'tel',
                 'class': 'mdl-textfield__input',
                 'required': True,
             }),
             'email': forms.EmailInput(attrs={
+                'type': 'email',
                 'class': 'mdl-textfield__input',
             }),
             'comment': forms.Textarea(attrs={
@@ -78,16 +84,18 @@ def calculator(request):
     return render(request, 'flatlease/calculator.html')
 
 
-def addition(request):
+def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
         'add_property_form': PropertyAddForm()
     }
+    if id is not None:
+        client = Client.objects.get(pk=client_id)
+        data['add_client_form'] = ClientAddForm(instance=client)
     if request.method == 'POST':
-        client_form = ClientAddForm(request.POST)
+        client = Client.objects.get(pk=client_id)
+        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
         if client_form.is_valid():
-            print("YES")
-            data['add_client_form'] = client_form
             client_form.save()
         else:
             data['add_client_form'] = client_form
@@ -96,7 +104,7 @@ def addition(request):
 
 def search(request):
     data = {
-        'clients': Client.objects.all(),
+        'clients': Client.objects.order_by('-pub_date'),
         'property': FixedProperty.objects.all(),
         'form': SearchForm(),
     }
@@ -105,7 +113,6 @@ def search(request):
         if form.is_valid():
             search_str = form.cleaned_data['search']
             data['clients'] = Client.objects.filter(last_name__contains=search_str)
-            data['property'] = FixedProperty.objects.filter(location__contains=search_str)
             data['form'] = form
     return render(request, 'flatlease/search.html', data)
 
