@@ -112,10 +112,21 @@ def search(request):
         form = SearchForm(request.POST)
         if form.is_valid():
             search_str = form.cleaned_data['search']
-            data['clients'] = Client.objects.filter(last_name__contains=search_str)
+            q1 = Client.objects.filter(last_name__icontains=search_str)
+            q2 = Client.objects.filter(name__icontains=search_str)
+            q3 = Client.objects.filter(phone__icontains=search_str)
+            data['clients'] = q1 | q2 | q3
             data['form'] = form
     return render(request, 'flatlease/search.html', data)
 
 
 def statistics(request):
-    return render(request, 'flatlease/statistics.html')
+    deposit_str = []
+    clients = Client.objects.order_by('-deposit')[0:5]
+    for person in clients:
+        deposit_str.append(person.deposit)
+    print(deposit_str)
+    data = {
+        'deposit': deposit_str
+    }
+    return render(request, 'flatlease/statistics.html', data)

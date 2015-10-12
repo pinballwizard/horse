@@ -23,9 +23,10 @@
             {% for client in clients %}
                 <div class="mdl-cell mdl-cell--3-col mdl-shadow--2dp client-card">
                     <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }}</h2>
+                        <h2 class="mdl-card__title-text">{{ client.last_name }} {{ client.name }} {{ client.second_name }}</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
+                        Дата регистрации {{ client.pub_date }} </br>
                         День рождения: {{ client.birthday }} </br>
                         Адрес: {{ client.residence }} </br>
                         Телефон: {{ client.phone }} </br>
