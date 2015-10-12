@@ -6,69 +6,51 @@
     <!--Calculator-->
     <main class="mdl-layout__content">
         <div class="page-content charts">
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col mdl-grid">
+            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col">
                 <div class="mdl-card__title">
                     <h2 class="mdl-card__title-text">Расчет кредита</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     Заполните все поля
                 </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
-                            <label class="mdl-textfield__label" for="price">Стоимость объекта недвижимости</label>
-                            <span class="mdl-textfield__error">Введите цифры</span>
+                <form id="calcform">
+                    <div class="mdl-grid">
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
+                                <label class="mdl-textfield__label" for="price">Стоимость объекта недвижимости</label>
+                                <span class="mdl-textfield__error">Введите цифры</span>
+                            </div>
+                            <br>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
+                                <label class="mdl-textfield__label" for="first-pay">Первоначальный взнос</label>
+                                <span class="mdl-textfield__error">Введите цифры</span>
+                            </div>
+                            <br>
+                            <div class="mdl-textfield mdl-js-textfield">
+                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
+                                <label class="mdl-textfield__label" for="payment">Ежемесячный взнос</label>
+                                <span class="mdl-textfield__error">Введите цифры</span>
+                            </div>
+                            <br>
                         </div>
-                        <br>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
-                            <label class="mdl-textfield__label" for="first-pay">Первоначальный взнос</label>
-                            <span class="mdl-textfield__error">Введите цифры</span>
-                        </div>
-                        <br>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
-                            <label class="mdl-textfield__label" for="payment">Ежемесячный взнос</label>
-                            <span class="mdl-textfield__error">Введите цифры</span>
-                        </div>
-                        <br>
-                    </div>
-                    <div class="mdl-cell mdl-cell--6-col">
-                        <span>Срок кредитования в месяцах</span>
-                        <label>
-                            <input class="mdl-slider mdl-js-slider" type="range" min="3" max="300" value="0" tabindex="0"/>
-                            <output for="">0</output>
-                        </label>
-                        <br>
-                        <br>
-                        <span>Использование сторонних источников</span>
-                        <br>
-                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
-                          <input type="radio" id="option-1" class="mdl-radio__button" name="options" value="1" checked />
-                          <span class="mdl-radio__label">Да</span>
-                        </label>
-                        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
-                          <input type="radio" id="option-2" class="mdl-radio__button" name="options" value="2" />
-                          <span class="mdl-radio__label">Нет</span>
-                        </label>
-                        <br>
-                        <br>
-                        <br>
-                        Итоговая сумма
-                        <br>
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="total" value="0" readonly/>
-                            <label class="mdl-textfield__label" for="total">0</label>
+                        <div class="mdl-cell mdl-cell--6-col">
+                            <h5>Итого срок кредитования:</h5>
+                            <h3>
+                                <span class="total"></span>
+                            </h3>
                         </div>
                     </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                        Рассчитать
-                    </a>
-                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                        Сбросить
-                    </button>
-                </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="calculate">
+                            Рассчитать
+                        </button>
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                            Сбросить
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
