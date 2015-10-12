@@ -11,12 +11,11 @@ $( document ).ready(function(){
         $("form").reset();
     });
 //  calculator function
-    var price = $("#price").val();
-    var firstpay = $("#first-pay").val();
-    var payment = $("#payment").val();
-    var period = (price - firstpay)/payment;
     $("#calculate").click(function(){
-        return period + " месяцев";
-        $(".total").append(period);
+        var price = $("#price").val();
+        var firstpay = $("#first-pay").val();
+        var payment = $("#payment").val();
+        var period = Math.ceil((price - firstpay)/payment);
+        $(".total").text(period + " месяцев");
     });
 });
