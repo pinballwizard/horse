@@ -89,7 +89,7 @@ def addition(request, client_id=None):
         'add_client_form': ClientAddForm(),
         'add_property_form': PropertyAddForm()
     }
-    if id is not None:
+    if client_id is not None:
         client = Client.objects.get(pk=client_id)
         data['add_client_form'] = ClientAddForm(instance=client)
     if request.method == 'POST':
