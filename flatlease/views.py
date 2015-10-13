@@ -30,7 +30,7 @@ class ClientAddForm(forms.ModelForm):
                 'class': 'mdl-textfield__input',
             }),
             'birthday': forms.DateInput(attrs={
-                'type': 'date',
+                'type': 'text',
                 'class': 'mdl-textfield__input',
                 'required': True,
             }),

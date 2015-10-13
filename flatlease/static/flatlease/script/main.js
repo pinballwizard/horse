@@ -5,7 +5,7 @@
 $( document ).ready(function(){
 //  open and close client card
     $(".more").click(function(){
-        $(".client-card").toggleClass("mdl-cell mdl-cell--12-col mdl-shadow--2dp client-card");
+        $(self).parents("client-card").toggleClass("mdl-cell mdl-cell--12-col mdl-shadow--2dp client-card");
     });
 //  clean form
     $(":reset").click(function(){

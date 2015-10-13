@@ -9,15 +9,17 @@ input.mdl-textfield__input{
 
 div.searchfield{
     display: inline-flex;
+    width: 30%;
 }
 div.mdl-layout__drawer-button.burger{
     color: #757575;
-}
-div>nav>a.link{
-    color: #eceff1; !important;
 }
 
 .edit-icon{
     float: right;
     padding-right: 2%;
+}
+
+.search{
+    text-align: center;
 }

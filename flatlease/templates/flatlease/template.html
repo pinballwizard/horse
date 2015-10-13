@@ -21,7 +21,7 @@
             <i class="material-icons">menu</i>
         </div>
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">Название раздела меню</span>
+            <span class="mdl-layout-title">{% block menu_name %}{% endblock menu_name %}</span>
             <div class="mdl-layout-spacer"></div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
                 <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
@@ -48,7 +48,7 @@
         <span class="mdl-layout-title">ЖиЛизинг</span>
         <nav class="navigation mdl-navigation">
             <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link link" href="{% url 'calculator' %}">Калькулятор</a>
+            <a class="mdl-navigation__link is-active" href="{% url 'calculator' %}">Калькулятор</a>
             <a class="mdl-navigation__link" href="{% url 'addition' %}">Добавление</a>
             <a class="mdl-navigation__link" href="{% url 'search' %}">Поиск</a>
             <a class="mdl-navigation__link" href="{% url 'statistics' %}">Статистика</a>

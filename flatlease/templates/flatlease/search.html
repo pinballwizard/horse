@@ -2,17 +2,20 @@
 {% load staticfiles %}
 {% block meta %}
 {% endblock meta %}
+{% block menu_name %}
+    Поиск
+{% endblock menu_name %}
 {% block body %}
 <main class="mdl-layout__content">
     <div class="page-content">
         <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--12-col">
+            <div class="mdl-cell mdl-cell--12-col search">
                 <form action="{% url 'search' %}" role="form" method="post">
                     {% csrf_token %}
-                    {{ form.non_field_errors }}
                     <div class="mdl-textfield mdl-js-textfield searchfield">
                         {{ form.search }}
                     </div>
+                    {{ form.non_field_errors }}
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" type="submit">
                         <i class="material-icons">search</i>
                     </button>
