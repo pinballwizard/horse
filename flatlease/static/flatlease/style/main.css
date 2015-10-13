@@ -13,11 +13,13 @@ div.searchfield{
 div.mdl-layout__drawer-button.burger{
     color: #757575;
 }
-div>nav>a.link{
-    color: #eceff1; !important;
-}
 
 .edit-icon{
     float: right;
     padding-right: 2%;
 }
+
+
+/*.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:{*/
+    /*background: #E0E0E0;*/
+/*}*/
