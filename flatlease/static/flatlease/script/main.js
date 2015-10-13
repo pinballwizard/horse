@@ -3,14 +3,20 @@
  */
 
 $( document ).ready(function(){
+
 //  open and close client card
     $(".more").click(function(){
-        $(self).parents("client-card").toggleClass("mdl-cell mdl-cell--12-col mdl-shadow--2dp client-card");
+        $(this).parent().parent().animate({
+            width:'100%'
+        }).toggleClass("mdl-cell--12-col");
+        //$(this).
     });
+
 //  clean form
     $(":reset").click(function(){
         $("form").reset();
     });
+
 //  calculator function
     $("#calculate").click(function(){
         var price = $("#price").val();
