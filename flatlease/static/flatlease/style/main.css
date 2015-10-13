@@ -1,10 +1,10 @@
-.charts{
+.center-content{
     display: flex;
     justify-content: center;
 }
 
-form{
-    margin-left: 30px;
+input.mdl-textfield__input{
+    width: 95%;
 }
 
 div.searchfield{
@@ -15,4 +15,9 @@ div.mdl-layout__drawer-button.burger{
 }
 div>nav>a.link{
     color: #eceff1; !important;
+}
+
+.edit-icon{
+    float: right;
+    padding-right: 2%;
 }

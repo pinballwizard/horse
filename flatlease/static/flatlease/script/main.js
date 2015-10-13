@@ -1,6 +1,7 @@
 /**
  * Created by pinballwizard on 02.10.15.
  */
+
 $( document ).ready(function(){
 //  open and close client card
     $(".more").click(function(){

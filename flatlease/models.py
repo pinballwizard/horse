@@ -11,7 +11,7 @@ class Client(models.Model):
     residence = models.CharField("Адрес проживания", max_length=50)
     phone = models.CharField("Телефон", max_length=15)
     email = models.EmailField("EMail", blank=True)
-    client_media = 'client_media/%s_%s',(last_name, str(id))
+    client_media = 'client_media/%s_%s', (last_name, str(id))
     photo = models.ImageField("Фотография", upload_to=client_media, blank=True)
     passport = models.ImageField("Паспорт", upload_to=client_media, blank=True)
     deposit = models.DecimalField("Депозит", max_digits=10, decimal_places=2, default=0)
