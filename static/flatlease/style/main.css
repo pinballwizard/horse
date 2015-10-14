@@ -1,0 +1,30 @@
+.center-content{
+    display: flex;
+    justify-content: center;
+}
+
+input.mdl-textfield__input{
+    width: 95%;
+}
+
+div.searchfield{
+    display: inline-flex;
+    width: 30%;
+}
+div.mdl-layout__drawer-button.burger{
+    color: #757575;
+}
+
+.edit-icon{
+    float: right;
+    padding-right: 2%;
+}
+
+.search{
+    text-align: center;
+}
+
+/*.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:{*/
+    /*background: #E0E0E0;*/
+/*}*/
+
