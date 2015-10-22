@@ -9,51 +9,70 @@
     <!--Calculator-->
     <main class="mdl-layout__content">
         <div class="page-content center-content">
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col">
-                <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text">Расчет кредита</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                    Заполните все поля
-                </div>
-                <form id="calcform">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--6-col">
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
-                                <label class="mdl-textfield__label" for="price">Стоимость объекта недвижимости</label>
-                                <span class="mdl-textfield__error">Введите цифры</span>
-                            </div>
-                            <br>
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
-                                <label class="mdl-textfield__label" for="first-pay">Первоначальный взнос</label>
-                                <span class="mdl-textfield__error">Введите цифры</span>
-                            </div>
-                            <br>
-                            <div class="mdl-textfield mdl-js-textfield">
-                                <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
-                                <label class="mdl-textfield__label" for="payment">Ежемесячный взнос</label>
-                                <span class="mdl-textfield__error">Введите цифры</span>
-                            </div>
-                            <br>
-                        </div>
-                        <div class="mdl-cell mdl-cell--6-col">
-                            <h5>Итого срок кредитования:</h5>
-                            <h3>
-                                <span class="total"></span>
-                            </h3>
-                        </div>
+            <div class="mdl-grid">
+                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Расчет кредита</h2>
                     </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" id="calculate">
-                            Рассчитать
-                        </button>
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                            Сбросить
-                        </button>
+                    <div class="mdl-card__supporting-text">
+                        Заполните все поля
                     </div>
-                </form>
+                    <form id="calcform">
+                        <div class="mdl-grid">
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
+                                    <label class="mdl-textfield__label" for="price">Стоимость объекта недвижимости</label>
+                                    <span class="mdl-textfield__error">Введите цифры</span>
+                                </div>
+                                <br>
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
+                                    <label class="mdl-textfield__label" for="first-pay">Первоначальный взнос</label>
+                                    <span class="mdl-textfield__error">Введите цифры</span>
+                                </div>
+                                <br>
+                                <div class="mdl-textfield mdl-js-textfield">
+                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
+                                    <label class="mdl-textfield__label" for="payment">Ежемесячный взнос</label>
+                                    <span class="mdl-textfield__error">Введите цифры</span>
+                                </div>
+                                <br>
+                            </div>
+                            <div class="mdl-cell mdl-cell--6-col">
+                                <h5>Итого срок кредитования:</h5>
+                                <h3>
+                                    <span class="total"></span>
+                                </h3>
+                            </div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" id="calculate">
+                                Рассчитать
+                            </button>
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                                Сбросить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+{#            </div>#}
+    {#  table#}
+{#            <div class="mdl-grid">#}
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--6-col">
+                    <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Сумма</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12 sent</td>
+                            <td>24000</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>
