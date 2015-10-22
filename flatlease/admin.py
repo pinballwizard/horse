@@ -10,3 +10,8 @@ class FixedPropertyAdmin(admin.ModelAdmin):
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'name', 'second_name', 'birthday', 'residence', 'phone', 'deposit', 'pub_date')
+
+
+@admin.register(Transaction)
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('count', 'pay_type', 'pay_date', 'owner')

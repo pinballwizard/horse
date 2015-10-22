@@ -8,8 +8,17 @@ $( document ).ready(function(){
     $(".more").click(function(){
         $(this).parent().parent().animate({
             width:'100%'
-        }).toggleClass("mdl-cell--12-col");
-        //$(this).
+        }).removeClass("mdl-cell--3-col").addClass("mdl-cell--12-col");
+        $(this).removeClass("more").addClass("less");
+    });
+    $(".less").click(function(){
+        $(this)
+            .parent()
+            .parent()
+            .removeClass("mdl-cell--12-col")
+            .addClass("mdl-cell--3-col")
+            .animate({width:'25%'});
+        $(this).removeClass("less").addClass("more");
     });
 
 //  clean form
