@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Client(models.Model):
-
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
     name = models.CharField("Имя", max_length=30)
     last_name = models.CharField("Фамилия", max_length=30)
@@ -36,3 +35,23 @@ class FixedProperty(models.Model):
 
     def __str__(self):
         return self.location
+
+
+class Transaction(models.Model):
+    pay_type_dict = (
+        ('cash', 'Наличные'),
+        ('transfer', 'Перевод'),
+        ('card', 'Банковская карта'),
+    )
+
+    owner = models.ForeignKey(Client)
+    count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
+    pay_type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default="cash")
+    pay_date = models.DateTimeField("Дата платежа")
+
+    class Meta:
+        verbose_name = "Платеж"
+        verbose_name_plural = "Платежи"
+
+    def __str__(self):
+        return " ".join([str(self.count), self.pay_type, str(self.pay_date)])
