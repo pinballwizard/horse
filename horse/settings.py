@@ -83,7 +83,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'horse.wsgi.application'
-
+LOGIN_URL = 'login'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

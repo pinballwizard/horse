@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from flatlease.models import *
 from django import forms
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class ClientAddForm(forms.ModelForm):
@@ -80,10 +83,40 @@ class SearchForm(forms.Form):
     search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
 
 
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=50)
+    username.widget = forms.TextInput(attrs={'placeholder':'Имя пользователя', 'class': 'mdl-textfield__input', 'type': 'text'})
+    password = forms.CharField(max_length=50)
+    password.widget = forms.PasswordInput(attrs={'placeholder':'Пароль', 'class': 'mdl-textfield__input', 'type': 'password'})
+
+
+def user_login(request, next1=None):
+    print(next1)
+    data = {
+        'login_form': LoginForm(),
+        'redirect': next1
+    }
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect(next1)
+    return render(request, 'flatlease/login.html', data)
+
+
+def user_logout(request):
+    logout(request)
+    return render(request, 'flatlease/calculator.html')
+
+
 def calculator(request):
     return render(request, 'flatlease/calculator.html')
 
 
+@login_required(redirect_field_name='next1')
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
@@ -102,6 +135,7 @@ def addition(request, client_id=None):
     return render(request, 'flatlease/addition.html', data)
 
 
+@login_required
 def search(request):
     data = {
         'clients': Client.objects.order_by('-pub_date'),
@@ -120,6 +154,7 @@ def search(request):
     return render(request, 'flatlease/search.html', data)
 
 
+@login_required
 def statistics(request):
     deposit_str = []
     clients = Client.objects.order_by('-deposit')[0:5]
