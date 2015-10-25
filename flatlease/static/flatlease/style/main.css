@@ -23,7 +23,8 @@ div.mdl-layout__drawer-button.burger{
     color: #757575;
 }
 
-/*alignment for edit icon*/
+/*alignment for right card-button*/
+.linktoadd,
 .edit-icon{
     float: right;
     padding-right: 2%;
@@ -37,6 +38,11 @@ div.mdl-layout__drawer-button.burger{
     content: 'Свернуть';
 }
 
+/*for center-container*/
+.center-content{
+    display: flex;
+    justify-content: center;
+}
 /*trying for activate menu links*/
 /*.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:active{*/
     /*background: #E0E0E0;*/
