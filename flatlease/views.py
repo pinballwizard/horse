@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect
 from flatlease.models import *
 from django import forms
-<<<<<<< HEAD
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate, login
-=======
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
->>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 
 
 class ClientAddForm(forms.ModelForm):
@@ -83,9 +78,6 @@ class PropertyAddForm(forms.ModelForm):
         }
 
 
-<<<<<<< HEAD
-@permission_required('flatlease')
-=======
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
@@ -125,7 +117,6 @@ def calculator(request):
 
 
 @login_required(redirect_field_name='next1')
->>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
@@ -144,37 +135,7 @@ def addition(request, client_id=None):
     return render(request, 'flatlease/addition.html', data)
 
 
-<<<<<<< HEAD
-def calculator(request):
-    return render(request, 'flatlease/calculator.html')
-
-
-def login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            # Redirect to a success page.
-        else:
-            # Return a 'disabled account' error message
-            ...
-    else:
-        # Return an 'invalid login' error message.
-        ...
-    return render(request, 'flatlease/login.html')
-
-
-class SearchForm(forms.Form):
-    search = forms.CharField(max_length=50)
-    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
-
-
-@login_required()
-=======
 @login_required
->>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 def search(request):
     data = {
         'clients': Client.objects.order_by('-pub_date'),
