@@ -54,6 +54,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'horse.urls'
+LOGIN_URL = 'login'
 
 ADMINS = (
     ('Vasiliy', 'menstenebris@gmail.com'),

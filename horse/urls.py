@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^addition$', views.addition, name='addition'),
     url(r'^update_id=(?P<client_id>[0-9]+)', views.addition, name='update_id'),
     url(r'^search$', views.search, name='search'),
+    url(r'^login$', views.login, name='login'),
     url(r'^statistics$', views.statistics, name='statistics'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='flatlease/robots.txt'), name='robots'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

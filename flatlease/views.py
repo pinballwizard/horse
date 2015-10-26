@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from flatlease.models import *
 from django import forms
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import authenticate, login
 
 
 class ClientAddForm(forms.ModelForm):
@@ -75,15 +77,7 @@ class PropertyAddForm(forms.ModelForm):
         }
 
 
-class SearchForm(forms.Form):
-    search = forms.CharField(max_length=50)
-    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
-
-
-def calculator(request):
-    return render(request, 'flatlease/calculator.html')
-
-
+@permission_required('flatlease')
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
@@ -102,6 +96,33 @@ def addition(request, client_id=None):
     return render(request, 'flatlease/addition.html', data)
 
 
+def calculator(request):
+    return render(request, 'flatlease/calculator.html')
+
+
+def login(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            # Redirect to a success page.
+        else:
+            # Return a 'disabled account' error message
+            ...
+    else:
+        # Return an 'invalid login' error message.
+        ...
+    return render(request, 'flatlease/login.html')
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=50)
+    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
+
+
+@login_required()
 def search(request):
     data = {
         'clients': Client.objects.order_by('-pub_date'),
@@ -120,6 +141,7 @@ def search(request):
     return render(request, 'flatlease/search.html', data)
 
 
+@login_required
 def statistics(request):
     deposit_str = []
     clients = Client.objects.order_by('-deposit')[0:5]
