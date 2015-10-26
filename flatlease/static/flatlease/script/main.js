@@ -37,13 +37,23 @@ $( document ).ready(function(){
         $(".total").text(period + " месяцев");
 //  filling table
         var today = new Date();
-        $(".today").text(today.getDate()+"."+today.getMonth()+"."+today.getFullYear());
+        $(".today").text(today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear());
         $(".firstpay").text(firstpay);
         $(".residue").text(residue);
-        function appendTable(){
-            var row = document.createElement("tr");
-            var cell = $("<td></td>").appendTo(row);
-            $("tbody").append(row)
+        $("tbody").append(row);
+        if (payment<residue){
+            for(var i=1; i<period; i++){
+                var row = document.createElement("tr");
+                $("tbody").append(row);
+                $("<td></td>").appendTo(row).text(today);
+                $("<td></td>").appendTo(row).text(payment);
+                $("<td></td>").appendTo(row).text(residue)
+            }
+        } else {
+            $("tbody").append(row);
+            $(cell).text(today);
+            $(cell).text(residue);
+            $(cell).text("0")
         }
     });
 
