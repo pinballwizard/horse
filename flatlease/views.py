@@ -1,8 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from flatlease.models import *
 from django import forms
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import authenticate, login
+=======
+from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+>>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 
 
 class ClientAddForm(forms.ModelForm):
@@ -77,7 +83,49 @@ class PropertyAddForm(forms.ModelForm):
         }
 
 
+<<<<<<< HEAD
 @permission_required('flatlease')
+=======
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=50)
+    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=50)
+    username.widget = forms.TextInput(attrs={'placeholder':'Имя пользователя', 'class': 'mdl-textfield__input', 'type': 'text'})
+    password = forms.CharField(max_length=50)
+    password.widget = forms.PasswordInput(attrs={'placeholder':'Пароль', 'class': 'mdl-textfield__input', 'type': 'password'})
+
+
+def user_login(request, next1=None):
+    print(next1)
+    data = {
+        'login_form': LoginForm(),
+        'redirect': next1
+    }
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect(next1)
+    return render(request, 'flatlease/login.html', data)
+
+
+def user_logout(request):
+    logout(request)
+    return render(request, 'flatlease/calculator.html')
+
+
+def calculator(request):
+    return render(request, 'flatlease/calculator.html')
+
+
+@login_required(redirect_field_name='next1')
+>>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
@@ -96,6 +144,7 @@ def addition(request, client_id=None):
     return render(request, 'flatlease/addition.html', data)
 
 
+<<<<<<< HEAD
 def calculator(request):
     return render(request, 'flatlease/calculator.html')
 
@@ -123,6 +172,9 @@ class SearchForm(forms.Form):
 
 
 @login_required()
+=======
+@login_required
+>>>>>>> e4cde260494be375171d2ec84c87cd2a83c7aff0
 def search(request):
     data = {
         'clients': Client.objects.order_by('-pub_date'),
