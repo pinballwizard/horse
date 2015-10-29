@@ -49,9 +49,10 @@ $( document ).ready(function(){
                 payment=residue2;
             }
             residue2 -= payment;
+            var nextmonth = new Date(yyyy, mm+i, dd);
             var row = document.createElement("tr");
             $("tbody").append(row);
-            $("<td></td>").appendTo(row).text(dd+"."+(mm+i)+"."+yyyy);
+            $("<td></td>").appendTo(row).text(nextmonth.getDate()+"."+(nextmonth.getMonth()+1)+"."+nextmonth.getFullYear());
             $("<td></td>").appendTo(row).text(payment);
             $("<td></td>").appendTo(row).text(residue2);
         }
