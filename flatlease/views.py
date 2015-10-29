@@ -90,11 +90,9 @@ class LoginForm(AuthenticationForm):
     password.widget = forms.PasswordInput(attrs={'placeholder':'Пароль', 'class': 'mdl-textfield__input', 'type': 'password'})
 
 
-def user_login(request, next1=None):
-    print(next1)
+def user_login(request):
     data = {
-        'login_form': LoginForm(),
-        'redirect': next1
+        'login_form': LoginForm()
     }
     if request.method == 'POST':
         username = request.POST['username']
@@ -102,21 +100,22 @@ def user_login(request, next1=None):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
+                print(user)
                 login(request, user)
-                return redirect(next1)
+                return redirect('calculator')
     return render(request, 'flatlease/login.html', data)
 
 
 def user_logout(request):
     logout(request)
-    return render(request, 'flatlease/calculator.html')
+    return render(request, 'flatlease/login.html')
 
 
 def calculator(request):
     return render(request, 'flatlease/calculator.html')
 
 
-@login_required(redirect_field_name='next1')
+@login_required
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
