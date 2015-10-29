@@ -37,24 +37,23 @@ $( document ).ready(function(){
         $(".total").text(period + " месяцев");
 //  filling table
         var today = new Date();
-        $(".today").text(today.getDate()+"."+(today.getMonth()+1)+"."+today.getFullYear());
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        $(".today").text(dd+"."+mm+"."+yyyy);
         $(".firstpay").text(firstpay);
         $(".residue").text(residue);
-        $("tbody").append(row);
-        if (payment<residue){
-            for(var i=1; i<period; i++){
-                var row = document.createElement("tr");
-                $("tbody").append(row);
-                $("<td></td>").appendTo(row).text(today);
-                $("<td></td>").appendTo(row).text(payment);
-                $("<td></td>").appendTo(row).text(residue)
+        var residue2 = residue;
+        for(var i=1; i<=period; i++){
+            if (residue2<=payment){
+                payment=residue2;
             }
-        } else {
+            residue2 -= payment;
+            var row = document.createElement("tr");
             $("tbody").append(row);
-            $(cell).text(today);
-            $(cell).text(residue);
-            $(cell).text("0")
+            $("<td></td>").appendTo(row).text(dd+"."+(mm+i)+"."+yyyy);
+            $("<td></td>").appendTo(row).text(payment);
+            $("<td></td>").appendTo(row).text(residue2);
         }
     });
-
 });
