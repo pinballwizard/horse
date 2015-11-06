@@ -24,7 +24,7 @@ div.mdl-layout__drawer-button.burger{
 .linktoadd,
 .edit-icon{
     float: right;
-    padding-right: 2%;
+    margin-right: 2%;
 }
 
 /*toggle turn button*/
@@ -40,9 +40,9 @@ div.mdl-layout__drawer-button.burger{
     display: flex;
     justify-content: center;
 }
-/*trying for activate menu links*/
-/*.mdl-layout__drawer .mdl-navigation .mdl-navigation__link:active{*/
-    /*background: #E0E0E0;*/
-/*}*/
+.mdl-card__subtitle-text{
+    text-align: center;
+}
+
 
 

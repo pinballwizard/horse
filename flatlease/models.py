@@ -27,7 +27,7 @@ class Client(models.Model):
 class FixedProperty(models.Model):
     location = models.CharField("Местоположение", max_length=50, unique=True)
     cost = models.DecimalField("Стоимость", max_digits=10, decimal_places=2, default=0)
-    owner = models.ForeignKey(Client)
+    owner = models.ForeignKey(Client, verbose_name="Клиент")
 
     class Meta:
         verbose_name = "Недвижимость"
@@ -42,12 +42,13 @@ class Transaction(models.Model):
         ('cash', 'Наличные'),
         ('transfer', 'Перевод'),
         ('card', 'Банковская карта'),
+        ('inside', 'Внутренний перевод'),
     )
 
-    owner = models.ForeignKey(Client)
+    owner = models.ForeignKey(Client, verbose_name="Клиент")
     count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
-    pay_type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default="cash")
-    pay_date = models.DateTimeField("Дата платежа")
+    pay_type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
+    pay_date = models.DateTimeField("Дата платежа", auto_now_add=True)
 
     class Meta:
         verbose_name = "Платеж"
@@ -55,3 +56,25 @@ class Transaction(models.Model):
 
     def __str__(self):
         return " ".join([str(self.count), self.pay_type, str(self.pay_date)])
+
+
+class Documents(models.Model):
+    type_dict = (
+        ('application', 'Заявление'),
+        ('form', 'Анкета'),
+        ('contract', 'Договор'),
+    )
+
+    owner = models.ForeignKey(Client, verbose_name="Клиент")
+    type = models.CharField("Тип", max_length=20, choices=type_dict, default=type_dict[0][0])
+    name = models.CharField("Имя", max_length=20)
+    # client_media = 'client_media/%s_%s', (owner.last_name, str(owner.id))
+    document = models.FileField("Документ")
+    pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
+
+    def __str__(self):
+        return self.name

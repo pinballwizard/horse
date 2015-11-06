@@ -8,13 +8,16 @@
 {% block body %}
     <main class="mdl-layout__content">
         <div class="page-content">
-            <div class="mdl-grid">
-                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+            <div class="mdl-grid center-content">
+                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-card">
                     <form action="{% url 'addition' %}" enctype="multipart/form-data" method="POST" role="form">
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">Личные данные</h2>
                         </div>
                         <div class="mdl-card__supporting-text">
+                            Поля, отмеченные красным, обязательны для заполнения
+                        </div>
+                        <div class="mdl-card__subtitle-text">
                             {% csrf_token %}
                             {% for field in add_client_form %}
                                 <div class="fieldWrapper mdl-textfield mdl-js-textfield">
@@ -24,6 +27,9 @@
                                 </div>
                             {% endfor %}
                         </div>
+                        {% verbatim %}
+                            {{if dying}}Still alive.{{/if}}
+                        {% endverbatim %}
                         <div class="mdl-card__actions mdl-card--border">
                             <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
                                 Очистить
@@ -34,12 +40,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--4-col">
+                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
                     <form action="{% url 'addition' %}" role="form" method="post">
                         <div class="mdl-card__title">
                             <h2 class="mdl-card__title-text">Информация об объекте недвижимости</h2>
                         </div>
-                        <div class="mdl-card__supporting-text">
+                        <div class="mdl-card__subtitle-text">
                             {% csrf_token %}
                             {% for field in add_property_form %}
                                 <div class="fieldWrapper mdl-textfield mdl-js-textfield">

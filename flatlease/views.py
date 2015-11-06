@@ -18,27 +18,22 @@ class ClientAddForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
                 'required': True,
                 'pattern': ".*",
             }),
             'last_name': forms.TextInput(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
                 'required': True,
             }),
             'second_name': forms.TextInput(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
             }),
             'birthday': forms.DateInput(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
                 'required': True,
             }),
             'residence': forms.TextInput(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
                 'required': True,
             }),
@@ -51,10 +46,18 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'class': 'mdl-textfield__input',
             }),
+            # 'passport': forms.ImageField(attrs={
+            #     'class': '',
+            # }),
+            # 'photo': forms.ImageField(attrs={
+            #     'class': '',
+            # }),
+            # 'deposit': forms.DecimalField(attrs={
+            #     'class': '',
+            # }),
             'comment': forms.Textarea(attrs={
-                'type': 'text',
                 'class': 'mdl-textfield__input',
-                'rows': 3,
+                'rows': 4,
             }),
         }
 
@@ -81,6 +84,10 @@ class PropertyAddForm(forms.ModelForm):
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
+    debtor = forms.BooleanField()
+    debtor.widget = forms.CheckboxInput()
+    my_clients = forms.BooleanField()
+    view = forms.BooleanField()
 
 
 class LoginForm(AuthenticationForm):
@@ -119,7 +126,7 @@ def calculator(request):
 def addition(request, client_id=None):
     data = {
         'add_client_form': ClientAddForm(),
-        'add_property_form': PropertyAddForm()
+        'add_property_form': PropertyAddForm(),
     }
     if client_id is not None:
         client = Client.objects.get(pk=client_id)
