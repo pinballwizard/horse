@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Client(models.Model):
@@ -13,12 +14,34 @@ class Client(models.Model):
     client_media = 'client_media/%s_%s', (last_name, str(id))
     photo = models.ImageField("Фотография", upload_to=client_media, blank=True)
     passport = models.ImageField("Паспорт", upload_to=client_media, blank=True)
-    deposit = models.DecimalField("Депозит", max_digits=10, decimal_places=2, default=0)
+    monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
     class Meta:
         verbose_name = "Клиент"
         verbose_name_plural = "Клиенты"
+
+    def balance(self):
+        """Возвращает сумму всех транзакций обьекта"""
+        return sum((transaction.count for transaction in self.transaction_set.all()))
+    balance.short_description = 'Баланс'
+
+    def future(self):
+        """Определяет потецнциальный клиент или нет, проверяя наличие у него договора"""
+        if not self.document_set.filter(type='contract'):
+            return False
+        else:
+            return True
+#Доделать условие
+    def debt(self):
+        try:
+            if self.monthly_payment > self.transaction_set.latest('pub_date').count:
+                return True
+            else:
+                return False
+        except ObjectDoesNotExist:
+            return
+    debt.short_description = 'Долг'
 
     def __str__(self):
         return " ".join([self.last_name, self.name, self.second_name])
@@ -47,18 +70,18 @@ class Transaction(models.Model):
 
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
-    pay_type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
-    pay_date = models.DateTimeField("Дата платежа", auto_now_add=True)
+    type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
+    pub_date = models.DateTimeField("Дата платежа", auto_now_add=True)
 
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
 
     def __str__(self):
-        return " ".join([str(self.count), self.pay_type, str(self.pay_date)])
+        return " ".join([str(self.count), self.type, str(self.pub_date)])
 
 
-class Documents(models.Model):
+class Document(models.Model):
     type_dict = (
         ('application', 'Заявление'),
         ('form', 'Анкета'),
@@ -67,9 +90,7 @@ class Documents(models.Model):
 
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     type = models.CharField("Тип", max_length=20, choices=type_dict, default=type_dict[0][0])
-    name = models.CharField("Имя", max_length=20)
-    # client_media = 'client_media/%s_%s', (owner.last_name, str(owner.id))
-    document = models.FileField("Документ")
+    document = models.FileField("Документ", upload_to=owner)
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
 
     class Meta:

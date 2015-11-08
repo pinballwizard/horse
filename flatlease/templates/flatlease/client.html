@@ -1,0 +1,66 @@
+{% extends "flatlease/template.html" %}
+{% load staticfiles %}
+{% block meta %}
+{% endblock meta %}
+{% block menu_name %}
+    Клиент
+{% endblock menu_name %}
+{% block body %}
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>{{ client.last_name }} {{ client.name }} {{ client.second_name }}</h4>
+                    <p>Дата регистрации: {{ client.pub_date }}</p>
+                    <p>День рождения: {{ client.birthday }}</p>
+                    <p>Адрес: {{ client.residence }}</p>
+                    <p>Телефон: {{ client.phone }}</p>
+                    <p>Email: {{ client.email }}</p>
+                    <p>Баланс: {{ client.balance }}</p>
+                    <p>Должник: {{ client.debt }}</p>
+                    <p>Наличие Договора: {{ client.future }}</p>
+                    <img src="{{ client.photo.url }}" width="200px" height="auto">
+                    <img src="{{ client.passport.url }}" width="200px" height="auto">
+                </div>
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>Документы</h4>
+                    {% for document in documents %}
+                        <p>Дата публикиции: {{ document.pub_date }}</p>
+                        <p>Тип документа: {{ document.type }}</p>
+                        <p>Ссылка: {{ document.document }}</p>
+                    {% endfor %}
+                    <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                        {% csrf_token %}
+                        {{ document_form.as_p }}
+                        <button type="submit">Сохранить</button>
+                    </form>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>Платежи</h4>
+                    {% for transaction in transactions %}
+                        <p>Дата платежа: {{ transaction.pay_date }}</p>
+                        <p>Сумма: {{ transaction.count }}</p>
+                        <p>Тип платежа: {{ transaction.pay_type }}</p>
+                    {% endfor %}
+                    <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                        {% csrf_token %}
+                        {{ transaction_form.as_p }}
+                        <button type="submit">Сохранить</button>
+                    </form>
+                </div>
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>Недвижимость</h4>
+                    {% for item in fixed_property %}
+                        <p>Местоположение: {{ item.location }}</p>
+                        <p>Стоимость: {{ item.cost }}</p>
+                    {% endfor %}
+                    <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                        {% csrf_token %}
+                        {{ property_form.as_p }}
+                        <button type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock body %}

@@ -10,11 +10,10 @@ class ClientAddForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['name', 'last_name', 'second_name', 'birthday', 'residence',
-                  'phone', 'email', 'photo', 'passport', 'deposit', 'comment']
+                  'phone', 'email', 'photo', 'passport', 'comment']
         labels = {
             'passport': '',
             'photo': '',
-            'deposit': '',
         }
         widgets = {
             'name': forms.TextInput(attrs={
@@ -46,15 +45,12 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'class': 'mdl-textfield__input',
             }),
-            # 'passport': forms.ImageField(attrs={
-            #     'class': '',
-            # }),
-            # 'photo': forms.ImageField(attrs={
-            #     'class': '',
-            # }),
-            # 'deposit': forms.DecimalField(attrs={
-            #     'class': '',
-            # }),
+            'passport': forms.FileInput(attrs={
+                'class': '',
+            }),
+            'photo': forms.FileInput(attrs={
+                'class': '',
+            }),
             'comment': forms.Textarea(attrs={
                 'class': 'mdl-textfield__input',
                 'rows': 4,
@@ -81,13 +77,40 @@ class PropertyAddForm(forms.ModelForm):
         }
 
 
+class TransactionAddForm(forms.ModelForm):
+    class Meta:
+        model = Transaction
+        fields = ['type', 'count']
+        widgets = {
+            # 'type': forms.Select(attrs={
+            #     'required': True,
+            # }),
+            # 'count': forms.DecimalField(attrs={
+            #     'required': True,
+            # }),
+        }
+
+
+class DocumentAddForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ['type', 'document']
+        widgets = {
+            'document': forms.FileInput(attrs={
+                'required': True,
+            }),
+            'type': forms.Select(attrs={
+                'required': True,
+            }),
+        }
+
+
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
     debtor = forms.BooleanField()
-    debtor.widget = forms.CheckboxInput()
-    my_clients = forms.BooleanField()
-    view = forms.BooleanField()
+    # my_clients = forms.BooleanField()
+    # view = forms.BooleanField()
 
 
 class LoginForm(AuthenticationForm):
@@ -107,7 +130,6 @@ def user_login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
-                print(user)
                 login(request, user)
                 return redirect('calculator')
     return render(request, 'flatlease/login.html', data)
@@ -120,6 +142,44 @@ def user_logout(request):
 
 def calculator(request):
     return render(request, 'flatlease/calculator.html')
+
+
+def test_page(request):
+    data = {
+        'document_form': DocumentAddForm(),
+    }
+    return render(request, 'flatlease/test.html', data)
+
+
+@login_required
+def client_page(request, client_id):
+    client_obj = Client.objects.get(pk=client_id)
+    data = {
+        'client': client_obj,
+        'transactions': client_obj.transaction_set.all(),
+        'documents': client_obj.document_set.all(),
+        'fixed_property': client_obj.fixedproperty_set.all(),
+        'transaction_form': TransactionAddForm(),
+        'document_form': DocumentAddForm(),
+        'property_form': PropertyAddForm(),
+    }
+    if request.method == 'POST':
+        transaction_form = TransactionAddForm(request.POST)
+        if transaction_form.is_valid():
+            t = transaction_form.save(commit=False)
+            t.owner = client_obj
+            t.save()
+        document_form = DocumentAddForm(request.POST)
+        if document_form.is_valid():
+            d = document_form.save(commit=False)
+            d.owner = client_obj
+            d.save()
+        property_form = PropertyAddForm(request.POST)
+        if property_form.is_valid():
+            d = property_form.save(commit=False)
+            d.owner = client_obj
+            d.save()
+    return render(request, 'flatlease/client.html', data)
 
 
 @login_required
@@ -155,19 +215,23 @@ def search(request):
             q1 = Client.objects.filter(last_name__icontains=search_str)
             q2 = Client.objects.filter(name__icontains=search_str)
             q3 = Client.objects.filter(phone__icontains=search_str)
-            data['clients'] = q1 | q2 | q3
+            queryset = q1 | q2 | q3
+            if form.cleaned_data['debtor']:
+                for item in queryset:
+                    if not item.debt():
+                        queryset.exclude(id=item.id)
+            data['clients'] = queryset
             data['form'] = form
     return render(request, 'flatlease/search.html', data)
 
 
 @login_required
 def statistics(request):
-    deposit_str = []
-    clients = Client.objects.order_by('-deposit')[0:5]
-    for person in clients:
-        deposit_str.append(person.deposit)
-    print(deposit_str)
+    #Починить условие сортировки
     data = {
-        'deposit': deposit_str
+        'balance': [person.balance() for person in Client.objects.order_by('-pub_date')[0:5]],
+        'last_transactions': Transaction.objects.order_by('-pub_date')[0:10],
+        'transaction_sum': sum((transaction.count for transaction in Transaction.objects.all())),
+        'clients_count': len(Client.objects.all()),
     }
     return render(request, 'flatlease/statistics.html', data)

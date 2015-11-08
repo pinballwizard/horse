@@ -9,32 +9,49 @@ class FixedPropertyAdmin(admin.ModelAdmin):
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('count', 'pay_type', 'pay_date', 'owner')
+    readonly_fields = ('pub_date',)
+    list_display = ('pub_date', 'count', 'type', 'owner')
 
 
-@admin.register(Documents)
-class TransactionAdmin(admin.ModelAdmin):
-    list_display = ('type', 'name', 'owner', 'pub_date')
+@admin.register(Document)
+class DocumentsAdmin(admin.ModelAdmin):
+    readonly_fields = ('pub_date',)
+    list_display = ('type', 'owner', 'pub_date')
 
 
-class DocumentsInLine(admin.StackedInline):
-    model = Documents
+class DocumentsInLine(admin.TabularInline):
+    readonly_fields = ('pub_date',)
+    model = Document
     extra = 1
 
 
-class FixedPropertyInLine(admin.StackedInline):
+class FixedPropertyInLine(admin.TabularInline):
     model = FixedProperty
     extra = 1
 
 
-class TransactionInLine(admin.StackedInline):
+class TransactionInLine(admin.TabularInline):
     model = Transaction
     extra = 1
+    readonly_fields = ('pub_date',)
+    fields = (
+        ('type', 'count', 'pub_date'),
+    )
 
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'name', 'second_name', 'birthday', 'residence', 'phone', 'deposit', 'pub_date')
+    readonly_fields = ('pub_date','monthly_payment','balance','debt')
+    # fields = (
+    #     ('pub_date', 'monthly_payment', 'balance', 'debt'),
+    #     ('last_name', 'name', 'second_name'),
+    #     'birthday',
+    #     'residence',
+    #     ('phone', 'email'),
+    #     ('photo', 'passport'),
+    #     'comment'
+    # )
+    list_display = ('last_name', 'name', 'second_name', 'birthday', 'residence', 'phone', 'balance', 'pub_date')
     inlines = [
         TransactionInLine,
         FixedPropertyInLine,

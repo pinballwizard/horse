@@ -1,0 +1,21 @@
+{% extends "flatlease/template.html" %}
+{% load staticfiles %}
+{% block meta %}
+{% endblock meta %}
+{% block menu_name %}
+    Тест
+{% endblock menu_name %}
+{% block body %}
+    <main class="mdl-layout__content">
+        <div class="page-content">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--12-col">
+                    <form action="{% url 'test_page' %}" role="form" method="post">
+                        {% csrf_token %}
+                        {{ document_form.as_p }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock body %}

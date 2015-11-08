@@ -10,6 +10,7 @@
         <div class="page-content">
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--12-col">
+                    <h4>Всего клиентов: {{ clients_count }}</h4>
                     {% load chart_tags %}
                     {% chart %}
 {#                        chxr=0,0,160#}
@@ -19,9 +20,19 @@
                         cht=p
                         chco=4D89F9
 {#                        chds=0,160#}
-                        chd=t:{{deposit|join:','}}
+                        chd=t:{{ balance|join:',' }}
                         chtt=Депозит
                     {% endchart %}
+                </div>
+                <div class="mdl-cell mdl-cell--12-col">
+                    <h4>Полный баланс: {{ transaction_sum }}</h4>
+                    {% for transaction in last_transactions %}
+                        <span>{{ transaction.pub_date }}</span>
+                        <span>{{ transaction.count }}</span>
+                        <span>{{ transaction.type }}</span>
+                        <span>{{ transaction.owner }}</span>
+                        <br>
+                    {% endfor %}
                 </div>
             </div>
         </div>

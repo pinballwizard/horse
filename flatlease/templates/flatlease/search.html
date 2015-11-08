@@ -37,10 +37,10 @@
                         День рождения: {{ client.birthday }} <br>
                         Адрес: {{ client.residence }} <br>
                         Телефон: {{ client.phone }} <br>
-                        Депозит: {{ client.deposit }} <br>
+                        Депозит: {{ client.balance }} <br>
                     </div>
                     <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect turn more"></a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'client_page' client.id %}">Развернуть</a>
                         <a href="{% url 'update_id' client.id %}">
                             <i class="material-icons edit-icon" id="edit_{{ client.id }}">mode_edit</i>
                         </a>
