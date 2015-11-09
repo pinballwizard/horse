@@ -42,7 +42,7 @@
                     <div class="mdl-card__actions mdl-card--border">
                         <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'client_page' client.id %}">Развернуть</a>
                         <a href="{% url 'update_id' client.id %}">
-                            <i class="material-icons edit-icon" id="edit_{{ client.id }}">mode_edit</i>
+                            <i class="material-icons edit" id="edit_{{ client.id }}">mode_edit</i>
                         </a>
                         <label class="mdl-tooltip" for="edit_{{ client.id }}">Редактировать</label>
                     </div>

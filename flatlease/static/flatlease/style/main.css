@@ -22,7 +22,7 @@ div.mdl-layout__drawer-button.burger{
 
 /*alignment for right card-button*/
 .linktoadd,
-.edit-icon{
+.edit{
     float: right;
     margin-right: 2%;
 }
