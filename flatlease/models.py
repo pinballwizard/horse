@@ -1,19 +1,36 @@
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from datetime import datetime
 
 
-class Client(models.Model):
+class Person(models.Model):
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
     name = models.CharField("Имя", max_length=30)
     last_name = models.CharField("Фамилия", max_length=30)
     second_name = models.CharField("Отчество", max_length=30, blank=True)
-    birthday = models.DateField("День рождения")
-    residence = models.CharField("Адрес проживания", max_length=50)
-    phone = models.CharField("Телефон", max_length=15)
+    birthday = models.DateField("День рождения", blank=True)
+    phone = models.CharField("Телефон", max_length=12)
+    residence = models.CharField("Адрес проживания", max_length=100)
+
+    class Meta:
+        abstract = True
+
+    def age(self):
+        return datetime.today() - self.birthday
+
+
+class Client(Person):
+    birthplace = models.CharField("Место рождения", max_length=100)
+    registration = models.CharField("Регистрация по месту жительства", max_length=100)
     email = models.EmailField("EMail", blank=True)
-    client_media = 'client_media/%s_%s', (last_name, str(id))
-    photo = models.ImageField("Фотография", upload_to=client_media, blank=True)
-    passport = models.ImageField("Паспорт", upload_to=client_media, blank=True)
+    health = models.CharField("Состояние здоровья", max_length=20, blank=True)
+    workplace = models.CharField("Место работы", max_length=50, blank=True)
+    work_position = models.CharField("Должность", max_length=50, blank=True)
+    salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2)
+    profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, blank=True)
+    # client_media = 'client_media/%s_%s', (last_name, str(id))
+    photo = models.ImageField("Фотография", upload_to=str(id), blank=True)
+    passport = models.ImageField("Паспорт", upload_to=str(id), blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
@@ -99,3 +116,42 @@ class Document(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Passport(models.Model):
+    owner = models.OneToOneField(Client, verbose_name="Клиент")
+    number = models.IntegerField("Серия", max_length=10)
+    data = models.DateField("Дата выдачи")
+    whom = models.TextField("Кем выдан", max_length=100)
+
+    class Meta:
+        verbose_name = "Паспорт"
+        verbose_name_plural = "Паспортов"
+
+    def __str__(self):
+        return self.number
+
+
+class Relative(Person):
+    owner = models.ForeignKey(Client, verbose_name="Клиент")
+
+    class Meta:
+        verbose_name = "Родственник"
+        verbose_name_plural = "Родственники"
+
+    def __str__(self):
+        return " ".join([self.last_name, self.name, self.second_name])
+
+
+class Spouse(Person):
+    owner = models.OneToOneField(Client, verbose_name="Клиент")
+    workplace = models.CharField("Место работы", max_length=50, blank=True)
+    work_position = models.CharField("Должность", max_length=50, blank=True)
+    salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Родственник"
+        verbose_name_plural = "Родственники"
+
+    def __str__(self):
+        return " ".join([self.last_name, self.name, self.second_name])

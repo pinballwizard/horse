@@ -14,12 +14,22 @@ class TransactionAdmin(admin.ModelAdmin):
 
 
 @admin.register(Document)
-class DocumentsAdmin(admin.ModelAdmin):
+class DocumentAdmin(admin.ModelAdmin):
     readonly_fields = ('pub_date',)
     list_display = ('type', 'owner', 'pub_date')
 
 
-class DocumentsInLine(admin.TabularInline):
+@admin.register(Passport)
+class PassportAdmin(admin.ModelAdmin):
+    list_display = ('number', 'owner')
+
+
+@admin.register(Relative)
+class RelativeAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'name', 'second_name', 'phone', 'owner')
+
+
+class DocumentInLine(admin.TabularInline):
     readonly_fields = ('pub_date',)
     model = Document
     extra = 1
@@ -27,6 +37,16 @@ class DocumentsInLine(admin.TabularInline):
 
 class FixedPropertyInLine(admin.TabularInline):
     model = FixedProperty
+    extra = 1
+
+
+class PassportInLine(admin.TabularInline):
+    model = Passport
+    extra = 1
+
+
+class RelativeInLine(admin.TabularInline):
+    model = Relative
     extra = 1
 
 
@@ -55,5 +75,7 @@ class ClientAdmin(admin.ModelAdmin):
     inlines = [
         TransactionInLine,
         FixedPropertyInLine,
-        DocumentsInLine,
+        DocumentInLine,
+        PassportInLine,
+        RelativeInLine,
     ]
