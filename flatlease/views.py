@@ -10,7 +10,7 @@ class ClientAddForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ['name', 'last_name', 'second_name', 'birthday', 'residence',
-                  'phone', 'email', 'photo', 'passport', 'comment']
+                  'phone', 'email', 'photo', 'comment']
         labels = {
             'passport': '',
             'photo': '',
@@ -45,9 +45,9 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'class': 'mdl-textfield__input',
             }),
-            'passport': forms.FileInput(attrs={
-                'class': '',
-            }),
+            # 'passport': forms.FileInput(attrs={
+            #     'class': '',
+            # }),
             'photo': forms.FileInput(attrs={
                 'class': '',
             }),

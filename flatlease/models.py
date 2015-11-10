@@ -15,8 +15,8 @@ class Person(models.Model):
     class Meta:
         abstract = True
 
-    def age(self):
-        return datetime.today() - self.birthday
+    # def age(self):
+    #     return datetime.today() - self.birthday
 
 
 class Client(Person):
@@ -30,7 +30,6 @@ class Client(Person):
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, blank=True)
     # client_media = 'client_media/%s_%s', (last_name, str(id))
     photo = models.ImageField("Фотография", upload_to=str(id), blank=True)
-    passport = models.ImageField("Паспорт", upload_to=str(id), blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
@@ -120,13 +119,14 @@ class Document(models.Model):
 
 class Passport(models.Model):
     owner = models.OneToOneField(Client, verbose_name="Клиент")
-    number = models.IntegerField("Серия", max_length=10)
+    number = models.IntegerField("Серия")
     data = models.DateField("Дата выдачи")
     whom = models.TextField("Кем выдан", max_length=100)
+    image = models.ImageField("Паспорт", upload_to=str(id), blank=True)
 
     class Meta:
         verbose_name = "Паспорт"
-        verbose_name_plural = "Паспортов"
+        verbose_name_plural = "Паспорта"
 
     def __str__(self):
         return self.number
