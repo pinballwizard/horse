@@ -6,34 +6,32 @@
     Вход
 {% endblock menu_name %}
 {% block body %}
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="mdl-grid center-content">
-                <div class="mdl-cell mdl-cell--4-col mdl-shadow--2dp">
+        <div class="container">
+            <div class="row">
+                <div class="col m4 card center">
                     <form action="{% url 'login' %}" role="form" method="post">
                         {% csrf_token %}
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Вход</h2>
+                        <div class="card-title">
+                            Вход
                         </div>
-                        <div class="mdl-card__supporting-text">
-                            <div class="fieldWrapper mdl-textfield mdl-js-textfield">
-                                <label class="mdl-textfield__label" for="{{ login_form.username.id_for_label }}"></label>
+                        <div class="card-content">
+                            <div class="fieldWrapper input-field">
+                                <label for="{{ login_form.username.id_for_label }}">Логин</label>
                                 {{ login_form.username }}
                             </div>
-                            <div class="fieldWrapper mdl-textfield mdl-js-textfield">
-                                <label class="mdl-textfield__label" for="{{ login_form.password.id_for_label }}"></label>
+                            <div class="fieldWrapper input-field">
+                                <label for="{{ login_form.password.id_for_label }}">Пароль</label>
                                 {{ login_form.password }}
                             </div>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Войти</button>
+                        <div class="card-action">
+                            <button class="btn waves-effect waves-light" type="submit">Войти</button>
                         </div>
                     </form>
                 </div>
-                <div class="mdl-cell mdl-cell--12-col">
+                <div class="col m12">
                     <h3>{{ msg }}</h3>
                 </div>
             </div>
         </div>
-    </main>
 {% endblock body %}

@@ -17,33 +17,33 @@ class ClientAddForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
                 'pattern': ".*",
             }),
             'last_name': forms.TextInput(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
             }),
             'second_name': forms.TextInput(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
             }),
             'birthday': forms.DateInput(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
             }),
             'residence': forms.TextInput(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
             }),
             'phone': forms.TextInput(attrs={
                 'type': 'tel',
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
             }),
             'email': forms.EmailInput(attrs={
                 'type': 'email',
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
             }),
             # 'passport': forms.FileInput(attrs={
             #     'class': '',
@@ -52,7 +52,7 @@ class ClientAddForm(forms.ModelForm):
                 'class': '',
             }),
             'comment': forms.Textarea(attrs={
-                'class': 'mdl-textfield__input',
+                'class': 'materialize-textarea',
                 'rows': 4,
             }),
         }
@@ -65,13 +65,13 @@ class PropertyAddForm(forms.ModelForm):
         widgets = {
             'location': forms.TextInput(attrs={
                 'type': 'text',
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
                 'pattern': ".*",
             }),
             'cost': forms.TextInput(attrs={
                 'type': 'text',
-                'class': 'mdl-textfield__input',
+                'class': 'input-field',
                 'required': True,
             }),
         }
@@ -107,7 +107,7 @@ class DocumentAddForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
-    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'mdl-textfield__input', 'type': 'text'})
+    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'input-field', 'type': 'text'})
     debtor = forms.BooleanField()
     # my_clients = forms.BooleanField()
     # view = forms.BooleanField()
@@ -115,9 +115,9 @@ class SearchForm(forms.Form):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=50)
-    username.widget = forms.TextInput(attrs={'placeholder':'Имя пользователя', 'class': 'mdl-textfield__input', 'type': 'text'})
+    username.widget = forms.TextInput(attrs={'placeholder':'Имя пользователя', 'class': 'input-field', 'type': 'text'})
     password = forms.CharField(max_length=50)
-    password.widget = forms.PasswordInput(attrs={'placeholder':'Пароль', 'class': 'mdl-textfield__input', 'type': 'password'})
+    password.widget = forms.PasswordInput(attrs={'placeholder':'Пароль', 'class': 'input-field', 'type': 'password'})
 
 
 def user_login(request):
