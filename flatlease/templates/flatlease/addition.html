@@ -6,63 +6,60 @@
     Редактирование пользователей
 {% endblock menu_name %}
 {% block body %}
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="mdl-grid center-content">
-                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-card">
+    <div class="container">
+        <div class="row">
+            <div class="card col m12">
+                <div class="card-content">
+                    <div class="card-title">
+                        Личные данные
+                    </div>
                     <form action="{% url 'addition' %}" enctype="multipart/form-data" method="POST" role="form">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Личные данные</h2>
-                        </div>
-                        <div class="mdl-card__supporting-text">
-                            Поля, отмеченные красным, обязательны для заполнения
-                        </div>
-                        <div class="mdl-card__subtitle-text">
+                        <div class="col m12">
                             {% csrf_token %}
                             {% for field in add_client_form %}
-                                <div class="fieldWrapper mdl-textfield mdl-js-textfield">
-                                    <label class="mdl-textfield__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <div class="fieldWrapper input-field">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                                     {{ field }}
                                     {{ field.errors }}
                                 </div>
                             {% endfor %}
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                                Очистить
-                            </button>
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
-                                Сохранить
-                            </button>
                         </div>
                     </form>
                 </div>
-                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                    <form action="{% url 'addition' %}" role="form" method="post">
-                        <div class="mdl-card__title">
-                            <h2 class="mdl-card__title-text">Информация об объекте недвижимости</h2>
-                        </div>
-                        <div class="mdl-card__subtitle-text">
-                            {% csrf_token %}
-                            {% for field in add_property_form %}
-                                <div class="fieldWrapper mdl-textfield mdl-js-textfield">
-                                    {{ field.errors }}
-                                    <label class="mdl-textfield__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                                Очистить
-                            </button>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
-                                Сохранить
-                            </a>
-                        </div>
-                    </form>
+                <div class="card-action">
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                        Очистить
+                    </button>
+                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
+                        Сохранить
+                    </button>
                 </div>
             </div>
+            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+                <form action="{% url 'addition' %}" role="form" method="post">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Информация об объекте недвижимости</h2>
+                    </div>
+                    <div class="mdl-card__subtitle-text">
+                        {% csrf_token %}
+                        {% for field in add_property_form %}
+                            <div class="fieldWrapper mdl-textfield mdl-js-textfield">
+                                {{ field.errors }}
+                                <label class="mdl-textfield__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
+                            Очистить
+                        </button>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
+                            Сохранить
+                        </a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </main>
+    </div>
 {% endblock body %}

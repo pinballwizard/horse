@@ -6,74 +6,64 @@
     Калькулятор
 {% endblock menu_name %}
 {% block body %}
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="mdl-grid center-content">
-            <!--Calculator-->
-                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--10-col">
-                    <div class="mdl-card__title">
-                        <h1 class="mdl-card__title-text">Расчет кредита</h1>
-                    </div>
-                    <div class="mdl-card__supporting-text">
+        <div class="container">
+            <div class="card col l10">
+                <div class="card-content">
+                    <h1 class="card-title">Расчет платежей</h1>
+                    <span class="">
                         Заполните все поля
-                    </div>
-                    <form id="calcform">
-                        <div class="mdl-grid">
-                            <div class="mdl-cell mdl-cell--6-col">
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
-                                    <label class="mdl-textfield__label" for="price">Стоимость объекта недвижимости</label>
-                                    <span class="mdl-textfield__error">Введите цифры</span>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
-                                    <label class="mdl-textfield__label" for="first-pay">Первоначальный взнос</label>
-                                    <span class="mdl-textfield__error">Введите цифры</span>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield">
-                                    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
-                                    <label class="mdl-textfield__label" for="payment">Ежемесячный взнос</label>
-                                    <span class="mdl-textfield__error">Введите цифры</span>
-                                </div>
+                    </span>
+                    <form id="calcform" class="row">
+                        <div class="col m6">
+                            <div class="input-field">
+                                <input type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="price" />
+                                <label for="price" data-error="Введите цифры">Стоимость объекта недвижимости</label>
                             </div>
-                            <div class="mdl-cell mdl-cell--6-col">
-                                <h5>Итого срок кредитования:</h5>
-                                <h3>
-                                    <span class="total"></span>
-                                </h3>
+                            <div class="input-field">
+                                <input type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="first-pay" />
+                                <label for="first-pay" data-error="Введите цифры">Первоначальный взнос</label>
+                            </div>
+                            <div class="input-field">
+                                <input type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="payment" />
+                                <label for="payment" data-error="Введите цифры">Ежемесячный взнос</label>
                             </div>
                         </div>
-                        <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="button" id="calculate">
-                                Рассчитать
-                            </button>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{% url 'calculator' %}">
-                                Сбросить
-                            </a>
-                            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect linktoadd" href="{% url 'addition' %}">
-                                Перейти к оформлению
-                            </a>
+                        <div class="col m6 center">
+                            <h5>Итого срок погашения:</h5>
+                            <h3>
+                                <span class="total"></span>
+                            </h3>
                         </div>
                     </form>
                 </div>
-            <!--Table monthly payments-->
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp mdl-cell mdl-cell--8-col">
-                    <thead>
-                    <tr>
-                        <th>Дата</th>
-                        <th>Платёж</th>
-                        <th>Остаток</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="today"></td>
-                            <td class="firstpay"></td>
-                            <td class="residue"></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light" type="button" id="calculate">
+                        Рассчитать
+                    </button>
+                    <a class="btn waves-effect waves-light white-text" href="{% url 'calculator' %}">
+                        Сбросить
+                    </a>
+                    <a class="btn-flat waves-effect waves-light right black-text" href="{% url 'addition' %}">
+                        Перейти к оформлению
+                    </a>
+                </div>
             </div>
-        </div>
-    </main>
+        <!--Table monthly payments-->
+            <table class="col m12 card bordered centered">
+                <thead>
+                <tr>
+                    <th data-field="date">Дата</th>
+                    <th data-field="payment">Платёж</th>
+                    <th data-field="residue">Остаток</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="today"></td>
+                        <td class="firstpay"></td>
+                        <td class="residue"></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
 {% endblock body %}

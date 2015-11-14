@@ -1,48 +1,18 @@
-/*display card on center*/
+main,
+header,
+footer{
+    padding-left: 240px;
+}
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;  }
+}
+@media only screen and (min-width : 993px) {
+  .container {
+    width: 85%; }
+}
+
 .center-content{
     display: flex;
     justify-content: center;
 }
-
-/*spase between columns in forms*/
-input.mdl-textfield__input{
-    width: 95%;
-}
-
-/*center align and size for search field on search page*/
-div.searchfield{
-    display: inline-flex;
-    /*width: 30%;*/
-}
-
-/*show up menu-icon*/
-div.mdl-layout__drawer-button.burger{
-    color: #757575;
-}
-
-/*alignment for right card-button*/
-.linktoadd,
-.edit{
-    float: right;
-    margin-right: 2%;
-}
-
-/*toggle turn button*/
-.more:before{
-    content: 'Развернуть';
-}
-.less:before{
-    content: 'Свернуть';
-}
-
-/*for center-container*/
-.center-content{
-    display: flex;
-    justify-content: center;
-}
-.mdl-card__subtitle-text{
-    text-align: center;
-}
-
-
-
