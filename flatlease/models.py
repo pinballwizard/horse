@@ -1,7 +1,37 @@
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
-from datetime import datetime
+from datetime import date
+from django.contrib.auth.models import User, Group
 
+health_type_dict = (
+    ('healthy', 'Здоров'),
+    ('sick', 'Болен'),
+    ('addict', 'Наркодиспансер'),
+    ('psycho', 'Психодиспансер'),
+)
+pay_type_dict = (
+    ('cash', 'Наличные'),
+    ('transfer', 'Перевод'),
+    ('card', 'Банковская карта'),
+    ('inside', 'Внутренний перевод'),
+)
+doc_type_dict = (
+    ('application', 'Заявление'),
+    ('form', 'Анкета'),
+    ('contract', 'Договор'),
+)
+
+
+def photo_file_path(instance, filename):
+    return 'client_media/{0}_{1}/{2}'.format(instance.id, instance.last_name, filename)
+
+
+def content_file_path(instance, filename):
+    return 'client_media/{0}_{1}/{2}'.format(instance.owner.id, instance.owner.last_name, filename)
+
+
+def managers():
+    return {'groups': Group.objects.get(name='Manager')}
 
 class Person(models.Model):
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
@@ -15,21 +45,24 @@ class Person(models.Model):
     class Meta:
         abstract = True
 
-    # def age(self):
-    #     return datetime.today() - self.birthday
+    def age(self):
+        return round((date.today() - self.birthday).days/365)
+
+    def is_adult(self):
+        return self.age() >= 18
 
 
 class Client(Person):
+    manager = models.ForeignKey(User, limit_choices_to=managers, verbose_name="Менеджер")
     birthplace = models.CharField("Место рождения", max_length=100)
     registration = models.CharField("Регистрация по месту жительства", max_length=100)
     email = models.EmailField("EMail", blank=True)
-    health = models.CharField("Состояние здоровья", max_length=20, blank=True)
+    health = models.CharField("Состояние здоровья", max_length=20, choices=health_type_dict, default=health_type_dict[0][0])
     workplace = models.CharField("Место работы", max_length=50, blank=True)
     work_position = models.CharField("Должность", max_length=50, blank=True)
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2)
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, blank=True)
-    # client_media = 'client_media/%s_%s', (last_name, str(id))
-    photo = models.ImageField("Фотография", upload_to=str(id), blank=True)
+    photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
@@ -44,19 +77,13 @@ class Client(Person):
 
     def future(self):
         """Определяет потецнциальный клиент или нет, проверяя наличие у него договора"""
-        if not self.document_set.filter(type='contract'):
-            return False
-        else:
-            return True
-#Доделать условие
+        return (not self.document_set.filter(type='contract'))
+    #Доделать условие
     def debt(self):
         try:
-            if self.monthly_payment > self.transaction_set.latest('pub_date').count:
-                return True
-            else:
-                return False
+            return self.monthly_payment > self.transaction_set.latest('pub_date').count
         except ObjectDoesNotExist:
-            return
+            return None
     debt.short_description = 'Долг'
 
     def __str__(self):
@@ -77,13 +104,6 @@ class FixedProperty(models.Model):
 
 
 class Transaction(models.Model):
-    pay_type_dict = (
-        ('cash', 'Наличные'),
-        ('transfer', 'Перевод'),
-        ('card', 'Банковская карта'),
-        ('inside', 'Внутренний перевод'),
-    )
-
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
     type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
@@ -98,15 +118,9 @@ class Transaction(models.Model):
 
 
 class Document(models.Model):
-    type_dict = (
-        ('application', 'Заявление'),
-        ('form', 'Анкета'),
-        ('contract', 'Договор'),
-    )
-
     owner = models.ForeignKey(Client, verbose_name="Клиент")
-    type = models.CharField("Тип", max_length=20, choices=type_dict, default=type_dict[0][0])
-    document = models.FileField("Документ", upload_to=owner)
+    type = models.CharField("Тип", max_length=20, choices=doc_type_dict, default=doc_type_dict[0][0])
+    document = models.FileField("Документ", upload_to=content_file_path)
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
 
     class Meta:
@@ -118,18 +132,18 @@ class Document(models.Model):
 
 
 class Passport(models.Model):
-    owner = models.OneToOneField(Client, verbose_name="Клиент")
-    number = models.IntegerField("Серия")
+    owner = models.OneToOneField(Client, verbose_name="Клиент", primary_key=True)
+    number = models.IntegerField("Серия и Номер")
     data = models.DateField("Дата выдачи")
     whom = models.TextField("Кем выдан", max_length=100)
-    image = models.ImageField("Паспорт", upload_to=str(id), blank=True)
+    image = models.ImageField("Паспорт", upload_to=content_file_path)
 
     class Meta:
         verbose_name = "Паспорт"
         verbose_name_plural = "Паспорта"
 
     def __str__(self):
-        return self.number
+        return str(self.number)
 
 
 class Relative(Person):
@@ -150,8 +164,8 @@ class Spouse(Person):
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2)
 
     class Meta:
-        verbose_name = "Родственник"
-        verbose_name_plural = "Родственники"
+        verbose_name = "Супруг(а)"
+        verbose_name_plural = "Супруги"
 
     def __str__(self):
         return " ".join([self.last_name, self.name, self.second_name])

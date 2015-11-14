@@ -24,11 +24,6 @@ class PassportAdmin(admin.ModelAdmin):
     list_display = ('number', 'owner')
 
 
-@admin.register(Relative)
-class RelativeAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'name', 'second_name', 'phone', 'owner')
-
-
 class DocumentInLine(admin.TabularInline):
     readonly_fields = ('pub_date',)
     model = Document
@@ -45,9 +40,13 @@ class PassportInLine(admin.TabularInline):
     extra = 1
 
 
-class RelativeInLine(admin.TabularInline):
+class RelativeInLine(admin.StackedInline):
     model = Relative
     extra = 1
+
+
+class SpouseInLine(admin.StackedInline):
+    model = Spouse
 
 
 class TransactionInLine(admin.TabularInline):
@@ -78,4 +77,5 @@ class ClientAdmin(admin.ModelAdmin):
         DocumentInLine,
         PassportInLine,
         RelativeInLine,
+        SpouseInLine,
     ]

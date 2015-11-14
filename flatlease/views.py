@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth.models import User
 
 class ClientAddForm(forms.ModelForm):
     class Meta:
@@ -146,7 +146,7 @@ def calculator(request):
 
 def test_page(request):
     data = {
-        'document_form': DocumentAddForm(),
+        'var': User.objects.get(pk=3),
     }
     return render(request, 'flatlease/test.html', data)
 
@@ -192,8 +192,7 @@ def addition(request, client_id=None):
         client = Client.objects.get(pk=client_id)
         data['add_client_form'] = ClientAddForm(instance=client)
     if request.method == 'POST':
-        client = Client.objects.get(pk=client_id)
-        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
+        client_form = ClientAddForm(request.POST, request.FILES)
         if client_form.is_valid():
             client_form.save()
         else:
