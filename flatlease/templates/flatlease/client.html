@@ -6,163 +6,161 @@
     {{ client.last_name }} {{ client.name }} {{ client.second_name }}
 {% endblock menu_name %}
 {% block body %}
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="mdl-tabs mdl-js-tabs">
-                <div class="mdl-tabs__tab-bar">
-                    <a href="#person-info" class="mdl-tabs__tab is-active">Анкета</a>
-                    <a href="#docs" class="mdl-tabs__tab">Документы</a>
-                    <a href="#property" class="mdl-tabs__tab">Недвижимость</a>
-                    <a href="#payments" class="mdl-tabs__tab">Платежи</a>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#person-info" class="mdl-tabs__tab is-active">Анкета</a></li>
+                <li class="tab col s3"><a href="#docs" class="mdl-tabs__tab">Документы</a></li>
+                <li class="tab col s3"><a href="#property" class="mdl-tabs__tab">Недвижимость</a></li>
+                <li class="tab col s3"><a href="#payments" class="mdl-tabs__tab">Платежи</a></li>
+            </ul>
+        <!-- Начало анкеты -->
+            <div class="col s12" id="person-info">
+                <div class="">
+                    <div class="card">
+                        <div class="card-content">
+                            <h1 class="card-title">
+                                Личные данные
+                            </h1>
+                            <div class="row">
+                                <div class="col l4 m3 s12">
+                                    <img src="{{ client.photo.url }}" width="100%" height="auto">
+                                </div>
+                                <table class="col l8 m9 s12">
+                                    <thead>
+                                        <tr>
+                                            <th>Дата регистрации</th>
+                                            <th>{{ client.pub_date }}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>День рождения</td>
+                                            <td>{{ client.birthday }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Адрес</td>
+                                            <td>{{ client.residence }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Телефон</td>
+                                            <td>{{ client.phone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email</td>
+                                            <td>{{ client.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Баланс</td>
+                                            <td>{{ client.balance }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Должник</td>
+                                            <td>{{ client.debt }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Наличие договора</td>
+                                            <td>{{ client.future }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <a class="btn waves-effect waves-light white-text"
+                               href="{% url 'update_id' client.id %}">Редактировать</a>
+                        </div>
+                    </div>
                 </div>
-            <!-- Начало анкеты -->
-                <div class="mdl-tabs__panel is-active" id="person-info">
-                    <div class="mdl-grid center-content">
-                        <div class="mdl-cell mdl-cell--10-col mdl-color--white mdl-shadow--2dp">
+            </div>
+        <!-- Конец анкеты -->
+
+        <!-- Начало док-тов -->
+            <div class="mdl-tabs__panel" id="docs">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <div class="mdl-card mdl-color--white mdl-shadow--2dp">
                             <div class="mdl-card__title">
                                 <h1 class="mdl-card__title-text">
-                                    Личные данные
+                                    {{ document.type }}
+                                <span class="mdl-card__subtitle-text">
+                                    Дата публикиции: {{ document.pub_date }}
+                                </span>
                                 </h1>
                             </div>
-                                <div class="msl-grid">
-                                    <div class="mdl-cell mdl-cell--4-col">
-                                        <img src="{{ client.photo.url }}" width="100%" height="auto">
-                                    </div>
-                                    <table class="mdl-data-table mdl-js-data-table mdl-cell mdl-cell--8-col">
-                                        <thead>
-                                            <tr>
-                                                <th>Дата регистрации</th>
-                                                <th>{{ client.pub_date }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>День рождения</td>
-                                                <td>{{ client.birthday }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Адрес</td>
-                                                <td>{{ client.residence }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Телефон</td>
-                                                <td>{{ client.phone }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email</td>
-                                                <td>{{ client.email }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Баланс</td>
-                                                <td>{{ client.balance }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Должник</td>
-                                                <td>{{ client.debt }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Наличие договора</td>
-                                                <td>{{ client.future }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="mdl-card__subtitle-text">
+                                <img src="{{ client.passport.url }}" width="auto" height="200px">
+                                <p>Скачать: {{ document.document }}</p>
+                            </div>
                             <div class="mdl-card__actions mdl-card--border">
                                 <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                                   href="{% url 'update_id' client.id %}">Редактировать</a>
+                                   href="">Изменить</a>
+                                <a href="{% url 'update_id' client.id %}">
+                                    <i class="material-icons edit" id="remove">delete</i>
+                                </a>
+                                <label class="mdl-tooltip" for="remove">Удалить</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdl-cell mdl-cell--4-col">
+                        <div class="mdl-card mdl-color--white mdl-shadow--2dp">
+                            <div class="mdl-card__title">
+                                <h1 class="mdl-card__title-text">
+                                    Новый документ
+                                </h1>
+                            </div>
+                            <div class="mdl-card__supporting-text">
+                                <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                                    {% csrf_token %}
+                                    {{ document_form.as_p }}
+                                </form>
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
+                                   href="">Сохранить</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            <!-- Конец анкеты -->
-
-            <!-- Начало док-тов -->
-                <div class="mdl-tabs__panel" id="docs">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--4-col">
-                            <div class="mdl-card mdl-color--white mdl-shadow--2dp">
-                                <div class="mdl-card__title">
-                                    <h1 class="mdl-card__title-text">
-                                        {{ document.type }}
-                                    <span class="mdl-card__subtitle-text">
-                                        Дата публикиции: {{ document.pub_date }}
-                                    </span>
-                                    </h1>
-                                </div>
-                                <div class="mdl-card__subtitle-text">
-                                    <img src="{{ client.passport.url }}" width="auto" height="200px">
-                                    <p>Скачать: {{ document.document }}</p>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                                       href="">Изменить</a>
-                                    <a href="{% url 'update_id' client.id %}">
-                                        <i class="material-icons edit" id="remove">delete</i>
-                                    </a>
-                                    <label class="mdl-tooltip" for="remove">Удалить</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mdl-cell mdl-cell--4-col">
-                            <div class="mdl-card mdl-color--white mdl-shadow--2dp">
-                                <div class="mdl-card__title">
-                                    <h1 class="mdl-card__title-text">
-                                        Новый документ
-                                    </h1>
-                                </div>
-                                <div class="mdl-card__supporting-text">
-                                    <form action="{% url 'client_page' client.id %}" role="form" method="post">
-                                        {% csrf_token %}
-                                        {{ document_form.as_p }}
-                                    </form>
-                                </div>
-                                <div class="mdl-card__actions mdl-card--border">
-                                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
-                                       href="">Сохранить</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <!-- Конец док-тов -->
-
-            <!-- Начало недвижимости -->
-                <div class="mdl-tabs__panel" id="property">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--12-col">
-                            {% for item in fixed_property %}
-                                <p>Адрес: {{ item.location }}</p>
-                                <p>Стоимость: {{ item.cost }}</p>
-                            {% endfor %}
-                            <form action="{% url 'client_page' client.id %}" role="form" method="post">
-                                {% csrf_token %}
-                                {{ property_form.as_p }}
-                                <button type="submit">Сохранить</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <!-- Конец недвижимости -->
-
-            <!-- Начало платежей -->
-                <div class="mdl-tabs__panel" id="payments">
-                    <div class="mdl-grid">
-                        <div class="mdl-cell mdl-cell--12-col">
-                            {% for transaction in transactions %}
-                                <p>Дата платежа: {{ transaction.pay_date }}</p>
-                                <p>Сумма: {{ transaction.count }}</p>
-                                <p>Тип платежа: {{ transaction.pay_type }}</p>
-                            {% endfor %}
-                            <form action="{% url 'client_page' client.id %}" role="form" method="post">
-                                {% csrf_token %}
-                                {{ transaction_form.as_p }}
-                                <button type="submit">Сохранить</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            <!-- Конец платежей -->
             </div>
+        <!-- Конец док-тов -->
+
+        <!-- Начало недвижимости -->
+            <div class="mdl-tabs__panel" id="property">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        {% for item in fixed_property %}
+                            <p>Адрес: {{ item.location }}</p>
+                            <p>Стоимость: {{ item.cost }}</p>
+                        {% endfor %}
+                        <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                            {% csrf_token %}
+                            {{ property_form.as_p }}
+                            <button type="submit">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <!-- Конец недвижимости -->
+
+        <!-- Начало платежей -->
+            <div class="mdl-tabs__panel" id="payments">
+                <div class="mdl-grid">
+                    <div class="mdl-cell mdl-cell--12-col">
+                        {% for transaction in transactions %}
+                            <p>Дата платежа: {{ transaction.pay_date }}</p>
+                            <p>Сумма: {{ transaction.count }}</p>
+                            <p>Тип платежа: {{ transaction.pay_type }}</p>
+                        {% endfor %}
+                        <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                            {% csrf_token %}
+                            {{ transaction_form.as_p }}
+                            <button type="submit">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <!-- Конец платежей -->
         </div>
-    </main>
+    </div>
 {% endblock body %}

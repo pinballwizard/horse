@@ -11,8 +11,3 @@ footer{
   .container {
     width: 85%; }
 }
-
-.center-content{
-    display: flex;
-    justify-content: center;
-}

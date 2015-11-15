@@ -20,7 +20,7 @@
             <div class="nav-wrapper">
                 <ul class="right" for="menu-lower-right">
                     <li>
-                        <a href="{% url 'login' %}">
+                        <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Войти" href="{% url 'login' %}">
                             <i class="material-icons">exit_to_app</i>
                         </a>
                     </li>
@@ -32,9 +32,9 @@
             </div>
         </nav>
         <ul id="nav-mobile" class="side-nav fixed right hide-on-med-and-down">
-            <img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}">
-            <a href="#" class="logo">
-                ЖилЛизинг
+            <a href="http://www.hors-invest.ru/"><img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}"></a>
+            <a href="#" class="brand-logo center">
+                <p><b>Жилищная программа</b></p>
             </a>
             <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
             <li><a class="" href="{% url 'addition' %}">Добавление</a></li>
