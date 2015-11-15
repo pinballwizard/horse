@@ -109,7 +109,7 @@ class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'input-field', 'type': 'text'})
     debtor = forms.BooleanField()
-    # my_clients = forms.BooleanField()
+    my_clients = forms.BooleanField()
     # view = forms.BooleanField()
 
 
@@ -218,6 +218,10 @@ def search(request):
             if form.cleaned_data['debtor']:
                 for item in queryset:
                     if not item.debt():
+                        queryset.exclude(id=item.id)
+            if form.cleaned_data['my_clients']:
+                for item in queryset:
+                    if not item.manager == request.user.is_authenticated():
                         queryset.exclude(id=item.id)
             data['clients'] = queryset
             data['form'] = form
