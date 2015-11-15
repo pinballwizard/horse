@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import date
@@ -23,15 +24,19 @@ doc_type_dict = (
 
 
 def photo_file_path(instance, filename):
-    return 'client_media/{0}_{1}/{2}'.format(instance.id, instance.last_name, filename)
+    return 'client_media/{1}_{0}/{2}'.format(instance.phone, instance.last_name, filename)
 
 
 def content_file_path(instance, filename):
-    return 'client_media/{0}_{1}/{2}'.format(instance.owner.id, instance.owner.last_name, filename)
+    return 'client_media/{1}_{0}/{2}'.format(instance.owner.phone, instance.owner.last_name, filename)
 
 
 def managers():
-    return {'groups': Group.objects.get(name='Manager')}
+    try:
+        return {'groups': Group.objects.get(name='managers')}
+    except ObjectDoesNotExist:
+        return {'is_stuff': True}
+
 
 class Person(models.Model):
     pub_date = models.DateTimeField("Время добавления", auto_now_add=True)
@@ -40,7 +45,7 @@ class Person(models.Model):
     second_name = models.CharField("Отчество", max_length=30, blank=True)
     birthday = models.DateField("День рождения", blank=True)
     phone = models.CharField("Телефон", max_length=12)
-    residence = models.CharField("Адрес проживания", max_length=100)
+    residence = models.CharField("Адрес проживания", max_length=100, blank=True)
 
     class Meta:
         abstract = True
@@ -54,14 +59,12 @@ class Person(models.Model):
 
 class Client(Person):
     manager = models.ForeignKey(User, limit_choices_to=managers, verbose_name="Менеджер")
-    birthplace = models.CharField("Место рождения", max_length=100)
-    registration = models.CharField("Регистрация по месту жительства", max_length=100)
     email = models.EmailField("EMail", blank=True)
     health = models.CharField("Состояние здоровья", max_length=20, choices=health_type_dict, default=health_type_dict[0][0])
     workplace = models.CharField("Место работы", max_length=50, blank=True)
     work_position = models.CharField("Должность", max_length=50, blank=True)
-    salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2)
-    profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, blank=True)
+    salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2, default=0)
+    profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
     photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
@@ -133,10 +136,12 @@ class Document(models.Model):
 
 class Passport(models.Model):
     owner = models.OneToOneField(Client, verbose_name="Клиент", primary_key=True)
-    number = models.IntegerField("Серия и Номер")
+    number = models.CharField("Серия и Номер", max_length=10)
     data = models.DateField("Дата выдачи")
     whom = models.TextField("Кем выдан", max_length=100)
     image = models.ImageField("Паспорт", upload_to=content_file_path)
+    birthplace = models.CharField("Место рождения", max_length=100)
+    registration = models.CharField("Регистрация по месту жительства", max_length=100)
 
     class Meta:
         verbose_name = "Паспорт"

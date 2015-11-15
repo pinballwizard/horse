@@ -9,10 +9,10 @@ from django.contrib.auth.models import User
 class ClientAddForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['name', 'second_name', 'last_name', 'birthday', 'residence',
-                  'phone', 'email', 'photo', 'comment']
+        fields = ['last_name', 'name', 'second_name', 'birthday', 'residence',
+                  'phone', 'email', 'photo', 'health', 'workplace', 'work_position',
+                  'salary', 'profit', 'monthly_payment', 'comment']
         labels = {
-            'passport': '',
             'photo': '',
         }
         widgets = {

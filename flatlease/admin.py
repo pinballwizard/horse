@@ -60,7 +60,7 @@ class TransactionInLine(admin.TabularInline):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    readonly_fields = ('pub_date','monthly_payment','balance','debt')
+    readonly_fields = ('id','pub_date','monthly_payment','balance','debt')
     # fields = (
     #     ('pub_date', 'monthly_payment', 'balance', 'debt'),
     #     ('last_name', 'name', 'second_name'),
