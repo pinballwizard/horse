@@ -22,7 +22,7 @@ from django.conf import settings
 
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', views.calculator, name='calculator'),
     url(r'^addition$', views.addition, name='addition'),
     url(r'^update_id=(?P<client_id>[0-9]+)$', views.addition, name='update_id'),

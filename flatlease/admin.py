@@ -35,7 +35,7 @@ class FixedPropertyInLine(admin.TabularInline):
     extra = 1
 
 
-class PassportInLine(admin.TabularInline):
+class PassportInLine(admin.StackedInline):
     model = Passport
     extra = 1
 

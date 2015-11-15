@@ -6,6 +6,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
+# global_data = {
+#     'user': user,
+# }
+
+
 class ClientAddForm(forms.ModelForm):
     class Meta:
         model = Client
@@ -108,8 +113,10 @@ class DocumentAddForm(forms.ModelForm):
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search', 'required': 'true'})
-    debtor = forms.BooleanField()
-    my_clients = forms.BooleanField()
+    debtor = forms.BooleanField(required=False)
+    debtor.widget = forms.CheckboxInput()
+    my_clients = forms.BooleanField(required=False)
+    my_clients.widget = forms.CheckboxInput()
     # view = forms.BooleanField()
 
 
@@ -207,8 +214,8 @@ def search(request):
         'property': FixedProperty.objects.all(),
         'form': SearchForm(),
     }
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
         if form.is_valid():
             search_str = form.cleaned_data['search']
             q1 = Client.objects.filter(last_name__icontains=search_str)

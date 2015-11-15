@@ -66,7 +66,7 @@ class Client(Person):
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2, default=0)
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
     photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
-    monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, editable=False, default=0)
+    monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
     class Meta:
@@ -80,7 +80,7 @@ class Client(Person):
 
     def future(self):
         """Определяет потецнциальный клиент или нет, проверяя наличие у него договора"""
-        return (not self.document_set.filter(type='contract'))
+        return not self.document_set.filter(type='contract')
     #Доделать условие
     def debt(self):
         try:
