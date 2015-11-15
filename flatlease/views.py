@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class ClientAddForm(forms.ModelForm):
     class Meta:
         model = Client
-        fields = ['name', 'last_name', 'second_name', 'birthday', 'residence',
+        fields = ['name', 'second_name', 'last_name', 'birthday', 'residence',
                   'phone', 'email', 'photo', 'comment']
         labels = {
             'passport': '',
@@ -29,7 +29,7 @@ class ClientAddForm(forms.ModelForm):
                 'class': 'input-field',
             }),
             'birthday': forms.DateInput(attrs={
-                'class': 'input-field',
+                'class': 'datepicker',
                 'required': True,
             }),
             'residence': forms.TextInput(attrs={
@@ -49,7 +49,7 @@ class ClientAddForm(forms.ModelForm):
             #     'class': '',
             # }),
             'photo': forms.FileInput(attrs={
-                'class': '',
+                'class': 'file-field input-field',
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'materialize-textarea',
@@ -107,7 +107,7 @@ class DocumentAddForm(forms.ModelForm):
 
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
-    search.widget = forms.TextInput(attrs={'placeholder': 'Поиск...', 'class': 'input-field', 'type': 'text'})
+    search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search', 'required': 'true'})
     debtor = forms.BooleanField()
     # my_clients = forms.BooleanField()
     # view = forms.BooleanField()

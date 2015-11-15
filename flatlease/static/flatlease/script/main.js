@@ -50,4 +50,8 @@ $( document ).ready(function(){
         }
         fullTable().animateTable()
     });
+    $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 200 // Creates a dropdown of number years to control year
+    });
 });
