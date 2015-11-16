@@ -150,6 +150,7 @@ def user_logout(request):
 
 
 def calculator(request):
+    logger.debug("user use calculator")
     return render(request, 'flatlease/calculator.html')
 
 
@@ -168,6 +169,9 @@ def client_page(request, client_id):
         'transactions': client_obj.transaction_set.all(),
         'documents': client_obj.document_set.all(),
         'fixed_property': client_obj.fixedproperty_set.all(),
+        'relatives': client_obj.relative_set.all(),
+        # 'passport': client_obj.passport,
+        # 'spouse': client_obj.spouse,
         'transaction_form': TransactionAddForm(),
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),

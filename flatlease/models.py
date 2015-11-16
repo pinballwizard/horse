@@ -86,7 +86,7 @@ class Client(Person):
         try:
             return self.monthly_payment > self.transaction_set.latest('pub_date').count
         except ObjectDoesNotExist:
-            return None
+            return True
     debt.short_description = 'Долг'
 
     def __str__(self):
