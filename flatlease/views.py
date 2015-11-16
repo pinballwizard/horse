@@ -35,11 +35,9 @@ class ClientAddForm(forms.ModelForm):
             }),
             'birthday': forms.DateInput(attrs={
                 'class': 'datepicker',
-                'required': True,
             }),
             'residence': forms.TextInput(attrs={
                 'class': 'input-field',
-                'required': True,
             }),
             'phone': forms.TextInput(attrs={
                 'type': 'tel',
@@ -50,11 +48,17 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'class': 'input-field',
             }),
-            # 'passport': forms.FileInput(attrs={
-            #     'class': '',
-            # }),
             'photo': forms.FileInput(attrs={
                 'class': 'file-field input-field',
+            }),
+            'health': forms.Select(attrs={
+                'class': '',
+            }),
+            'workplace': forms.TextInput(attrs={
+                'class': 'input-field',
+            }),
+            'work_position': forms.TextInput(attrs={
+                'class': 'input-field',
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'materialize-textarea',
