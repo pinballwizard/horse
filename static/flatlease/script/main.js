@@ -4,22 +4,7 @@
 
 $( document ).ready(function(){
 
-//  open and close client card
-    $(".more").click(function(){
-        $(this).parent().parent().animate({
-            width:'100%'
-        }).removeClass("mdl-cell--3-col").addClass("mdl-cell--12-col");
-        $(this).removeClass("more").addClass("less");
-    });
-    $(".less").click(function(){
-        $(this)
-            .parent()
-            .parent()
-            .removeClass("mdl-cell--12-col")
-            .addClass("mdl-cell--3-col")
-            .animate({width:'25%'});
-        $(this).removeClass("less").addClass("more");
-    });
+    $(".button-collapse").sideNav();
 
 //  clean form
     $(":reset").click(function(){
@@ -64,5 +49,9 @@ $( document ).ready(function(){
             }, "slow")
         }
         fullTable().animateTable()
+    });
+    $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 1000 // Creates a dropdown of number years to control year
     });
 });
