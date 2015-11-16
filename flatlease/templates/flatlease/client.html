@@ -10,6 +10,7 @@
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3"><a href="#person-info" class="mdl-tabs__tab is-active">Анкета</a></li>
+                <li class="tab col s3"><a href="#relatives">Родственники</a></li>
                 <li class="tab col s3"><a href="#docs" class="mdl-tabs__tab">Документы</a></li>
                 <li class="tab col s3"><a href="#property" class="mdl-tabs__tab">Недвижимость</a></li>
                 <li class="tab col s3"><a href="#payments" class="mdl-tabs__tab">Платежи</a></li>
@@ -77,6 +78,18 @@
             </div>
         <!-- Конец анкеты -->
 
+        <!-- Начало родственников -->
+        <div class="col s12" id="relatives">
+            <div class="container">
+                <div class="row">
+                    <div class="card col l4 m4 s12">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Конец родственников -->
+
         <!-- Начало док-тов -->
             <div class="col s12" id="docs">
                 <div class="container">
@@ -122,37 +135,64 @@
         <!-- Конец док-тов -->
 
         <!-- Начало недвижимости -->
-            <div class="mdl-tabs__panel" id="property">
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        {% for item in fixed_property %}
-                            <p>Адрес: {{ item.location }}</p>
-                            <p>Стоимость: {{ item.cost }}</p>
-                        {% endfor %}
-                        <form action="{% url 'client_page' client.id %}" role="form" method="post">
-                            {% csrf_token %}
-                            {{ property_form.as_p }}
-                            <button type="submit">Сохранить</button>
-                        </form>
+            <div class="col s12" id="property">
+                <div class="container">
+                    <div class="row">
+                        <table class="col s12 highlight">
+                            <thead>
+                                <tr>
+                                    <th>Адрес</th>
+                                    <th>Стоимость</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in fixed_property %}
+                                    <tr>
+                                        <td>{{ item.location }}</td>
+                                        <td>{{ item.cost }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+{#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
+{#                            {% csrf_token %}#}
+{#                            {{ property_form.as_p }}#}
+{#                            <button type="submit">Сохранить</button>#}
+{#                        </form>#}
                     </div>
                 </div>
             </div>
         <!-- Конец недвижимости -->
 
         <!-- Начало платежей -->
-            <div class="mdl-tabs__panel" id="payments">
-                <div class="mdl-grid">
-                    <div class="mdl-cell mdl-cell--12-col">
-                        {% for transaction in transactions %}
-                            <p>Дата платежа: {{ transaction.pay_date }}</p>
-                            <p>Сумма: {{ transaction.count }}</p>
-                            <p>Тип платежа: {{ transaction.pay_type }}</p>
-                        {% endfor %}
-                        <form action="{% url 'client_page' client.id %}" role="form" method="post">
-                            {% csrf_token %}
-                            {{ transaction_form.as_p }}
-                            <button type="submit">Сохранить</button>
-                        </form>
+            <div class="col s12" id="payments">
+                <div class="container">
+                    <div class="row">
+                        <table class="col s12 highlight">
+                            <thead>
+                                <tr>
+                                    <th>Номер</th>
+                                    <th>Дата</th>
+                                    <th>Сумма</th>
+                                    <th>Тип</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in transactions %}
+                                    <tr>
+                                        <td>{{ transaction.id }}</td>
+                                        <td>{{ transaction.pub_date }}</td>
+                                        <td>{{ transaction.count }}</td>
+                                        <td>{{ transaction.type }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+{#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
+{#                            {% csrf_token %}#}
+{#                            {{ transaction_form.as_p }}#}
+{#                            <button type="submit">Сохранить</button>#}
+{#                        </form>#}
                     </div>
                 </div>
             </div>
