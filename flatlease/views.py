@@ -170,8 +170,6 @@ def client_page(request, client_id):
         'documents': client_obj.document_set.all(),
         'fixed_property': client_obj.fixedproperty_set.all(),
         'relatives': client_obj.relative_set.all(),
-        # 'passport': client_obj.passport,
-        # 'spouse': client_obj.spouse,
         'transaction_form': TransactionAddForm(),
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),
