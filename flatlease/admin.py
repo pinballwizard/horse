@@ -1,26 +1,35 @@
 from django.contrib import admin
 from flatlease.models import *
 
+admin.AdminSite.site_header = "Администрирование ЖиЛизинг"
+admin.AdminSite.site_title = "Хорс-инвест"
+admin.AdminSite.index_title = "ЖиЛизинг"
 
 @admin.register(FixedProperty)
 class FixedPropertyAdmin(admin.ModelAdmin):
+    search_fields = ['location', 'owner']
     list_display = ('location', 'cost', 'owner')
 
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
+    search_fields = ['pub_date', 'owner']
     readonly_fields = ('pub_date',)
     list_display = ('pub_date', 'count', 'type', 'owner')
 
 
 @admin.register(Document)
 class DocumentAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
+    search_fields = ['pub_date', 'owner']
     readonly_fields = ('pub_date',)
     list_display = ('type', 'owner', 'pub_date')
 
 
 @admin.register(Passport)
 class PassportAdmin(admin.ModelAdmin):
+    search_fields = ['number', 'owner']
     list_display = ('number', 'owner')
 
 
@@ -60,6 +69,8 @@ class TransactionInLine(admin.TabularInline):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
+    date_hierarchy = 'pub_date'
+    search_fields = ['last_name', 'name', 'phone']
     readonly_fields = ('id','pub_date','monthly_payment','balance','debt')
     # fields = (
     #     ('pub_date', 'monthly_payment', 'balance', 'debt'),

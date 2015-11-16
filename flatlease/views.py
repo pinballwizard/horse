@@ -1,15 +1,13 @@
 from django.shortcuts import render, redirect
 from flatlease.models import *
 from django import forms
+import logging
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
-# global_data = {
-#     'user': user,
-# }
-
+logger = logging.getLogger(__name__)
 
 class ClientAddForm(forms.ModelForm):
     class Meta:
@@ -121,7 +119,6 @@ class SearchForm(forms.Form):
     debtor.widget = forms.CheckboxInput()
     my_clients = forms.BooleanField(required=False)
     my_clients.widget = forms.CheckboxInput()
-    # view = forms.BooleanField()
 
 
 class LoginForm(AuthenticationForm):
@@ -142,6 +139,7 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+
                 return redirect('calculator')
     return render(request, 'flatlease/login.html', data)
 
