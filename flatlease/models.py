@@ -21,6 +21,11 @@ doc_type_dict = (
     ('form', 'Анкета'),
     ('contract', 'Договор'),
 )
+relation_type_dict = (
+    ('father', 'Отец'),
+    ('mother', 'Мать'),
+    ('child', 'Ребенок'),
+)
 
 
 def photo_file_path(instance, filename):
@@ -153,6 +158,7 @@ class Passport(models.Model):
 
 class Relative(Person):
     owner = models.ForeignKey(Client, verbose_name="Клиент")
+    relation = models.CharField("Родство", choices=relation_type_dict, max_length=10, default=relation_type_dict[0][0])
 
     class Meta:
         verbose_name = "Родственник"
