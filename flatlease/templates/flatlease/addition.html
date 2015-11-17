@@ -3,64 +3,140 @@
 {% block meta %}
 {% endblock meta %}
 {% block menu_name %}
-    Редактирование пользователей
+    Создание/редактирование профиля
 {% endblock menu_name %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="card col m12">
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s2"><a href="#person-info">Анкета</a></li>
+{#                <li class="tab col s2"><a href="#photo">Фото</a></li>#}
+                <li class="tab col s2"><a href="#relatives">Родственники</a></li>
+                <li class="tab col s2"><a href="#docs">Документы</a></li>
+                <li class="tab col s2"><a href="#property">Недвижимость</a></li>
+                <li class="tab col s2"><a href="#payments">Платежи</a></li>
+            </ul>
+        </div>
+        <!-- Анкета -->
+        <form>
+            <div class="col s12 card" id="person-info">
                 <div class="card-content">
-                    <span class="card-title">
+                    <div class="card-title">
                         Личные данные
-                    </span>
-                    <form action="{% url 'addition' %}" enctype="multipart/form-data" method="POST" role="form">
-                        <div class="col m12">
-                        <br>
-                            {% csrf_token %}
-                            {% for field in add_client_form %}
-                                <div class="fieldWrapper input-field">
-                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field }}
-                                    {{ field.errors }}
+                    </div>
+                    <div class="row">
+                        <div class="col l6 s12">
+                            <div class="input-field">
+                                {{ add_client_form.last_name }}
+                                <label for="last_name">Фамилия</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.name }}
+                                <label for="name">Имя</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.second_name }}
+                                <label for="second_name">Отчество</label>
+                            </div>
+                            <div class="input-field">
+                                <label for="birthday">Дата рождения</label>
+                                {{ add_client_form.birthday }}
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.residence }}
+                                <label for="residence">Адрес проживания</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.phone }}
+                                <label for="phone">Номер телефона</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.email }}
+                                <label for="email">E-mail</label>
+                            </div>
+                            <div class="file-field input-field">
+                                <div class="btn">
+                                    <span>Фото</span>
+                                    {{ add_client_form.photo }}
                                 </div>
-                            {% endfor %}
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Загрузите личное фото клиента">
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                        <div class="col l6 s12">
+                            <div class="input-field">
+                                {{ add_client_form.workplace }}
+                                <label for="workplace">Место работы</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.work_position }}
+                                <label for="work_position">Должность</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.salary }}
+                                <label for="salary">Заработная плата</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.profit }}
+                                <label for="profit">Дополнительный заработок</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.monthly_payment }}
+                                <label for="month_payment">Ежемесячный платеж</label>
+                            </div>
+                            <div class="input-field">
+                                {{ add_client_form.health }}
+                                <label>Состояние здоровья</label>
+                            </div>
+                            <br>
+                            <div class="input-field">
+                                {{ add_client_form.comment }}
+                                <label for="comment">Дополнительный комментарий</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-action">
-                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                        Очистить
+                    <a class="btn white-text waves-effect waves-light" href="{% url 'addition' %}">Очистить</a>
+                    <button type="submit" class="btn right waves-effect waves-light">
+                        <a class="white-text" href="#relatives"><i class="material-icons right">send</i>Сохранить и продолжить</a>
                     </button>
-                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
-                        Сохранить
-                    </button>
-                </div>
+                    </div>
             </div>
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                <form action="{% url 'addition' %}" role="form" method="post">
-                    <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">Информация об объекте недвижимости</h2>
-                    </div>
-                    <div class="mdl-card__subtitle-text">
-                        {% csrf_token %}
-                        {% for field in add_property_form %}
-                            <div class="fieldWrapper mdl-textfield mdl-js-textfield">
-                                {{ field.errors }}
-                                <label class="mdl-textfield__label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="reset">
-                            Очистить
-                        </button>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
-                            Сохранить
-                        </a>
-                    </div>
-                </form>
-            </div>
+{#            <div class="col s12 card" id="photo">#}
+{#                <div class="card-content">#}
+{##}
+{#                </div>#}
+{#                <div class="card-action">#}
+{##}
+{#                </div>#}
+{#            </div>#}
+        </form>
+        <!-- end -->
+
+        <!-- Родственники -->
+        <div class="col s12 card" id="relatives">
+
         </div>
+        <!-- end -->
+
+        <!-- Документы -->
+        <div class="col s12 card" id="docs">
+
+        </div>
+        <!-- end -->
+
+        <!-- Недвижимость -->
+        <div class="col s12 card" id="property">
+
+        </div>
+        <!-- end -->
+
+        <!-- Платежи -->
+        <div class="col s12 card" id="payments">
+
+        </div>
+        <!-- end -->
     </div>
 {% endblock body %}

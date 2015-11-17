@@ -6,9 +6,9 @@ from django.contrib.auth.models import User, Group
 
 health_type_dict = (
     ('healthy', 'Здоров'),
-    ('sick', 'Болен'),
-    ('addict', 'Наркодиспансер'),
-    ('psycho', 'Психодиспансер'),
+    ('sick', 'Серьезные проблемы со здоровьем'),
+    ('addict', 'На учете в наркодиспансере'),
+    ('psycho', 'На учете в психдиспансере'),
 )
 pay_type_dict = (
     ('cash', 'Наличные'),
@@ -65,7 +65,7 @@ class Person(models.Model):
 class Client(Person):
     manager = models.ForeignKey(User, limit_choices_to=managers, verbose_name="Менеджер")
     email = models.EmailField("EMail", blank=True)
-    health = models.CharField("Состояние здоровья", max_length=20, choices=health_type_dict, default=health_type_dict[0][0])
+    health = models.CharField("Состояние здоровья", max_length=50, choices=health_type_dict, default=health_type_dict[0][0])
     workplace = models.CharField("Место работы", max_length=50, blank=True)
     work_position = models.CharField("Должность", max_length=50, blank=True)
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2, default=0)

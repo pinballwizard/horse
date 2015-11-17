@@ -20,47 +20,61 @@ class ClientAddForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'name',
+                'class': 'validate',
                 'required': True,
                 'pattern': ".*",
             }),
             'last_name': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'last_name',
+                'class': 'validate',
                 'required': True,
             }),
             'second_name': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'second_name',
             }),
             'birthday': forms.DateInput(attrs={
+                'id': 'birthday',
                 'class': 'datepicker',
+                'placeholder': 'дд.мм.гггг',
             }),
             'residence': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'residence',
             }),
             'phone': forms.TextInput(attrs={
                 'type': 'tel',
-                'class': 'input-field',
+                'id': 'phone',
                 'required': True,
             }),
             'email': forms.EmailInput(attrs={
                 'type': 'email',
-                'class': 'input-field',
+                'id': 'email',
             }),
             'photo': forms.FileInput(attrs={
-                'class': 'file-field input-field',
+                'type': 'file',
             }),
             'health': forms.Select(attrs={
                 'class': '',
+                'multiple': True,
             }),
             'workplace': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'workplace',
             }),
             'work_position': forms.TextInput(attrs={
-                'class': 'input-field',
+                'id': 'work_position',
+            }),
+            'salary': forms.TextInput( attrs={
+               'id': 'salary',
+            }),
+            'profit': forms.TextInput( attrs={
+               'id': 'profit',
+            }),
+            'monthly_payment': forms.TextInput( attrs={
+               'id': 'month_payment',
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'materialize-textarea',
-                'rows': 4,
+                'rows': 3,
             }),
         }
 
@@ -116,9 +130,9 @@ class SearchForm(forms.Form):
     search = forms.CharField(max_length=50)
     search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search', 'required': 'true'})
     debtor = forms.BooleanField(required=False)
-    debtor.widget = forms.CheckboxInput()
+    debtor.widget = forms.CheckboxInput(attrs={'id': 'debtor', 'type': 'checkbox'})
     my_clients = forms.BooleanField(required=False)
-    my_clients.widget = forms.CheckboxInput()
+    my_clients.widget = forms.CheckboxInput(attrs={'id': 'myclients', 'type': 'checkbox'})
 
 
 class LoginForm(AuthenticationForm):

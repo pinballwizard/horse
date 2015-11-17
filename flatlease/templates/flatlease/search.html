@@ -8,24 +8,45 @@
 {% block body %}
 <div class="container">
     <div class="row">
-        <div class="col l4 m6 s12">
+{#        <div class="col s12">#}
             <form action="{% url 'search' %}" role="form" method="get">
-{#                <div class="input-field">#}
+                <div class="col l4 m4 s10">
                     {{ form.search }}
-{#                </div>#}
-                {{ form.non_field_errors }}
-                <button class="btn-flat waves-effect waves-light right black-text tooltipped" data-tooltip="Искать" type="submit">
-                    <i class="material-icons">search</i>
-                </button>
-                {{ form.debtor }}
-                {{ form.my_clients }}
-                {{ form.view }}
+                    {{ form.non_field_errors }}
+                </div>
+                <div class="col l1 m1 s2">
+                    <button class="btn-floating btn-large waves-effect waves-light right black-text tooltipped" data-tooltip="Искать" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                <div class="col offset-l1 l2 m2 s12">
+                    <p>
+                        {{ form.debtor }}
+                        <label for="debtor">Должники</label>
+                    </p>
+                </div>
+                <div class="col l3 m3 s12">
+                    <p>
+                        {{ form.my_clients }}
+                        <label for="myclients">Мои клиенты</label>
+                    </p>
+
+                    {{ form.view }}
+                </div>
             </form>
-        </div>
+{#            </div>#}
     </div>
     <div class="row">
         {% for client in clients %}
-            <div class="card col s12 m6 l4">
+            <div class="card col s12 m4 l4">
+            <!-- Задолженности
+                <a class="tooltipped warning yellow-text text-darken-3" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
+                    <i class="material-icons small">warning</i>
+                </a>
+                <a class="tooltipped error red-text text-darken-1" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                    <i class="material-icons small">error</i>
+                </a>
+            -->
                 <div class="card-content">
                     <h3 class="card-title center">{{ client.last_name }}<br>{{ client.name }} {{ client.second_name }}</h3>
                     <p>
