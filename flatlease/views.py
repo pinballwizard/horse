@@ -139,7 +139,6 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-
                 return redirect('calculator')
     return render(request, 'flatlease/login.html', data)
 
@@ -218,6 +217,7 @@ def search(request):
         'property': FixedProperty.objects.all(),
         'form': SearchForm(),
     }
+    logger.debug("user use search")
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
