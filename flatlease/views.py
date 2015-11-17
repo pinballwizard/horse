@@ -153,7 +153,6 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-
                 return redirect('calculator')
     return render(request, 'flatlease/login.html', data)
 
@@ -184,8 +183,6 @@ def client_page(request, client_id):
         'documents': client_obj.document_set.all(),
         'fixed_property': client_obj.fixedproperty_set.all(),
         'relatives': client_obj.relative_set.all(),
-        # 'passport': client_obj.passport,
-        # 'spouse': client_obj.spouse,
         'transaction_form': TransactionAddForm(),
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),
@@ -234,6 +231,7 @@ def search(request):
         'property': FixedProperty.objects.all(),
         'form': SearchForm(),
     }
+    logger.debug("user use search")
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
