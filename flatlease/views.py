@@ -127,12 +127,12 @@ class DocumentAddForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    search = forms.CharField(max_length=50)
-    search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search', 'required': 'true'})
+    search = forms.CharField(max_length=50, required=False)
+    search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search'})
     debtor = forms.BooleanField(required=False)
-    debtor.widget = forms.CheckboxInput(attrs={'id': 'debtor', 'type': 'checkbox'})
+    debtor.widget = forms.CheckboxInput(attrs={'id': 'debtor'})
     my_clients = forms.BooleanField(required=False)
-    my_clients.widget = forms.CheckboxInput(attrs={'id': 'myclients', 'type': 'checkbox'})
+    my_clients.widget = forms.CheckboxInput(attrs={'id': 'myclients'})
 
 
 class LoginForm(AuthenticationForm):
@@ -241,13 +241,13 @@ def search(request):
             q3 = Client.objects.filter(phone__icontains=search_str)
             queryset = q1 | q2 | q3
             if form.cleaned_data['debtor']:
+                print(queryset[0].debt())
+                # queryset = queryset.filter(debt=False)
                 for item in queryset:
                     if not item.debt():
-                        queryset.exclude(id=item.id)
+                        queryset = queryset.exclude(id=item.id)
             if form.cleaned_data['my_clients']:
-                for item in queryset:
-                    if not item.manager == request.user.is_authenticated():
-                        queryset.exclude(id=item.id)
+                queryset = queryset.filter(manager=request.user)
             data['clients'] = queryset
             data['form'] = form
     return render(request, 'flatlease/search.html', data)
