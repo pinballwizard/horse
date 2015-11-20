@@ -20,13 +20,17 @@ footer{
 @media only screen and (min-width: 993px){
     .row .col.l4,
     .row .col.m4 {
-        width: 33%;
+        width: 32%;
         margin-left: 5px;   }
 }
 
+.potential,
 .warning,
-.error{
+.debtor{
     position: absolute;
     top: 5px;
     left: 87%;
+}
+.search-btn{
+    margin-top: 10px;
 }

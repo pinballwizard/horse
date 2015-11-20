@@ -15,7 +15,7 @@
                     {{ form.non_field_errors }}
                 </div>
                 <div class="col l1 m1 s2">
-                    <button class="btn-floating btn-large waves-effect waves-light right black-text tooltipped" data-tooltip="Искать" type="submit">
+                    <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn" data-tooltip="Искать" type="submit">
                         <i class="material-icons">search</i>
                     </button>
                 </div>
@@ -38,15 +38,17 @@
     </div>
     <div class="row">
         {% for client in clients %}
-            <div class="card col s12 m4 l4">
-            <!-- Задолженности
+            <div class="card col s12 m6 l4">
+            <!-- Задолженности и потенциальность-->
+                <a class="tooltipped potential green-text text-darken-1" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
+                    <i class="material-icons small">help_outline</i>
+                </a>
                 <a class="tooltipped warning yellow-text text-darken-3" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
                     <i class="material-icons small">warning</i>
                 </a>
-                <a class="tooltipped error red-text text-darken-1" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                <a class="tooltipped debtor red-text text-darken-1" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
                     <i class="material-icons small">error</i>
                 </a>
-            -->
                 <div class="card-content">
                     <h3 class="card-title center">{{ client.last_name }}<br>{{ client.name }} {{ client.second_name }}</h3>
                     <p>
@@ -54,13 +56,17 @@
                         День рождения: {{ client.birthday }} <br>
                         Адрес: {{ client.residence }} <br>
                         Телефон: {{ client.phone }} <br>
-                        Депозит: {{ client.balance }} <br>
+                        Депозит: {{ client.balance }}
+
                     </p>
                 </div>
                 <div class="card-action">
                     <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>
-                    <a class="tooltipped right" data-position="bottom" data-delay="50" data-tooltip="Редактировать" href="{% url 'update_id' client.id %}">
-                        <i class="material-icons edit" id="edit_{{ client.id }}">mode_edit</i>
+                    <a class="tooltipped green-text right" data-position="bottom" data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+                        <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
+                    </a>
+                    <a class="tooltipped right" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update_id' client.id %}">
+                        <i class="material-icons" id="edit_{{ client.id }}">mode_edit</i>
                     </a>
                 </div>
             </div>
