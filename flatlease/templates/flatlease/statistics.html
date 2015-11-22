@@ -6,35 +6,44 @@
     Статистика
 {% endblock menu_name %}
 {% block body %}
-    <main class="mdl-layout__content">
-        <div class="page-content">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--12-col">
-                    <h4>Всего клиентов: {{ clients_count }}</h4>
-                    {% load chart_tags %}
-                    {% chart %}
-{#                        chxr=0,0,160#}
-{#                        chxt=y#}
-{#                        chbh=a#}
-                        chs=440x220
-                        cht=p
-                        chco=4D89F9
-{#                        chds=0,160#}
-                        chd=t:{{ balance|join:',' }}
-                        chtt=Депозит
-                    {% endchart %}
-                </div>
-                <div class="mdl-cell mdl-cell--12-col">
-                    <h4>Полный баланс: {{ transaction_sum }}</h4>
-                    {% for transaction in last_transactions %}
-                        <span>{{ transaction.pub_date }}</span>
-                        <span>{{ transaction.count }}</span>
-                        <span>{{ transaction.type }}</span>
-                        <span>{{ transaction.owner }}</span>
-                        <br>
-                    {% endfor %}
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3"><a href="#tab1">tab1</a></li>
+                <li class="tab col s3"><a href="#tab2">tab2</a></li>
+                <li class="tab col s3"><a href="#tab3">tab3</a></li>
+                <li class="tab col s3"><a href="#tab4">tab4</a></li>
+                <li class="tab col s3"><a href="#tab5">tab5</a></li>
+            </ul>
+            <div class="container" id="tab1">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h4>Всего клиентов: {{ clients_count }}</h4>
+                        {% load chart_tags %}
+                        {% chart %}
+                            {#                        chxr=0,0,160#}
+                            {#                        chxt=y#}
+                            {#                        chbh=a#}
+                            chs=440x220
+                            cht=p
+                            chco=4D89F9
+                            {#                        chds=0,160#}
+                            chd=t:{{ balance|join:',' }}
+                            chtt=Депозит
+                        {% endchart %}
+                    </div>
+                    <div class="col l6 s12">
+                        <h4>Полный баланс: {{ transaction_sum }}</h4>
+                        {% for transaction in last_transactions %}
+                            <span>{{ transaction.pub_date }}</span>
+                            <span>{{ transaction.count }}</span>
+                            <span>{{ transaction.type }}</span>
+                            <span>{{ transaction.owner }}</span>
+                            <br>
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 {% endblock body %}

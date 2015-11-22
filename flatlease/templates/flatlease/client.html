@@ -8,37 +8,41 @@
 {% block body %}
     <div class="row">
         <div class="col s12">
-        <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 40px;">
-            <a class="btn-floating btn-large red lighten-1">
-                <i class="material-icons">add</i>
-            </a>
-            <ul>
-                <li>
-                    <a class="btn-floating red accent-1 tooltipped modal-trigger"
-                       data-position="top" data-delay="50" data-tooltip="Добавить родственника" href="#relatives-modal">
-                        <i class="material-icons">supervisor_account</i>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-floating red lighten-3 tooltipped modal-trigger"
-                       data-position="top" data-delay="50" data-tooltip="Добавить документ" href="#docs-modal">
-                    <i class="material-icons">description</i>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-floating red lighten-2 tooltipped modal-trigger"
-                       data-position="top" data-delay="50" data-tooltip="Добавить недвижимость" href="#property-modal">
-                        <i class="material-icons">domain</i>
-                    </a>
-                </li>
-                <li>
-                    <a class="btn-floating red accent-2 tooltipped modal-trigger"
-                       data-position="top" data-delay="50" data-tooltip="Добавить платеж" href="#payment-modal">
-                        <i class="material-icons">attach_money</i>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+        <!-- Фиксированная кнопка добавления всего -->
+            <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 40px;">
+                <a class="btn-floating btn-large red lighten-1">
+                    <i class="material-icons">add</i>
+                </a>
+                <ul>
+                    <li>
+                        <a class="btn-floating red accent-1 tooltipped modal-trigger"
+                           data-position="top" data-delay="50" data-tooltip="Добавить родственника" href="#relatives-modal">
+                            <i class="material-icons">supervisor_account</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating red lighten-3 tooltipped modal-trigger"
+                           data-position="top" data-delay="50" data-tooltip="Добавить документ" href="#docs-modal">
+                            <i class="material-icons">description</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating red lighten-2 tooltipped modal-trigger"
+                           data-position="top" data-delay="50" data-tooltip="Добавить недвижимость" href="#property-modal">
+                            <i class="material-icons">domain</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating red accent-2 tooltipped modal-trigger"
+                           data-position="top" data-delay="50" data-tooltip="Добавить платеж" href="#payment-modal">
+                            <i class="material-icons">attach_money</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        <!-- Вкладки -->
             <ul class="tabs">
                 <li class="tab col s3"><a href="#person-info">Анкета</a></li>
                 <li class="tab col s3"><a href="#relatives">Родственники</a></li>
@@ -46,7 +50,8 @@
                 <li class="tab col s3"><a href="#property">Недвижимость</a></li>
                 <li class="tab col s3"><a href="#payments">Платежи</a></li>
             </ul>
-        <!-- Начало анкеты -->
+
+            <!-- Начало анкеты -->
             <div class="col s12" id="person-info">
                 <div class="card">
                     <div class="card-content">
@@ -59,44 +64,44 @@
                             </div>
                             <table class="col l8 m9 s12">
                                 <thead>
-                                    <tr>
-                                        <th>Дата регистрации</th>
-                                        <th>{{ client.pub_date }}</th>
-                                    </tr>
+                                <tr>
+                                    <th>Дата регистрации</th>
+                                    <th>{{ client.pub_date }}</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>День рождения</td>
-                                        <td>{{ client.birthday }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Адрес</td>
-                                        <td>{{ client.residence }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Телефон</td>
-                                        <td>{{ client.phone }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>{{ client.email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Баланс</td>
-                                        <td>{{ client.balance }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Должник</td>
-                                        <td>{{ client.debt }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Наличие договора</td>
-                                        <td>{{ client.future }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Паспорт</td>
-                                        <td>{{ client.passport.number }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>День рождения</td>
+                                    <td>{{ client.birthday }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Адрес</td>
+                                    <td>{{ client.residence }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Телефон</td>
+                                    <td>{{ client.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ client.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Баланс</td>
+                                    <td>{{ client.balance }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Должник</td>
+                                    <td>{{ client.debt }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Наличие договора</td>
+                                    <td>{{ client.future }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Паспорт</td>
+                                    <td>{{ client.passport.number }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -107,21 +112,21 @@
                     </div>
                 </div>
             </div>
-        <!-- Конец анкеты -->
+            <!-- Конец анкеты -->
 
-        <!-- Начало родственников -->
-        <div class="col s12" id="relatives">
-            <div class="container">
-                <div class="row">
-                    <div class="card col l4 m4 s12">
-                        
+            <!-- Начало родственников -->
+            <div class="col s12" id="relatives">
+                <div class="container">
+                    <div class="row">
+                        <div class="card col l4 m4 s12">
+
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Конец родственников -->
+            <!-- Конец родственников -->
 
-        <!-- Начало док-тов -->
+            <!-- Начало док-тов -->
             <div class="col s12" id="docs">
                 <div class="container">
                     <table class="col s12 highlight">
@@ -133,96 +138,96 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for document in documents %}
-                                <tr>
-                                    <td>{{ document.type }}</td>
-                                    <td>{{ document.pub_date }}</td>
-                                    <td><a href="{{ document.document.url }}"><i class="material-icons">file_download</i></a></td>
-                                </tr>
-                            {% endfor %}
+                        {% for document in documents %}
+                            <tr>
+                                <td>{{ document.type }}</td>
+                                <td>{{ document.pub_date }}</td>
+                                <td><a href="{{ document.document.url }}"><i class="material-icons">file_download</i></a></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
-{#                    <div class="mdl-cell mdl-cell--4-col">#}
-{#                        <div class="mdl-card mdl-color--white mdl-shadow--2dp">#}
-{#                            <div class="mdl-card__title">#}
-{#                                <h1 class="mdl-card__title-text">#}
-{#                                    Новый документ#}
-{#                                </h1>#}
-{#                            </div>#}
-{#                            <div class="mdl-card__supporting-text">#}
-{#                                <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
-{#                                    {% csrf_token %}#}
-{#                                    {{ document_form.as_p }}#}
-{#                                </form>#}
-{#                            </div>#}
-{#                            <div class="mdl-card__actions mdl-card--border">#}
-{#                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"#}
-{#                                   href="">Сохранить</a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
+                    {#                    <div class="mdl-cell mdl-cell--4-col">#}
+                    {#                        <div class="mdl-card mdl-color--white mdl-shadow--2dp">#}
+                    {#                            <div class="mdl-card__title">#}
+                    {#                                <h1 class="mdl-card__title-text">#}
+                    {#                                    Новый документ#}
+                    {#                                </h1>#}
+                    {#                            </div>#}
+                    {#                            <div class="mdl-card__supporting-text">#}
+                    {#                                <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
+                    {#                                    {% csrf_token %}#}
+                    {#                                    {{ document_form.as_p }}#}
+                    {#                                </form>#}
+                    {#                            </div>#}
+                    {#                            <div class="mdl-card__actions mdl-card--border">#}
+                    {#                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"#}
+                    {#                                   href="">Сохранить</a>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
                 </div>
             </div>
-        <!-- Конец док-тов -->
+            <!-- Конец док-тов -->
 
-        <!-- Начало недвижимости -->
+            <!-- Начало недвижимости -->
             <div class="col s12" id="property">
                 <div class="container">
                     <div class="row">
                         <table class="col s12 highlight">
                             <thead>
-                                <tr>
-                                    <th>Адрес</th>
-                                    <th>Стоимость</th>
-                                </tr>
+                            <tr>
+                                <th>Адрес</th>
+                                <th>Стоимость</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for item in fixed_property %}
-                                    <tr>
-                                        <td>{{ item.location }}</td>
-                                        <td>{{ item.cost }}</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for item in fixed_property %}
+                                <tr>
+                                    <td>{{ item.location }}</td>
+                                    <td>{{ item.cost }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
-{#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
-{#                            {% csrf_token %}#}
-{#                            {{ property_form.as_p }}#}
-{#                            <button type="submit">Сохранить</button>#}
-{#                        </form>#}
+                        {#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
+                        {#                            {% csrf_token %}#}
+                        {#                            {{ property_form.as_p }}#}
+                        {#                            <button type="submit">Сохранить</button>#}
+                        {#                        </form>#}
                     </div>
                 </div>
             </div>
-        <!-- Конец недвижимости -->
+            <!-- Конец недвижимости -->
 
-        <!-- Начало платежей -->
+            <!-- Начало платежей -->
             <div class="col s12" id="payments">
                 <div class="container">
                     <div class="row">
                         <table class="col s12 highlight">
                             <thead>
-                                <tr>
-                                    <th>Номер</th>
-                                    <th>Дата</th>
-                                    <th>Сумма</th>
-                                    <th>Тип</th>
-                                </tr>
+                            <tr>
+                                <th>Номер</th>
+                                <th>Дата</th>
+                                <th>Сумма</th>
+                                <th>Тип</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                {% for transaction in transactions %}
-                                    <tr>
-                                        <td>{{ transaction.id }}</td>
-                                        <td>{{ transaction.pub_date }}</td>
-                                        <td>{{ transaction.count }}</td>
-                                        <td>{{ transaction.type }}</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for transaction in transactions %}
+                                <tr>
+                                    <td>{{ transaction.id }}</td>
+                                    <td>{{ transaction.pub_date }}</td>
+                                    <td>{{ transaction.count }}</td>
+                                    <td>{{ transaction.type }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-        <!-- Конец платежей -->
+            <!-- Конец платежей -->
         </div>
 
         <!-- Модальное окно платежа -->
