@@ -86,76 +86,76 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'horse.wsgi.application'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'handlers': {
-        # 'file': {
-        #     'level': 'DEBUG',
-        #     'class': 'logging.handlers.TimedRotatingFileHandler',
-        #     'when': 'd',
-        #     # 'interval': '1',
-        #     'encoding': 'UTF8',
-        #     'formatter': 'simple',
-        #     'filename': '/var/log/horse/debug.log',
-        # },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'encoding': 'UTF8',
-            'formatter': 'verbose',
-            'filename': '/var/log/horse/debug.log',
-        },
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        }
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'file'],
-            'propagate': True,
-            'level': 'INFO',
-        },
-        'django.request': {
-            'handlers': ['mail_admins', 'console', 'file'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'flatlease': {
-            'handlers': ['console', 'file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.db.backends': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': False,
-        },
-        'django.security.DisallowedHost': {
-            'handlers': ['mail_admins'],
-            'propagate': False,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+#         },
+#         'simple': {
+#             'format': '%(levelname)s %(message)s'
+#         },
+#     },
+#     'handlers': {
+#         # 'file': {
+#         #     'level': 'DEBUG',
+#         #     'class': 'logging.handlers.TimedRotatingFileHandler',
+#         #     'when': 'd',
+#         #     # 'interval': '1',
+#         #     'encoding': 'UTF8',
+#         #     'formatter': 'simple',
+#         #     'filename': '/var/log/horse/debug.log',
+#         # },
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'encoding': 'UTF8',
+#             'formatter': 'verbose',
+#             'filename': '/var/log/horse/debug.log',
+#         },
+#         'null': {
+#             'level': 'DEBUG',
+#             'class': 'logging.NullHandler',
+#         },
+#         'console': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'simple'
+#         },
+#         'mail_admins': {
+#             'level': 'ERROR',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'include_html': True,
+#         }
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'file'],
+#             'propagate': True,
+#             'level': 'INFO',
+#         },
+#         'django.request': {
+#             'handlers': ['mail_admins', 'console', 'file'],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#         'flatlease': {
+#             'handlers': ['console', 'file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.db.backends': {
+#             'handlers': ['mail_admins'],
+#             'level': 'ERROR',
+#             'propagate': False,
+#         },
+#         'django.security.DisallowedHost': {
+#             'handlers': ['mail_admins'],
+#             'propagate': False,
+#         },
+#     },
+# }
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases

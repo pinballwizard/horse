@@ -188,15 +188,30 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-{#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
-{#                            {% csrf_token %}#}
-{#                            {{ transaction_form.as_p }}#}
-{#                            <button type="submit">Сохранить</button>#}
-{#                        </form>#}
                     </div>
                 </div>
             </div>
         <!-- Конец платежей -->
+        </div>
+        <!-- Кнопка платежа -->
+        <a class="waves-effect waves-light btn modal-trigger" href="#payment-modal">Платеж</a>
+        <div id="payment-modal" class="modal">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                <div class="modal-content">
+                    {% csrf_token %}
+                    {{ transaction_form.non_field_errors }}
+                    {% for field in transaction_form %}
+                        <div class="fieldWrapper">
+                            {{ field }}
+                            {{ field.lable_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
         </div>
     </div>
 {% endblock body %}

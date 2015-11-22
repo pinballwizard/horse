@@ -9,14 +9,17 @@ from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
+
 class ClientAddForm(forms.ModelForm):
+    # id = forms.HiddenField()
     class Meta:
         model = Client
-        fields = ['last_name', 'name', 'second_name', 'birthday', 'residence',
+        fields = ['id', 'last_name', 'name', 'second_name', 'birthday', 'residence',
                   'phone', 'email', 'photo', 'health', 'workplace', 'work_position',
                   'salary', 'profit', 'monthly_payment', 'comment']
         labels = {
             'photo': '',
+            'health': '',
         }
         widgets = {
             'name': forms.TextInput(attrs={
@@ -54,8 +57,8 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'file',
             }),
             'health': forms.Select(attrs={
-                'class': '',
-                'multiple': True,
+                'class': 'browser-default',
+                # 'multiple': True,
             }),
             'workplace': forms.TextInput(attrs={
                 'id': 'workplace',
@@ -208,17 +211,21 @@ def client_page(request, client_id):
 
 @login_required
 def addition(request, client_id=None):
-    data = {
-        'add_client_form': ClientAddForm(),
-        'add_property_form': PropertyAddForm(),
-    }
     if client_id is not None:
         client = Client.objects.get(pk=client_id)
-        data['add_client_form'] = ClientAddForm(instance=client)
+    else:
+        client = None
+    data = {
+        'client_id': client_id,
+        'add_client_form': ClientAddForm(instance=client),
+        'add_property_form': PropertyAddForm(),
+    }
+
     if request.method == 'POST':
-        client_form = ClientAddForm(request.POST, request.FILES)
+        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
         if client_form.is_valid():
             client_form.save()
+            return redirect('client_page', client_id)
         else:
             data['add_client_form'] = client_form
     return render(request, 'flatlease/addition.html', data)

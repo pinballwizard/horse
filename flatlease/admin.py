@@ -72,15 +72,6 @@ class ClientAdmin(admin.ModelAdmin):
     date_hierarchy = 'pub_date'
     search_fields = ['last_name', 'name', 'phone']
     readonly_fields = ('id','pub_date','monthly_payment','balance','debt')
-    # fields = (
-    #     ('pub_date', 'monthly_payment', 'balance', 'debt'),
-    #     ('last_name', 'name', 'second_name'),
-    #     'birthday',
-    #     'residence',
-    #     ('phone', 'email'),
-    #     ('photo', 'passport'),
-    #     'comment'
-    # )
     list_display = ('last_name', 'name', 'second_name', 'birthday', 'residence', 'phone', 'balance', 'pub_date')
     inlines = [
         TransactionInLine,
