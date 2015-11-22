@@ -106,9 +106,9 @@ class TransactionAddForm(forms.ModelForm):
         model = Transaction
         fields = ['type', 'count']
         widgets = {
-            # 'type': forms.Select(attrs={
-            #     'required': True,
-            # }),
+            'type': forms.RadioSelect(attrs={
+                'required': True,
+            }),
             # 'count': forms.DecimalField(attrs={
             #     'required': True,
             # }),
@@ -132,10 +132,12 @@ class DocumentAddForm(forms.ModelForm):
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50, required=False)
     search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search'})
-    debtor = forms.BooleanField(required=False)
-    debtor.widget = forms.CheckboxInput(attrs={'id': 'debtor'})
-    my_clients = forms.BooleanField(required=False)
-    my_clients.widget = forms.CheckboxInput(attrs={'id': 'myclients'})
+    debtor = forms.BooleanField(required=False, label_suffix='', label="Должники")
+    debtor.widget = forms.CheckboxInput()
+    my_clients = forms.BooleanField(required=False, label_suffix='', label="Мои клиенты")
+    my_clients.widget = forms.CheckboxInput()
+    potential = forms.BooleanField(required=False, label_suffix='', label="Потенциальные")
+    potential.widget = forms.CheckboxInput()
 
 
 class LoginForm(AuthenticationForm):
@@ -162,7 +164,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    return render(request, 'flatlease/login.html')
+    return redirect('login')
 
 
 def calculator(request):
@@ -215,6 +217,7 @@ def addition(request, client_id=None):
         client = Client.objects.get(pk=client_id)
     else:
         client = None
+
     data = {
         'client_id': client_id,
         'add_client_form': ClientAddForm(instance=client),

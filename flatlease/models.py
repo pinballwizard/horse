@@ -12,8 +12,7 @@ health_type_dict = (
 )
 pay_type_dict = (
     ('cash', 'Наличные'),
-    ('transfer', 'Перевод'),
-    ('card', 'Банковская карта'),
+    ('cashless', 'Безналичный'),
     ('inside', 'Внутренний перевод'),
 )
 doc_type_dict = (
