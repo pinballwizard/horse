@@ -8,6 +8,37 @@
 {% block body %}
     <div class="row">
         <div class="col s12">
+        <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 40px;">
+            <a class="btn-floating btn-large red lighten-1">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li>
+                    <a class="btn-floating red accent-1 tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить родственника" href="#relatives-modal">
+                        <i class="material-icons">supervisor_account</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating red lighten-3 tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить документ" href="#docs-modal">
+                    <i class="material-icons">description</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating red lighten-2 tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить недвижимость" href="#property-modal">
+                        <i class="material-icons">domain</i>
+                    </a>
+                </li>
+                <li>
+                    <a class="btn-floating red accent-2 tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить платеж" href="#payment-modal">
+                        <i class="material-icons">attach_money</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
             <ul class="tabs">
                 <li class="tab col s3"><a href="#person-info">Анкета</a></li>
                 <li class="tab col s3"><a href="#relatives">Родственники</a></li>
@@ -193,11 +224,12 @@
             </div>
         <!-- Конец платежей -->
         </div>
-        <!-- Кнопка платежа -->
-        <a class="waves-effect waves-light btn modal-trigger" href="#payment-modal">Платеж</a>
+
+        <!-- Модальное окно платежа -->
         <div id="payment-modal" class="modal">
             <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
+                    <h5 class="center">Добавление платежа</h5>
                     {% csrf_token %}
                     {{ transaction_form.non_field_errors }}
                     {% for field in transaction_form %}
@@ -207,6 +239,42 @@
                             {{ field.errors }}
                         </div>
                     {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Модальное окно недвижимости -->
+        <div id="property-modal" class="modal">
+            <form>
+                <div class="modal-content">
+                    <h5></h5>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Модальное окно документов -->
+        <div id="docs-modal" class="modal">
+            <form>
+                <div class="modal-content">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Модальное окно родственников -->
+        <div id="relatives-modal" class="modal">
+            <form>
+                <div class="modal-content">
+
                 </div>
                 <div class="modal-footer">
                     <button type="submit">Сохранить</button>
