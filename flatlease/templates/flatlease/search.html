@@ -42,15 +42,21 @@
                     <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                 </a>
             <!-- Задолженности и потенциальность-->
-                <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
-                    <i class="material-icons small">help_outline</i>
-                </a>
-                <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
-                    <i class="material-icons small">warning</i>
-                </a>
-                <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
-                    <i class="material-icons small">error</i>
-                </a>
+                {% if client.is_potential %}
+                    <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
+                        <i class="material-icons small">help_outline</i>
+                    </a>
+                {% endif %}
+                {% if client.debt %}
+                    <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
+                        <i class="material-icons small">warning</i>
+                    </a>
+                {% endif %}
+                {% if client.debt %}
+                    <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                        <i class="material-icons small">error</i>
+                    </a>
+                {% endif %}
                 <div class="card-content">
                     <h3 class="card-title center">{{ client.last_name }}<br>{{ client.name }} {{ client.second_name }}</h3>
                     <p>
