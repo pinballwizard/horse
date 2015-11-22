@@ -5,12 +5,13 @@
 $( document ).ready(function(){
 
     $(".button-collapse").sideNav();
-
+    $('.modal-trigger').leanModal();
+    $('select').material_select();
 //  clean form
-    $(":reset").click(function(){
-        $("form").reset();
-        }
-    );
+//    $(":reset").click(function(){
+//        $("form").reset();
+//        }
+//    );
 
 //  calculator function
     $("#calculate").click(function(){
@@ -54,5 +55,5 @@ $( document ).ready(function(){
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 1000 // Creates a dropdown of number years to control year
     });
-    $('select').material_select();
+
 });

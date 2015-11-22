@@ -1,142 +1,1 @@
-{% extends "flatlease/template.html" %}
-{% load staticfiles %}
-{% block meta %}
-{% endblock meta %}
-{% block menu_name %}
-    Создание/редактирование профиля
-{% endblock menu_name %}
-{% block body %}
-    <div class="row">
-        <div class="col s12">
-            <ul class="tabs">
-                <li class="tab col s2"><a href="#person-info">Анкета</a></li>
-{#                <li class="tab col s2"><a href="#photo">Фото</a></li>#}
-                <li class="tab col s2"><a href="#relatives">Родственники</a></li>
-                <li class="tab col s2"><a href="#docs">Документы</a></li>
-                <li class="tab col s2"><a href="#property">Недвижимость</a></li>
-                <li class="tab col s2"><a href="#payments">Платежи</a></li>
-            </ul>
-        </div>
-        <!-- Анкета -->
-        <form>
-            <div class="col s12 card" id="person-info">
-                <div class="card-content">
-                    <div class="card-title">
-                        Личные данные
-                    </div>
-                    <div class="row">
-                        <div class="col l6 s12">
-                            <div class="input-field">
-                                {{ add_client_form.last_name }}
-                                <label for="last_name">Фамилия</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.name }}
-                                <label for="name">Имя</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.second_name }}
-                                <label for="second_name">Отчество</label>
-                            </div>
-                            <div class="input-field">
-                                <label for="birthday">Дата рождения</label>
-                                {{ add_client_form.birthday }}
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.residence }}
-                                <label for="residence">Адрес проживания</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.phone }}
-                                <label for="phone">Номер телефона</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.email }}
-                                <label for="email">E-mail</label>
-                            </div>
-                            <div class="file-field input-field">
-                                <div class="btn">
-                                    <span>Фото</span>
-                                    {{ add_client_form.photo }}
-                                </div>
-                                <div class="file-path-wrapper">
-                                    <input class="file-path validate" type="text" placeholder="Загрузите личное фото клиента">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col l6 s12">
-                            <div class="input-field">
-                                {{ add_client_form.workplace }}
-                                <label for="workplace">Место работы</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.work_position }}
-                                <label for="work_position">Должность</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.salary }}
-                                <label for="salary">Заработная плата</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.profit }}
-                                <label for="profit">Дополнительный заработок</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.monthly_payment }}
-                                <label for="month_payment">Ежемесячный платеж</label>
-                            </div>
-                            <div class="input-field">
-                                {{ add_client_form.health }}
-                                <label>Состояние здоровья</label>
-                            </div>
-                            <br>
-                            <div class="input-field">
-                                {{ add_client_form.comment }}
-                                <label for="comment">Дополнительный комментарий</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-action">
-                    <a class="btn white-text waves-effect waves-light" href="{% url 'addition' %}">Очистить</a>
-                    <button type="submit" class="btn right waves-effect waves-light">
-                        <a class="white-text" href="#relatives"><i class="material-icons right">send</i>Сохранить и продолжить</a>
-                    </button>
-                    </div>
-            </div>
-{#            <div class="col s12 card" id="photo">#}
-{#                <div class="card-content">#}
-{##}
-{#                </div>#}
-{#                <div class="card-action">#}
-{##}
-{#                </div>#}
-{#            </div>#}
-        </form>
-        <!-- end -->
-
-        <!-- Родственники -->
-        <div class="col s12 card" id="relatives">
-
-        </div>
-        <!-- end -->
-
-        <!-- Документы -->
-        <div class="col s12 card" id="docs">
-
-        </div>
-        <!-- end -->
-
-        <!-- Недвижимость -->
-        <div class="col s12 card" id="property">
-
-        </div>
-        <!-- end -->
-
-        <!-- Платежи -->
-        <div class="col s12 card" id="payments">
-
-        </div>
-        <!-- end -->
-    </div>
-{% endblock body %}
+{% extends "flatlease/template.html" %}{% load staticfiles %}{% block meta %}{% endblock meta %}{% block menu_name %}    {{ client.last_name }} {{ client.name }} {{ client.second_name }}{% endblock menu_name %}{% block body %}    <div class="row">        <form action="{% url 'update_id' client_id %}" role="form" method="post">            {% csrf_token %}            <div class="col s12 card" id="person-info">                <div class="card-content">                    <div class="card-title">                        Личные данные                    </div>                    <div class="row">                        <div class="col l6 s12">                            <div class="fieldWrapper input-field">                                {{ add_client_form.last_name }}                                {{ add_client_form.last_name.label_tag }}                                {{ add_client_form.last_name.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.name }}                                {{ add_client_form.name.label_tag }}                                {{ add_client_form.name.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.second_name }}                                {{ add_client_form.second_name.label_tag }}                                {{ add_client_form.second_name.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.birthday }}                                {{ add_client_form.birthday.label_tag }}                                {{ add_client_form.birthday.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.residence }}                                {{ add_client_form.residence.label_tag }}                                {{ add_client_form.residence.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.phone }}                                {{ add_client_form.phone.label_tag }}                                {{ add_client_form.phone.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.email }}                                {{ add_client_form.email.label_tag }}                                {{ add_client_form.email.errors }}                            </div>                            <div class="file-field input-field">                                <div class="btn">                                    <span>Фото</span>                                    {{ add_client_form.photo }}                                </div>                                <div class="file-path-wrapper">                                    <input class="file-path validate" type="text" placeholder="Загрузите личное фото клиента">                                </div>                            </div>                        </div>                        <div class="col l6 s12">                            <div class="fieldWrapper input-field">                                {{ add_client_form.workplace }}                                {{ add_client_form.workplace.label_tag }}                                {{ add_client_form.workplace.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.work_position }}                                {{ add_client_form.work_position.label_tag }}                                {{ add_client_form.work_position.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.salary }}                                {{ add_client_form.salary.label_tag }}                                {{ add_client_form.salary.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.profit }}                                {{ add_client_form.profit.label_tag }}                                {{ add_client_form.profit.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.monthly_payment }}                                {{ add_client_form.monthly_payment.label_tag }}                                {{ add_client_form.monthly_payment.errors }}                            </div>                            <div class="fieldWrapper input-field">                                {{ add_client_form.health }}                                {{ add_client_form.health.label_tag }}                                {{ add_client_form.health.errors }}                            </div>                            <br>                            <div class="fieldWrapper input-field">                                {{ add_client_form.comment }}                                {{ add_client_form.comment.label_tag }}                                {{ add_client_form.comment.errors }}                            </div>                        </div>                    </div>                </div>                <div class="card-action">                    <button type="reset" class="btn white-text waves-effect waves-light">Очистить</button>                    <button type="submit" class="btn right waves-effect waves-light">Сохранить</button>                </div>            </div>        </form>    </div>{% endblock body %}
