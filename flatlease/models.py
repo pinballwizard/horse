@@ -82,7 +82,7 @@ class Client(Person):
         return sum((transaction.count for transaction in self.transaction_set.all()))
     balance.short_description = 'Баланс'
 
-    def future(self):
+    def is_potential(self):
         """Определяет потецнциальный клиент или нет, проверяя наличие у него договора"""
         return not self.document_set.filter(type='contract')
     #Доделать условие
@@ -141,7 +141,7 @@ class Document(models.Model):
 class Passport(models.Model):
     owner = models.OneToOneField(Client, verbose_name="Клиент", primary_key=True)
     number = models.CharField("Серия и Номер", max_length=10)
-    data = models.DateField("Дата выдачи")
+    date = models.DateField("Дата выдачи")
     whom = models.TextField("Кем выдан", max_length=100)
     image = models.ImageField("Паспорт", upload_to=content_file_path)
     birthplace = models.CharField("Место рождения", max_length=100)

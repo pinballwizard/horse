@@ -28,7 +28,7 @@
                 <li>
                     <a class="btn-floating red lighten-2 tooltipped modal-trigger"
                        data-position="top" data-delay="50" data-tooltip="Добавить недвижимость" href="#property-modal">
-                        <i class="material-icons">domain</i>
+                        <i class="material-icons">home</i>
                     </a>
                 </li>
                 <li>
@@ -93,10 +93,6 @@
                                         <td>Наличие договора</td>
                                         <td>{{ client.future }}</td>
                                     </tr>
-                                    <tr>
-                                        <td>Паспорт</td>
-                                        <td>{{ client.passport.number }}</td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -104,6 +100,91 @@
                     <div class="card-action">
                         <a class="btn waves-effect waves-light white-text"
                            href="{% url 'update_id' client.id %}">Редактировать</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h1 class="card-title">
+                            Паспорт
+                        </h1>
+                        <div class="row">
+                            <div class="col l8 m9 s12">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>Паспорт номер</th>
+                                    <th>{{ client.passport.number }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Дата выдачи</td>
+                                    <td>{{ client.passport.date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Место рождения</td>
+                                    <td>{{ client.passport.birthplace }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Регистрация</td>
+                                    <td>{{ client.passport.registration }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <p>Выдан:</p>
+                            {{ client.passport.whom }}
+                            </div>
+                            <div class="col l4 m3 s12">
+                                <img src="{{ client.passport.image.url }}" width="100%" height="auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h1 class="card-title">
+                            Супруг(а)
+                        </h1>
+                        <div class="row">
+                            <table class="col l8 m9 s12">
+                                <thead>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>
+                                        {{ client.spouse.last_name }}
+                                        {{ client.spouse.name }}
+                                        {{ client.spouse.second_name }}
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Дата рождения</td>
+                                    <td>{{ client.spouse.birthdate }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Телефон</td>
+                                    <td>{{ client.spouse.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Адрес</td>
+                                    <td>{{ client.spouse.residence }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Место работы</td>
+                                    <td>{{ client.spouse.workplace }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Должность</td>
+                                    <td>{{ client.spouse.work_position }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Доход</td>
+                                    <td>{{ client.spouse.salary }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,25 +223,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-{#                    <div class="mdl-cell mdl-cell--4-col">#}
-{#                        <div class="mdl-card mdl-color--white mdl-shadow--2dp">#}
-{#                            <div class="mdl-card__title">#}
-{#                                <h1 class="mdl-card__title-text">#}
-{#                                    Новый документ#}
-{#                                </h1>#}
-{#                            </div>#}
-{#                            <div class="mdl-card__supporting-text">#}
-{#                                <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
-{#                                    {% csrf_token %}#}
-{#                                    {{ document_form.as_p }}#}
-{#                                </form>#}
-{#                            </div>#}
-{#                            <div class="mdl-card__actions mdl-card--border">#}
-{#                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"#}
-{#                                   href="">Сохранить</a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
                 </div>
             </div>
         <!-- Конец док-тов -->
@@ -185,11 +247,6 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-{#                        <form action="{% url 'client_page' client.id %}" role="form" method="post">#}
-{#                            {% csrf_token %}#}
-{#                            {{ property_form.as_p }}#}
-{#                            <button type="submit">Сохранить</button>#}
-{#                        </form>#}
                     </div>
                 </div>
             </div>
@@ -233,9 +290,9 @@
                     {% csrf_token %}
                     {{ transaction_form.non_field_errors }}
                     {% for field in transaction_form %}
-                        <div class="fieldWrapper">
+                        <div class="fieldWrapper input-field">
                             {{ field }}
-                            {{ field.lable_tag }}
+                            {{ field.label_tag }}
                             {{ field.errors }}
                         </div>
                     {% endfor %}
@@ -248,9 +305,18 @@
 
         <!-- Модальное окно недвижимости -->
         <div id="property-modal" class="modal">
-            <form>
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
-                    <h5></h5>
+                    <h5>Добавление недвижимости</h5>
+                    {% csrf_token %}
+                    {{ property_form.non_field_errors }}
+                    {% for field in property_form %}
+                        <div class="fieldWrapper input-field">
+                            {{ field }}
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="modal-footer">
                     <button type="submit">Сохранить</button>
@@ -260,9 +326,18 @@
 
         <!-- Модальное окно документов -->
         <div id="docs-modal" class="modal">
-            <form>
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
-
+                    <h5>Добавление документа</h5>
+                    {% csrf_token %}
+                    {{ document_form.non_field_errors }}
+                    {% for field in document_form %}
+                        <div class="fieldWrapper input-field">
+                            {{ field }}
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="modal-footer">
                     <button type="submit">Сохранить</button>
@@ -271,10 +346,19 @@
         </div>
 
         <!-- Модальное окно родственников -->
-        <div id="relatives-modal" class="modal">
-            <form>
+        <div id="relatives-modal" class="modal modal-fixed-footer">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
-
+                    <h5>Добавление родственника</h5>
+                    {% csrf_token %}
+                    {{ relative_form.non_field_errors }}
+                    {% for field in relative_form %}
+                        <div class="fieldWrapper input-field">
+                            {{ field }}
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="modal-footer">
                     <button type="submit">Сохранить</button>

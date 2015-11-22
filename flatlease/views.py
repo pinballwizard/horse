@@ -129,6 +129,45 @@ class DocumentAddForm(forms.ModelForm):
         }
 
 
+class RelativeAddForm(forms.ModelForm):
+    class Meta:
+        model = Relative
+        fields = ['relation', 'last_name', 'name', 'second_name', 'birthday',
+                  'residence', 'phone',]
+        widgets = {
+            'relation': forms.Select(attrs={
+                'class': 'browser-default',
+            }),
+            'name': forms.TextInput(attrs={
+                'id': 'name',
+                'class': 'validate',
+                'required': True,
+                'pattern': ".*",
+            }),
+            'last_name': forms.TextInput(attrs={
+                'id': 'last_name',
+                'class': 'validate',
+                'required': True,
+            }),
+            'second_name': forms.TextInput(attrs={
+                'id': 'second_name',
+            }),
+            'birthday': forms.DateInput(attrs={
+                'id': 'birthday',
+                'class': 'datepicker',
+                'placeholder': 'дд.мм.гггг',
+            }),
+            'residence': forms.TextInput(attrs={
+                'id': 'residence',
+            }),
+            'phone': forms.TextInput(attrs={
+                'type': 'tel',
+                'id': 'phone',
+                'required': True,
+            }),
+        }
+
+
 class SearchForm(forms.Form):
     search = forms.CharField(max_length=50, required=False)
     search.widget = forms.TextInput(attrs={'id': 'search', 'class': 'input-field', 'type': 'search'})
@@ -191,6 +230,7 @@ def client_page(request, client_id):
         'transaction_form': TransactionAddForm(),
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),
+        'relative_form': RelativeAddForm(),
     }
     if request.method == 'POST':
         transaction_form = TransactionAddForm(request.POST)
@@ -251,13 +291,13 @@ def search(request):
             q3 = Client.objects.filter(phone__icontains=search_str)
             queryset = q1 | q2 | q3
             if form.cleaned_data['debtor']:
-                print(queryset[0].debt())
-                # queryset = queryset.filter(debt=False)
                 for item in queryset:
                     if not item.debt():
                         queryset = queryset.exclude(id=item.id)
             if form.cleaned_data['my_clients']:
                 queryset = queryset.filter(manager=request.user)
+            if form.cleaned_data['potential']:
+                queryset = queryset.filter(document__isnull = True)
             data['clients'] = queryset
             data['form'] = form
     return render(request, 'flatlease/search.html', data)
