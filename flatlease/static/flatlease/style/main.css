@@ -23,13 +23,12 @@ footer{
         width: 32%;
         margin-left: 5px;   }
 }
+.card .card-action a{
+    margin-right: 0;
+}
 
-.potential,
-.warning,
-.debtor{
-    position: absolute;
-    top: 5px;
-    left: 87%;
+.top-icon{
+    margin-top: 5px;
 }
 .search-btn{
     margin-top: 10px;

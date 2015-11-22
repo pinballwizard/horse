@@ -21,7 +21,13 @@
                 <ul class="right" for="menu-lower-right">
                     <li>
                         {% if user.is_authenticated %}
-                            <a class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Пользователь" href="admin/">
+                            <ul id="dropdown-log" class="dropdown-content">
+                                <li><a href="{% url 'admin' %}">Администрирование</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'login' %}">Выйти</a></li>
+                            </ul>
+                            <a class="tooltipped dropdown-button" href="#!" data-activates="dropdown-log" data-position="bottom" data-delay="50" data-tooltip="Пользователь" href="admin/">
+                                <i class="material-icons right">more_vert</i>
                                 {% if user.last_name or user.first_name %}
                                     {{ user.first_name }} {{ user.last_name }}
                                 {% else %}

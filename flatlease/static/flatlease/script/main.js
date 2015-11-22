@@ -55,4 +55,5 @@ $( document ).ready(function(){
         selectYears: 1000 // Creates a dropdown of number years to control year
     });
     $('select').material_select();
+    $(".dropdown-button").dropdown();
 });
