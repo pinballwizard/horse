@@ -4,10 +4,32 @@ footer{
     padding-left: 240px;
 }
 @media only screen and (max-width : 992px) {
-  header, main, footer {
-    padding-left: 0;  }
+    header, main, footer {
+        padding-left: 0;  }
 }
 @media only screen and (min-width : 993px) {
-  .container {
-    width: 85%; }
+    .container {
+        width: 85%; }
+}
+@media only screen and (min-width: 601px){
+    .row .col.m6,
+    .row .col.l6{
+        width: 49%;
+        margin-left: 5px; }
+}
+@media only screen and (min-width: 993px){
+    .row .col.l4,
+    .row .col.m4 {
+        width: 32%;
+        margin-left: 5px;   }
+}
+.card .card-action a{
+    margin-right: 0;
+}
+
+.top-icon{
+    margin-top: 5px;
+}
+.search-btn{
+    margin-top: 10px;
 }
