@@ -84,7 +84,7 @@ class Client(Person):
 
     def is_potential(self):
         """Определяет потецнциальный клиент или нет, проверяя наличие у него договора"""
-        return not self.document_set.filter(type='contract')
+        return not self.document_set.filter(type='contract').exists()
     #Доделать условие
     def debt(self):
         try:

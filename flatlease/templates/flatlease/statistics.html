@@ -9,16 +9,16 @@
     <div class="row">
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3"><a href="#tab1">tab1</a></li>
-                <li class="tab col s3"><a href="#tab2">tab2</a></li>
-                <li class="tab col s3"><a href="#tab3">tab3</a></li>
-                <li class="tab col s3"><a href="#tab4">tab4</a></li>
-                <li class="tab col s3"><a href="#tab5">tab5</a></li>
+                <li class="tab col s3"><a href="#client">Клиенты</a></li>
+                <li class="tab col s3"><a href="#manager">Менеджеры</a></li>
+                <li class="tab col s3"><a href="#transaction">Платежи</a></li>
             </ul>
-            <div class="container" id="tab1">
+            <div class="container" id="client">
                 <div class="row">
                     <div class="col l6 s12">
                         <h4>Всего клиентов: {{ clients_count }}</h4>
+                    </div>
+                    <div class="col l6 s12">
                         {% load chart_tags %}
                         {% chart %}
                             {#                        chxr=0,0,160#}
@@ -32,15 +32,39 @@
                             chtt=Депозит
                         {% endchart %}
                     </div>
-                    <div class="col l6 s12">
-                        <h4>Полный баланс: {{ transaction_sum }}</h4>
-                        {% for transaction in last_transactions %}
-                            <span>{{ transaction.pub_date }}</span>
-                            <span>{{ transaction.count }}</span>
-                            <span>{{ transaction.type }}</span>
-                            <span>{{ transaction.owner }}</span>
-                            <br>
-                        {% endfor %}
+                </div>
+            </div>
+            <div class="container" id="manager">
+                <div class="row">
+                    <div class="col l12 s12">
+                        <h4>Всего менеджеров: {{ managers_count }}</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="transaction">
+                <div class="row">
+                    <div class="col l12 s12">
+                    <h4>Полный баланс: {{ transaction_sum }}</h4>
+                        <table class="highlight">
+                            <thead>
+                            <tr>
+                                <th>Время</th>
+                                <th>Сумма</th>
+                                <th>Тип</th>
+                                <th>Клиент</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for transaction in last_transactions %}
+                                <tr>
+                                    <td>{{ transaction.pub_date }}</td>
+                                    <td>{{ transaction.count }}</td>
+                                    <td>{{ transaction.type }}</td>
+                                    <td>{{ transaction.owner }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

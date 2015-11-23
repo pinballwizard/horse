@@ -310,6 +310,7 @@ def statistics(request):
         'balance': [person.balance() for person in Client.objects.order_by('-pub_date')[0:5]],
         'last_transactions': Transaction.objects.order_by('-pub_date')[0:10],
         'transaction_sum': sum((transaction.count for transaction in Transaction.objects.all())),
-        'clients_count': len(Client.objects.all()),
+        'clients_count': Client.objects.count(),
+        'managers_count': User.objects.filter(groups=Group.objects.get(name='managers')).count(),
     }
     return render(request, 'flatlease/statistics.html', data)
