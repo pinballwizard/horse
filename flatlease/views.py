@@ -89,13 +89,11 @@ class PropertyAddForm(forms.ModelForm):
         widgets = {
             'location': forms.TextInput(attrs={
                 'type': 'text',
-                'class': 'input-field',
                 'required': True,
                 'pattern': ".*",
             }),
             'cost': forms.TextInput(attrs={
                 'type': 'text',
-                'class': 'input-field',
                 'required': True,
             }),
         }
@@ -106,8 +104,9 @@ class TransactionAddForm(forms.ModelForm):
         model = Transaction
         fields = ['type', 'count']
         widgets = {
-            'type': forms.RadioSelect(attrs={
-                'required': True,
+            'type': forms.Select(attrs={
+                'class': 'browser-default',
+                'required': False,
             }),
             # 'count': forms.DecimalField(attrs={
             #     'required': True,
@@ -119,11 +118,16 @@ class DocumentAddForm(forms.ModelForm):
     class Meta:
         model = Document
         fields = ['type', 'document']
+        labels = {
+            'type': '',
+            'document': '',
+        }
         widgets = {
             'document': forms.FileInput(attrs={
                 'required': True,
             }),
             'type': forms.Select(attrs={
+                'class': 'browser-default',
                 'required': True,
             }),
         }
@@ -134,6 +138,9 @@ class RelativeAddForm(forms.ModelForm):
         model = Relative
         fields = ['relation', 'last_name', 'name', 'second_name', 'birthday',
                   'residence', 'phone',]
+        labels = {
+            'relation': '',
+        }
         widgets = {
             'relation': forms.Select(attrs={
                 'class': 'browser-default',
@@ -166,6 +173,78 @@ class RelativeAddForm(forms.ModelForm):
                 'required': True,
             }),
         }
+
+
+class PassportAddForm(forms.ModelForm):
+    class Meta:
+        model = Passport
+        fields = ['number', 'date', 'whom', 'image', 'birthplace', 'registration']
+        labels = {
+            'image': '',
+        }
+        widgets = {
+            'number': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'date': forms.DateInput(attrs={
+                'required': True,
+                'class': 'datepicker',
+                'placeholder': 'дд.мм.гггг',
+            }),
+            'whom': forms.Textarea(attrs={
+                'required': True,
+            }),
+            'image': forms.FileInput(attrs={
+                'required': True,
+            }),
+            'birthplace': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'registration': forms.TextInput(attrs={
+                'required': True,
+            }),
+}
+
+
+class SpouseAddForm(forms.ModelForm):
+    class Meta:
+        model = Spouse
+        fields = ['last_name', 'name', 'second_name', 'birthday', 'residence',
+                  'phone', 'workplace', 'work_position', 'salary']
+        widgets = {
+            'last_name': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'name': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'second_name': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'birthday': forms.DateInput(attrs={
+                'class': 'datepicker',
+                'placeholder': 'дд.мм.гггг',
+                'required': True,
+            }),
+            'residence': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'phone': forms.TextInput(attrs={
+                'type': 'tel',
+                'required': True,
+            }),
+            'workplace': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'work_position': forms.TextInput(attrs={
+                'required': True,
+            }),
+            'salary': forms.TextInput(attrs={
+                'required': True,
+            }),
+
+
+}
 
 
 class SearchForm(forms.Form):
@@ -231,6 +310,8 @@ def client_page(request, client_id):
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),
         'relative_form': RelativeAddForm(),
+        'passport_form': PassportAddForm(),
+        'spouse_form': SpouseAddForm(),
     }
     if request.method == 'POST':
         transaction_form = TransactionAddForm(request.POST)
@@ -238,7 +319,7 @@ def client_page(request, client_id):
             t = transaction_form.save(commit=False)
             t.owner = client_obj
             t.save()
-        document_form = DocumentAddForm(request.POST)
+        document_form = DocumentAddForm(request.POST, request.FILES)
         if document_form.is_valid():
             d = document_form.save(commit=False)
             d.owner = client_obj
@@ -246,6 +327,21 @@ def client_page(request, client_id):
         property_form = PropertyAddForm(request.POST)
         if property_form.is_valid():
             d = property_form.save(commit=False)
+            d.owner = client_obj
+            d.save()
+        relative_form = RelativeAddForm(request.POST)
+        if relative_form.is_valid():
+            d = relative_form.save(commit=False)
+            d.owner = client_obj
+            d.save()
+        passport_form = PassportAddForm(request.POST, request.FILES)
+        if passport_form.is_valid():
+            d = passport_form.save(commit=False)
+            d.owner = client_obj
+            d.save()
+        spouse_form = SpouseAddForm(request.POST)
+        if spouse_form.is_valid():
+            d = spouse_form.save(commit=False)
             d.owner = client_obj
             d.save()
     return render(request, 'flatlease/client.html', data)
@@ -272,6 +368,16 @@ def addition(request, client_id=None):
         else:
             data['add_client_form'] = client_form
     return render(request, 'flatlease/addition.html', data)
+
+
+@login_required
+def client_update(request, client_id):
+    client = Client.objects.get(pk=client_id)
+    if request.method == 'POST':
+        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
+        if client_form.is_valid():
+            client_form.save()
+            return redirect('client_page', client_id)
 
 
 @login_required
