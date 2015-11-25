@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render, redirect
 from flatlease.models import *
 from django import forms
@@ -242,8 +243,6 @@ class SpouseAddForm(forms.ModelForm):
             'salary': forms.TextInput(attrs={
                 'required': True,
             }),
-
-
 }
 
 
@@ -299,7 +298,21 @@ def test_page(request):
 
 @login_required
 def client_page(request, client_id):
-    client_obj = Client.objects.get(pk=client_id)
+    try:
+        client_obj = Client.objects.get(pk=client_id)
+    except Client.DoesNotExist:
+        raise Http404("Клиентов с id = {0} не найдено".format(client_id))
+
+    try:
+        passport = client_obj.passport
+    except Passport.DoesNotExist:
+        passport = None
+
+    try:
+        spouse = client_obj.spouse
+    except Spouse.DoesNotExist:
+        spouse = None
+
     data = {
         'client': client_obj,
         'transactions': client_obj.transaction_set.all(),
@@ -310,9 +323,10 @@ def client_page(request, client_id):
         'document_form': DocumentAddForm(),
         'property_form': PropertyAddForm(),
         'relative_form': RelativeAddForm(),
-        'passport_form': PassportAddForm(),
-        'spouse_form': SpouseAddForm(),
+        'passport_form': PassportAddForm(instance=passport),
+        'spouse_form': SpouseAddForm(instance=spouse),
     }
+
     if request.method == 'POST':
         transaction_form = TransactionAddForm(request.POST)
         if transaction_form.is_valid():
@@ -348,16 +362,32 @@ def client_page(request, client_id):
 
 
 @login_required
-def addition(request, client_id=None):
-    if client_id is not None:
+def add(request):
+    data = {
+        'add_client_form': ClientAddForm(),
+    }
+    if request.method == 'POST':
+        client = Client(last_name=request.POST['last_name'], name=request.POST['name'])
+        client.full_clean()
+        client.save()
+        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
+        if client_form.is_valid():
+            client_form.save()
+        else:
+            data['add_client_form'] = client_form
+    return render(request, 'flatlease/update.html', data)
+
+
+@login_required
+def update(request, client_id):
+    try:
         client = Client.objects.get(pk=client_id)
-    else:
-        client = None
+    except Client.DoesNotExist:
+        raise Http404("Клиентов с id = {0} не найдено".format(client_id))
 
     data = {
         'client_id': client_id,
         'add_client_form': ClientAddForm(instance=client),
-        'add_property_form': PropertyAddForm(),
     }
 
     if request.method == 'POST':
@@ -367,17 +397,7 @@ def addition(request, client_id=None):
             return redirect('client_page', client_id)
         else:
             data['add_client_form'] = client_form
-    return render(request, 'flatlease/addition.html', data)
-
-
-@login_required
-def client_update(request, client_id):
-    client = Client.objects.get(pk=client_id)
-    if request.method == 'POST':
-        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
-        if client_form.is_valid():
-            client_form.save()
-            return redirect('client_page', client_id)
+    return render(request, 'flatlease/update.html', data)
 
 
 @login_required

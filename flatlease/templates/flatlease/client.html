@@ -104,7 +104,7 @@
                     </div>
                     <div class="card-action">
                         <a class="btn waves-effect waves-light white-text"
-                           href="{% url 'update_id' client.id %}">Редактировать</a>
+                           href="{% url 'update' client.id %}">Редактировать</a>
                     </div>
                 </div>
                 <div class="card">
@@ -145,8 +145,8 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a class="btn waves-effect waves-light white-text"
-                           href="{% url 'update_id' client.id %}">Редактировать</a>
+                        <a class="modal-trigger btn waves-effect waves-light white-text"
+                           href="#passport-modal">Редактировать</a>
                     </div>
                 </div>
                 <div class="card">
@@ -196,8 +196,8 @@
                         </div>
                     </div>
                     <div class="card-action">
-                        <a class="btn waves-effect waves-light white-text"
-                           href="{% url 'update_id' client.id %}">Редактировать</a>
+                        <a class="modal-trigger btn waves-effect waves-light white-text"
+                           href="#spouse-modal">Редактировать</a>
                     </div>
                 </div>
             </div>
@@ -378,5 +378,48 @@
                 </div>
             </form>
         </div>
+
+        <!-- Модальное окно паспорта -->
+        <div id="passport-modal" class="modal modal-fixed-footer">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                <div class="modal-content">
+                    <h5>Редактирование Паспорта</h5>
+                    {% csrf_token %}
+                    {{ passport_form.non_field_errors }}
+                    {% for field in passport_form %}
+                        <div class="fieldWrapper input-field">
+                            {{ field }}
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Модальное окно супригу -->
+        <div id="spouse-modal" class="modal modal-fixed-footer">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+                <div class="modal-content">
+                    <h5>Редактирование Супруги(а)</h5>
+                    {% csrf_token %}
+                    {{ spouse_form.non_field_errors }}
+                    {% for field in spouse_form %}
+                        <div class="fieldWrapper input-field">
+                            {{ field }}
+                            {{ field.label_tag }}
+                            {{ field.errors }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
     </div>
 {% endblock body %}

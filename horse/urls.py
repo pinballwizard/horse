@@ -24,10 +24,8 @@ from django.conf import settings
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', views.calculator, name='calculator'),
-    url(r'^addition$', views.addition, name='addition'),
-    # url(r'^addition(?P<client_id>[0-9]+)$', views.addition, name='addition'),
-    url(r'^update_id=(?P<client_id>[0-9]+)$', views.addition, name='update_id'),
-    url(r'^update_id=(?P<client_id>[0-9]+)$', views.client_update, name='client_update'),
+    url(r'^addition$', views.add, name='update'),
+    url(r'^update_id=(?P<client_id>[0-9]+)$', views.update, name='update'),
     url(r'^client_id=(?P<client_id>[0-9]+)$', views.client_page, name='client_page'),
     url(r'^test', views.test_page, name='test_page'),
     url(r'^search$', views.search, name='search'),
