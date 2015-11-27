@@ -39,6 +39,7 @@
                     <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
                         <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                     </a>
+
                     <!-- Задолженности и потенциальность-->
                     {% if client.is_potential %}
                         <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
@@ -82,23 +83,24 @@
         <i class="material-icons">person_add</i>
     </a>
     <!-- Модальное окно добавления нового клиента -->
-    <div id="client-modal" class="modal modal-fixed-footer">
-        <form action="{% url 'update' %}" role="form" method="post">
-            <div class="modal-content">
-                <h5>Создание клиентского профиля</h5>
-                {% csrf_token %}
-                {{ spouse_form.non_field_errors }}
-                {% for field in spouse_form %}
-                    <div class="fieldWrapper input-field">
-                        {{ field }}
-                        {{ field.label_tag }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
-            </div>
-        </form>
-    </div>
+
+{#    <div id="client-modal" class="modal modal-fixed-footer">#}
+{#        <form action="{% url 'update' client.id %}" role="form" method="post">#}
+{#            <div class="modal-content">#}
+{#                <h5>Создание клиентского профиля</h5>#}
+{#                {% csrf_token %}#}
+{#                {{ spouse_form.non_field_errors }}#}
+{#                {% for field in spouse_form %}#}
+{#                    <div class="fieldWrapper input-field">#}
+{#                        {{ field }}#}
+{#                        {{ field.label_tag }}#}
+{#                        {{ field.errors }}#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#            <div class="modal-footer">#}
+{#                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
 {% endblock body %}

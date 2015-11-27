@@ -54,7 +54,7 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'id': 'email',
             }),
-            'photo': forms.FileInput(attrs={
+            'photo': forms.ClearableFileInput(attrs={
                 'type': 'file',
             }),
             'health': forms.Select(attrs={
@@ -124,7 +124,7 @@ class DocumentAddForm(forms.ModelForm):
             'document': '',
         }
         widgets = {
-            'document': forms.FileInput(attrs={
+            'document': forms.ClearableFileInput(attrs={
                 'required': True,
             }),
             'type': forms.Select(attrs={
@@ -189,13 +189,13 @@ class PassportAddForm(forms.ModelForm):
             }),
             'date': forms.DateInput(attrs={
                 'required': True,
-                'class': 'datepicker',
+                # 'class': 'datepicker',
                 'placeholder': 'дд.мм.гггг',
             }),
             'whom': forms.Textarea(attrs={
                 'required': True,
             }),
-            'image': forms.FileInput(attrs={
+            'image': forms.ClearableFileInput(attrs={
                 'required': True,
             }),
             'birthplace': forms.TextInput(attrs={
@@ -328,6 +328,7 @@ def client_page(request, client_id):
     }
 
     if request.method == 'POST':
+        print(request.FILES)
         transaction_form = TransactionAddForm(request.POST)
         if transaction_form.is_valid():
             t = transaction_form.save(commit=False)
@@ -345,19 +346,21 @@ def client_page(request, client_id):
             d.save()
         relative_form = RelativeAddForm(request.POST)
         if relative_form.is_valid():
-            d = relative_form.save(commit=False)
-            d.owner = client_obj
-            d.save()
+            r = relative_form.save(commit=False)
+            r.owner = client_obj
+            r.save()
         passport_form = PassportAddForm(request.POST, request.FILES)
         if passport_form.is_valid():
-            d = passport_form.save(commit=False)
-            d.owner = client_obj
-            d.save()
+            p = passport_form.save(commit=False)
+            p.owner = client_obj
+            p.save()
+        else:
+            data['passport_form'] = passport_form
         spouse_form = SpouseAddForm(request.POST)
         if spouse_form.is_valid():
-            d = spouse_form.save(commit=False)
-            d.owner = client_obj
-            d.save()
+            s = spouse_form.save(commit=False)
+            s.owner = client_obj
+            s.save()
     return render(request, 'flatlease/client.html', data)
 
 
@@ -379,11 +382,14 @@ def add(request):
 
 
 @login_required
-def update(request, client_id):
-    try:
-        client = Client.objects.get(pk=client_id)
-    except Client.DoesNotExist:
-        raise Http404("Клиентов с id = {0} не найдено".format(client_id))
+def update(request, client_id=None):
+    if client_id is not None:
+        try:
+            client = Client.objects.get(pk=client_id)
+        except Client.DoesNotExist:
+            raise Http404("Клиентов с id = {0} не найдено".format(client_id))
+    else:
+        client = None
 
     data = {
         'client_id': client_id,
@@ -391,13 +397,14 @@ def update(request, client_id):
     }
 
     if request.method == 'POST':
+        print(request.POST)
         client_form = ClientAddForm(request.POST, request.FILES, instance=client)
         if client_form.is_valid():
             client_form.save()
             return redirect('client_page', client_id)
         else:
             data['add_client_form'] = client_form
-    return render(request, 'flatlease/update.html', data)
+    return render(request, 'flatlease/update.html', data)\
 
 
 @login_required
