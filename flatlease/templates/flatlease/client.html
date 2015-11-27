@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col s12">
 
-        <!-- Фиксированная кнопка добавления всего -->
+            <!-- Фиксированная кнопка добавления всего -->
             <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 40px;">
                 <a class="btn-floating btn-large red lighten-1">
                     <i class="material-icons">add</i>
@@ -41,8 +41,8 @@
                     </li>
                 </ul>
             </div>
-        <!-- Вкладки -->
 
+            <!-- Вкладки -->
             <ul class="tabs">
                 <li class="tab col s3"><a href="#person-info">Анкета</a></li>
                 <li class="tab col s3"><a href="#relatives">Родственники</a></li>
@@ -70,34 +70,34 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>День рождения</td>
-                                        <td>{{ client.birthday }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Адрес</td>
-                                        <td>{{ client.residence }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Телефон</td>
-                                        <td>{{ client.phone }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>{{ client.email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Баланс</td>
-                                        <td>{{ client.balance }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Должник</td>
-                                        <td>{{ client.debt }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Наличие договора</td>
-                                        <td>{{ client.future }}</td>
-                                    </tr>
+                                <tr>
+                                    <td>День рождения</td>
+                                    <td>{{ client.birthday }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Адрес</td>
+                                    <td>{{ client.residence }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Телефон</td>
+                                    <td>{{ client.phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>{{ client.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Баланс</td>
+                                    <td>{{ client.balance }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Должник</td>
+                                    <td>{{ client.debt }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Наличие договора</td>
+                                    <td>{{ client.future }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -114,30 +114,30 @@
                         </h1>
                         <div class="row">
                             <div class="col l8 m9 s12">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Паспорт номер</th>
-                                    <th>{{ client.passport.number }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Дата выдачи</td>
-                                    <td>{{ client.passport.date }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Место рождения</td>
-                                    <td>{{ client.passport.birthplace }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Регистрация</td>
-                                    <td>{{ client.passport.registration }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            <p>Выдан:</p>
-                            {{ client.passport.whom }}
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Паспорт номер</th>
+                                        <th>{{ client.passport.number }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Дата выдачи</td>
+                                        <td>{{ client.passport.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Место рождения</td>
+                                        <td>{{ client.passport.birthplace }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Регистрация</td>
+                                        <td>{{ client.passport.registration }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>Выдан:</p>
+                                {{ client.passport.whom }}
                             </div>
                             <div class="col l4 m3 s12">
                                 <img src="{{ client.passport.image.url }}" width="100%" height="auto">
@@ -208,7 +208,18 @@
                 <div class="container">
                     <div class="row">
                         <div class="card col l4 m4 s12">
-
+                            <div class="card-content">
+                                <h3 class="card-title">
+                                    ФИО
+                                </h3>
+                                степень родства<br>
+                                дата рождения<br>
+                                телефон<br>
+                                адрес<br>
+                            </div>
+                            <div class="card-action center">
+                                <a class="btn waves-effect waves-light white-text" href="#">Редактировать</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -311,7 +322,7 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -332,7 +343,7 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -353,7 +364,7 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -374,7 +385,7 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -383,7 +394,7 @@
         <div id="passport-modal" class="modal modal-fixed-footer">
             <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
-                    <h5>Редактирование Паспорта</h5>
+                    <h5>Редактирование паспортных данных</h5>
                     {% csrf_token %}
                     {{ passport_form.non_field_errors }}
                     {% for field in passport_form %}
@@ -395,16 +406,16 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>
 
-        <!-- Модальное окно супригу -->
+        <!-- Модальное окно супруга -->
         <div id="spouse-modal" class="modal modal-fixed-footer">
             <form action="{% url 'client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
-                    <h5>Редактирование Супруги(а)</h5>
+                    <h5>Редактирование данных о супруге</h5>
                     {% csrf_token %}
                     {{ spouse_form.non_field_errors }}
                     {% for field in spouse_form %}
@@ -416,7 +427,7 @@
                     {% endfor %}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit">Сохранить</button>
+                    <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
                 </div>
             </form>
         </div>

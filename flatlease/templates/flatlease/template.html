@@ -24,7 +24,7 @@
                             <ul id="dropdown-log" class="dropdown-content">
                                 <li><a href="admin/">Администрирование</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{% url 'logout' %}">Выйти</a></li>
+                                <li><a href="{% url 'logout' %}">Выход</a></li>
                             </ul>
                             <a class="tooltipped dropdown-button" href="#!" data-activates="dropdown-log" data-position="bottom" data-delay="50" data-tooltip="Пользователь">
                                 <i class="material-icons right">more_vert</i>
@@ -53,17 +53,15 @@
                 <p><b>Жилищная программа</b></p>
             </a>
             <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'update' %}">Создание профиля</a></li>
-            <li><a class="" href="{% url 'search' %}">Поиск клиента</a></li>
+            <li><a class="" href="{% url 'search' %}">Клиентская база</a></li>
             <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>
         </ul>
         <ul id="slide-out" class="side-nav">
             <a href="#" class="brand-logo">
-                ЖилЛизинг
+                Жилищная программа
             </a>
             <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'update' %}">Добавление</a></li>
-            <li><a class="" href="{% url 'search' %}">Поиск</a></li>
+            <li><a class="" href="{% url 'search' %}">Клиентская база</a></li>
             <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>
         </ul>
     </header>
