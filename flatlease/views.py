@@ -54,7 +54,7 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'email',
                 'id': 'email',
             }),
-            'photo': forms.ClearableFileInput(attrs={
+            'photo': forms.FileInput(attrs={
                 'type': 'file',
             }),
             'health': forms.Select(attrs={
@@ -124,7 +124,7 @@ class DocumentAddForm(forms.ModelForm):
             'document': '',
         }
         widgets = {
-            'document': forms.ClearableFileInput(attrs={
+            'document': forms.FileInput(attrs={
                 'required': True,
             }),
             'type': forms.Select(attrs={
@@ -195,7 +195,7 @@ class PassportAddForm(forms.ModelForm):
             'whom': forms.Textarea(attrs={
                 'required': True,
             }),
-            'image': forms.ClearableFileInput(attrs={
+            'image': forms.FileInput(attrs={
                 'required': True,
             }),
             'birthplace': forms.TextInput(attrs={
@@ -370,10 +370,7 @@ def add(request):
         'add_client_form': ClientAddForm(),
     }
     if request.method == 'POST':
-        client = Client(last_name=request.POST['last_name'], name=request.POST['name'])
-        client.full_clean()
-        client.save()
-        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
+        client_form = ClientAddForm(request.POST, request.FILES)
         if client_form.is_valid():
             client_form.save()
         else:
@@ -395,7 +392,6 @@ def update(request, client_id=None):
         'client_id': client_id,
         'add_client_form': ClientAddForm(instance=client),
     }
-
     if request.method == 'POST':
         print(request.POST)
         client_form = ClientAddForm(request.POST, request.FILES, instance=client)
