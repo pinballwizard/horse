@@ -77,24 +77,24 @@
         {% endfor %}
     </div>
 </div>
-<!-- Модальное окно добавления нового клиента -->
-<div id="client-modal" class="modal modal-fixed-footer">
-    <form action="{% url 'update' %}" role="form" method="post">
-        <div class="modal-content">
-            <h5>Редактирование Супруги(а)</h5>
-            {% csrf_token %}
-            {{ spouse_form.non_field_errors }}
-            {% for field in spouse_form %}
-                <div class="fieldWrapper input-field">
-                    {{ field }}
-                    {{ field.label_tag }}
-                    {{ field.errors }}
-                </div>
-            {% endfor %}
-        </div>
-        <div class="modal-footer">
-            <button type="submit">Сохранить</button>
-        </div>
-    </form>
-</div>
+{#<!-- Модальное окно добавления нового клиента -->#}
+{#<div id="client-modal" class="modal modal-fixed-footer">#}
+{#    <form action="{% url 'update' client.id %}" role="form" method="post">#}
+{#        <div class="modal-content">#}
+{#            <h5>Редактирование Супруги(а)</h5>#}
+{#            {% csrf_token %}#}
+{#            {{ spouse_form.non_field_errors }}#}
+{#            {% for field in spouse_form %}#}
+{#                <div class="fieldWrapper input-field">#}
+{#                    {{ field }}#}
+{#                    {{ field.label_tag }}#}
+{#                    {{ field.errors }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        <div class="modal-footer">#}
+{#            <button type="submit">Сохранить</button>#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
 {% endblock body %}

@@ -339,7 +339,7 @@
 
         <!-- Модальное окно документов -->
         <div id="docs-modal" class="modal">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                     <h5>Добавление документа</h5>
                     {% csrf_token %}
@@ -381,7 +381,7 @@
 
         <!-- Модальное окно паспорта -->
         <div id="passport-modal" class="modal modal-fixed-footer">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                     <h5>Редактирование Паспорта</h5>
                     {% csrf_token %}
