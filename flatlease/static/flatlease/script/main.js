@@ -54,6 +54,26 @@ $( document ).ready(function(){
         fullTable().animateTable()
     });
     $('.datepicker').pickadate({
+        monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Ноябрь', 'December'],
+        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Ноя', 'Dec'],
+        weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+
+        format: 'dd.mm.yyyy',
+
+        // First day of the week
+        firstDay: 'monday',
+
+        // Buttons
+        today: 'Сегодня',
+        clear: 'Очистить',
+        close: 'Закрыть',
+
+        // Accessibility labels
+        labelMonthNext: 'Следующий',
+        labelMonthPrev: 'Предыдущий',
+        labelMonthSelect: 'Выбрать месяц',
+        labelYearSelect: 'Выбрать год',
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 1000 // Creates a dropdown of number years to control year
     });

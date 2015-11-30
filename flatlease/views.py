@@ -189,7 +189,7 @@ class PassportAddForm(forms.ModelForm):
             }),
             'date': forms.DateInput(attrs={
                 'required': True,
-                # 'class': 'datepicker',
+                'class': 'datepicker',
                 'placeholder': 'дд.мм.гггг',
             }),
             'whom': forms.Textarea(attrs={
@@ -380,24 +380,28 @@ def add(request):
 
 @login_required
 def update(request, client_id=None):
+    data = {
+        'add_client_form': ClientAddForm(),
+    }
     if client_id is not None:
         try:
             client = Client.objects.get(pk=client_id)
         except Client.DoesNotExist:
             raise Http404("Клиентов с id = {0} не найдено".format(client_id))
+        data['add_client_form'] = ClientAddForm(instance=client)
+        data['client_id'] = client_id
     else:
         client = None
 
-    data = {
-        'client_id': client_id,
-        'add_client_form': ClientAddForm(instance=client),
-    }
     if request.method == 'POST':
         print(request.POST)
         client_form = ClientAddForm(request.POST, request.FILES, instance=client)
         if client_form.is_valid():
-            client_form.save()
-            return redirect('client_page', client_id)
+            c = client_form.save(commit=False)
+            c.manager = request.user
+            c.save()
+            print(c.id)
+            return redirect('client_page', c.id)
         else:
             data['add_client_form'] = client_form
     return render(request, 'flatlease/update.html', data)\
