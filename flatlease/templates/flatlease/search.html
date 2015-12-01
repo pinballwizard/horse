@@ -10,30 +10,49 @@
         <div class="row">
             <form action="{% url 'search' %}" role="form" method="get">
                 {{ form.non_field_errors }}
-                {% for field in form %}
-                    {% if forloop.first %}
-                        <div class="col l4 m4 s10">
-                            {{ field }}
-                            {{ fields.errors }}
-                        </div>
-                        <div class="col l1 m1 s2">
-                            <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn" data-tooltip="Искать" type="submit">
-                                <i class="material-icons">search</i>
-                            </button>
-                        </div>
-                    {% else %}
-                        <div class="col l2 m2 s12">
-                            <p>
-                                {{ field }}
-                                {{ field.label_tag }}
-                                {{ field.errors }}
-                            </p>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                <div class="col l4 m4 s10">
+                    {{ form.search }}
+                    {{ form.search.errors }}
+                </div>
+                <div class="col l1 m1 s2">
+                    <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn" data-tooltip="Искать" type="submit">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+                <div class="col l2 m2 s12">
+                    <p>
+                        {{ form.debtor }}
+                        {{ form.debtor.label_tag }}
+                        {{ form.debtor.errors }}
+                    </p>
+                </div>
+                <div class="col l2 m2 s12">
+                    <p>
+                        {{ form.my_clients }}
+                        {{ form.my_clients.label_tag }}
+                        {{ form.my_clients.errors }}
+                    </p>
+                </div>
+                <div class="col l2 m2 s12">
+                    <p>
+                        {{ form.potential }}
+                        {{ form.potential.label_tag }}
+                        {{ form.potential.errors }}
+                    </p>
+                </div>
+                <!-- Switch -->
+                <div class="switch">
+                    <label>
+                        <i class="small material-icons">view_stream</i>
+                        {{ form.view }}
+                        <span class="lever"></span>
+                        <i class="small material-icons">dashboard</i>
+                    </label>
+                </div>
             </form>
         </div>
-        <div class="row">
+        {% if form.view.value %}
+        <div class="card_view row">
             {% for client in clients %}
                 <div class="card col s12 m6 l4">
                     <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
@@ -75,32 +94,66 @@
                 </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="table_view row">
+            <div class="table col l12">
+                <table class="bordered striped highlight">
+                    <thead>
+                    <tr>
+                        <th>Статус</th>
+                        <th data-field="id">ID</th>
+                        <th data-field="date">Дата публикации</th>
+                        <th data-field="name">ФИО</th>
+                        <th data-field="phone">Телефон</th>
+                        <th>Управление</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for client in clients %}
+                        <tr>
+                            <td>
+                                <!-- Задолженности и потенциальность-->
+                                {% if client.is_potential %}
+                                    <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
+                                        <i class="material-icons small">help_outline</i>
+                                    </a>
+                                {% endif %}
+                                {% if client.debt %}
+                                    <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
+                                        <i class="material-icons small">warning</i>
+                                    </a>
+                                {% endif %}
+                                {% if client.debt %}
+                                    <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                                        <i class="material-icons small">error</i>
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>{{ client.id }}</td>
+                            <td>{{ client.pub_date }}</td>
+                            <td>{{ client.last_name }} {{ client.name }} {{ client.second_name }}</td>
+                            <td>{{ client.phone }}</td>
+                            <td>
+                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>
+                                <a class="tooltipped green-text right" data-position="bottom" data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+                                    <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
+                                </a>
+                                <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
+                                    <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Кнопка вызова модального окна добавления нового клиента -->
     <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
-       data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="#client-modal">
+       data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="{% url 'update' %}">
         <i class="material-icons">person_add</i>
     </a>
-    <!-- Модальное окно добавления нового клиента -->
-
-{#    <div id="client-modal" class="modal modal-fixed-footer">#}
-{#        <form action="{% url 'update' client.id %}" role="form" method="post">#}
-{#            <div class="modal-content">#}
-{#                <h5>Создание клиентского профиля</h5>#}
-{#                {% csrf_token %}#}
-{#                {{ spouse_form.non_field_errors }}#}
-{#                {% for field in spouse_form %}#}
-{#                    <div class="fieldWrapper input-field">#}
-{#                        {{ field }}#}
-{#                        {{ field.label_tag }}#}
-{#                        {{ field.errors }}#}
-{#                    </div>#}
-{#                {% endfor %}#}
-{#            </div>#}
-{#            <div class="modal-footer">#}
-{#                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>#}
-{#            </div>#}
-{#        </form>#}
-{#    </div>#}
 {% endblock body %}

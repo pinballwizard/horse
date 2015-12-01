@@ -7,14 +7,18 @@ $( document ).ready(function(){
     $(".button-collapse").sideNav();
     $('.modal-trigger').leanModal();
     $('select').material_select();
-    $(".dropdown-button").dropdown();
+    $(".dropdown-button").dropdown({
+        belowOrigin: true,
+    });
 
 //  clean form
 //    $(":reset").click(function(){
 //        $("form").reset();
 //        }
 //    );
-
+    $(".switch").click(function(){
+        $(this).parents("form").submit();
+    });
 //  calculator function
     $("#calculate").click(function(){
         var price = $("#price").val();

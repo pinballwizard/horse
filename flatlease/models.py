@@ -28,11 +28,11 @@ relation_type_dict = (
 
 
 def photo_file_path(instance, filename):
-    return 'client_media/{1}_{0}/{2}'.format(instance.phone, instance.last_name, filename)
+    return 'client_media/{0}/{1}'.format(instance.id, filename)
 
 
 def content_file_path(instance, filename):
-    return 'client_media/{1}_{0}/{2}'.format(instance.owner.phone, instance.owner.last_name, filename)
+    return 'client_media/{0}/{1}'.format(instance.owner.id, filename)
 
 
 def managers():
@@ -69,7 +69,7 @@ class Client(Person):
     work_position = models.CharField("Должность", max_length=50, blank=True)
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2, default=0)
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
-    photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
+    photo = models.ImageField("Фотография", upload_to=photo_file_path, default="/static/flatlease/images/userPlaceholder.png")
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, default=0)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 

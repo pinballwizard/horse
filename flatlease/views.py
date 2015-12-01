@@ -12,7 +12,6 @@ logger = logging.getLogger(__name__)
 
 
 class ClientAddForm(forms.ModelForm):
-    # id = forms.HiddenField()
     class Meta:
         model = Client
         fields = ['id', 'last_name', 'name', 'second_name', 'birthday', 'residence',
@@ -255,6 +254,8 @@ class SearchForm(forms.Form):
     my_clients.widget = forms.CheckboxInput()
     potential = forms.BooleanField(required=False, label_suffix='', label="Потенциальные")
     potential.widget = forms.CheckboxInput()
+    view = forms.BooleanField(required=False, label_suffix='', label="Вид")
+    view.widget = forms.CheckboxInput()
 
 
 class LoginForm(AuthenticationForm):
@@ -380,27 +381,31 @@ def add(request):
 
 @login_required
 def update(request, client_id=None):
-    data = {
-        'add_client_form': ClientAddForm(),
-    }
+
     if client_id is not None:
         try:
             client = Client.objects.get(pk=client_id)
         except Client.DoesNotExist:
             raise Http404("Клиентов с id = {0} не найдено".format(client_id))
-        data['add_client_form'] = ClientAddForm(instance=client)
-        data['client_id'] = client_id
     else:
         client = None
 
+    data = {
+        'client_id': client_id,
+        'add_client_form': ClientAddForm(instance=client),
+    }
+
     if request.method == 'POST':
-        print(request.POST)
+        if client is not None:
+            client = Client()
+            client.last_name = request.POST['last_name']
+            client.name = request.POST['name']
+            client.save()
         client_form = ClientAddForm(request.POST, request.FILES, instance=client)
         if client_form.is_valid():
             c = client_form.save(commit=False)
             c.manager = request.user
             c.save()
-            print(c.id)
             return redirect('client_page', c.id)
         else:
             data['add_client_form'] = client_form
