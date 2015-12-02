@@ -1,12 +1,14 @@
-from django.http import Http404
-from django.shortcuts import render, redirect
+import logging
 from flatlease.models import *
 from django import forms
-import logging
+from django.http import Http404
+from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +52,7 @@ class ClientAddForm(forms.ModelForm):
                 'required': True,
             }),
             'email': forms.EmailInput(attrs={
+                'class': 'validate',
                 'type': 'email',
                 'id': 'email',
             }),
@@ -365,18 +368,18 @@ def client_page(request, client_id):
     return render(request, 'flatlease/client.html', data)
 
 
-@login_required
-def add(request):
-    data = {
-        'add_client_form': ClientAddForm(),
-    }
-    if request.method == 'POST':
-        client_form = ClientAddForm(request.POST, request.FILES)
-        if client_form.is_valid():
-            client_form.save()
-        else:
-            data['add_client_form'] = client_form
-    return render(request, 'flatlease/update.html', data)
+# @login_required
+# def add(request):
+#     data = {
+#         'add_client_form': ClientAddForm(),
+#     }
+#     if request.method == 'POST':
+#         client_form = ClientAddForm(request.POST, request.FILES)
+#         if client_form.is_valid():
+#             client_form.save()
+#         else:
+#             data['add_client_form'] = client_form
+#     return render(request, 'flatlease/update.html', data)
 
 
 @login_required
@@ -416,10 +419,9 @@ def update(request, client_id=None):
 def search(request):
     data = {
         'clients': Client.objects.order_by('-pub_date'),
-        'property': FixedProperty.objects.all(),
         'form': SearchForm(),
     }
-    logger.debug("user use search")
+
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
@@ -438,6 +440,15 @@ def search(request):
                 queryset = queryset.filter(document__isnull = True)
             data['clients'] = queryset
             data['form'] = form
+    paginator = Paginator(data['clients'],2)
+    page = request.GET.get('page')
+    try:
+        data['clients'] = paginator.page(page)
+    except PageNotAnInteger:
+        data['clients'] = paginator.page(1)
+    except EmptyPage:
+        data['clients'] = paginator.page(paginator.num_pages)
+    logger.debug("user use search")
     return render(request, 'flatlease/search.html', data)
 
 

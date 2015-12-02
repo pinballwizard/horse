@@ -47,7 +47,7 @@ class Person(models.Model):
     name = models.CharField("Имя", max_length=30)
     last_name = models.CharField("Фамилия", max_length=30)
     second_name = models.CharField("Отчество", max_length=30, blank=True)
-    birthday = models.DateField("День рождения", blank=True)
+    birthday = models.DateField("День рождения")
     phone = models.CharField("Телефон", max_length=12, blank=True)
     residence = models.CharField("Адрес проживания", max_length=100, blank=True)
 

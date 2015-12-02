@@ -64,13 +64,11 @@
                         <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
                             <i class="material-icons small">help_outline</i>
                         </a>
-                    {% endif %}
-                    {% if client.debt %}
+                    {% elif client.debt %}
                         <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
                             <i class="material-icons small">warning</i>
                         </a>
-                    {% endif %}
-                    {% if client.debt %}
+                    {% elif client.debt %}
                         <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
                             <i class="material-icons small">error</i>
                         </a>
@@ -117,13 +115,11 @@
                                     <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
                                         <i class="material-icons small">help_outline</i>
                                     </a>
-                                {% endif %}
-                                {% if client.debt %}
+                                {% elif client.debt %}
                                     <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
                                         <i class="material-icons small">warning</i>
                                     </a>
-                                {% endif %}
-                                {% if client.debt %}
+                                {% elif client.debt %}
                                     <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
                                         <i class="material-icons small">error</i>
                                     </a>
@@ -150,7 +146,19 @@
         </div>
         {% endif %}
     </div>
-
+    <div class="pagination">
+        <span class="step-links">
+            {% if clients.has_previous %}
+                <a href="?page={{ clients.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ clients.number }} of {{ clients.paginator.num_pages }}.
+            </span>
+            {% if clients.has_next %}
+                <a href="?page={{ clients.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
     <!-- Кнопка вызова модального окна добавления нового клиента -->
     <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
        data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="{% url 'update' %}">
