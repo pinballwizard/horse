@@ -25,36 +25,30 @@ class ClientAddForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={
-                'id': 'name',
                 'class': 'validate',
                 'required': True,
                 'pattern': ".*",
             }),
             'last_name': forms.TextInput(attrs={
-                'id': 'last_name',
                 'class': 'validate',
                 'required': True,
             }),
             'second_name': forms.TextInput(attrs={
-                'id': 'second_name',
+                'class': 'validate',
             }),
             'birthday': forms.DateInput(attrs={
-                'id': 'birthday',
                 'class': 'datepicker',
                 'placeholder': 'дд.мм.гггг',
             }),
             'residence': forms.TextInput(attrs={
-                'id': 'residence',
             }),
             'phone': forms.TextInput(attrs={
                 'type': 'tel',
-                'id': 'phone',
                 'required': True,
             }),
             'email': forms.EmailInput(attrs={
                 'class': 'validate',
                 'type': 'email',
-                'id': 'email',
             }),
             'photo': forms.FileInput(attrs={
                 'type': 'file',
@@ -64,19 +58,14 @@ class ClientAddForm(forms.ModelForm):
                 # 'multiple': True,
             }),
             'workplace': forms.TextInput(attrs={
-                'id': 'workplace',
             }),
             'work_position': forms.TextInput(attrs={
-                'id': 'work_position',
             }),
-            'salary': forms.TextInput( attrs={
-               'id': 'salary',
+            'salary': forms.TextInput(attrs={
             }),
-            'profit': forms.TextInput( attrs={
-               'id': 'profit',
+            'profit': forms.TextInput(attrs={
             }),
-            'monthly_payment': forms.TextInput( attrs={
-               'id': 'month_payment',
+            'monthly_payment': forms.TextInput(attrs={
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'materialize-textarea',
@@ -106,14 +95,17 @@ class TransactionAddForm(forms.ModelForm):
     class Meta:
         model = Transaction
         fields = ['type', 'count']
+        labels = {
+            'type': '',
+        }
         widgets = {
             'type': forms.Select(attrs={
                 'class': 'browser-default',
                 'required': False,
             }),
-            # 'count': forms.DecimalField(attrs={
-            #     'required': True,
-            # }),
+            'count': forms.TextInput(attrs={
+                'required': False,
+            }),
         }
 
 
@@ -149,30 +141,24 @@ class RelativeAddForm(forms.ModelForm):
                 'class': 'browser-default',
             }),
             'name': forms.TextInput(attrs={
-                'id': 'name',
                 'class': 'validate',
                 'required': True,
                 'pattern': ".*",
             }),
             'last_name': forms.TextInput(attrs={
-                'id': 'last_name',
                 'class': 'validate',
                 'required': True,
             }),
             'second_name': forms.TextInput(attrs={
-                'id': 'second_name',
             }),
             'birthday': forms.DateInput(attrs={
-                'id': 'birthday',
                 'class': 'datepicker',
                 'placeholder': 'дд.мм.гггг',
             }),
             'residence': forms.TextInput(attrs={
-                'id': 'residence',
             }),
             'phone': forms.TextInput(attrs={
                 'type': 'tel',
-                'id': 'phone',
                 'required': True,
             }),
         }
@@ -454,7 +440,7 @@ def search(request):
 
 @login_required
 def statistics(request):
-    #Починить условие сортировки
+    # Починить условие сортировки
     data = {
         'balance': [person.balance() for person in Client.objects.order_by('-pub_date')[0:5]],
         'last_transactions': Transaction.objects.order_by('-pub_date')[0:10],

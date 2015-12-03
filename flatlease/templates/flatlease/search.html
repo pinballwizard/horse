@@ -19,21 +19,21 @@
                         <i class="material-icons">search</i>
                     </button>
                 </div>
-                <div class="col l2 m2 s12">
+                <div class="col l2 m2 s12 switch">
                     <p>
                         {{ form.debtor }}
                         {{ form.debtor.label_tag }}
                         {{ form.debtor.errors }}
                     </p>
                 </div>
-                <div class="col l2 m2 s12">
+                <div class="col l2 m2 s12 switch">
                     <p>
                         {{ form.my_clients }}
                         {{ form.my_clients.label_tag }}
                         {{ form.my_clients.errors }}
                     </p>
                 </div>
-                <div class="col l2 m2 s12">
+                <div class="col l2 m2 s12 switch">
                     <p>
                         {{ form.potential }}
                         {{ form.potential.label_tag }}
@@ -41,7 +41,7 @@
                     </p>
                 </div>
                 <!-- Switch -->
-                <div class="switch">
+                <div class="col l2 m2 s12 switch">
                     <label>
                         <i class="small material-icons">view_stream</i>
                         {{ form.view }}
@@ -95,14 +95,14 @@
         {% else %}
         <div class="table_view row">
             <div class="table col l12">
-                <table class="bordered striped highlight">
+                <table class="striped highlight">
                     <thead>
                     <tr>
                         <th>Статус</th>
-                        <th data-field="id">ID</th>
-                        <th data-field="date">Дата публикации</th>
-                        <th data-field="name">ФИО</th>
-                        <th data-field="phone">Телефон</th>
+                        <th>ID</th>
+                        <th>Дата публикации</th>
+                        <th>ФИО</th>
+                        <th>Телефон</th>
                         <th>Управление</th>
                     </tr>
                     </thead>
