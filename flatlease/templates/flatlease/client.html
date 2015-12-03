@@ -207,20 +207,44 @@
             <div class="col s12" id="relatives">
                 <div class="container">
                     <div class="row">
-                        <div class="card col l4 m4 s12">
-                            <div class="card-content">
-                                <h3 class="card-title">
-                                    ФИО
-                                </h3>
-                                степень родства<br>
-                                дата рождения<br>
-                                телефон<br>
-                                адрес<br>
-                            </div>
-                            <div class="card-action center">
-                                <a class="btn waves-effect waves-light white-text" href="#">Редактировать</a>
-                            </div>
-                        </div>
+                        <table class="col s12 striped highlight">
+                            <thead>
+                            <tr>
+                                <th>Родство</th>
+                                <th>ФИО</th>
+                                <th>День рождения</th>
+                                <th>Телефон</th>
+                                <th>Адрес</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for person in relatives %}
+                                <tr>
+                                    <td>{{ person.relation }}</td>
+                                    <td>{{ person.last_name }} {{ person.name }} {{ person.second_name }}</td>
+                                    <td>{{ person.birthday }}</td>
+                                    <td>{{ person.phone }}</td>
+                                    <td>{{ person.residence }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+{#                    {% for person in relatives %}#}
+{#                            <div class="card col l4 m4 s12">#}
+{#                                <div class="card-content">#}
+{#                                    <h3 class="card-title">#}
+{#                                        {{ person.last_name }} {{ person.name }} {{ person.second_name }}#}
+{#                                    </h3>#}
+{#                                    Родство: {{ person.relation }}<br>#}
+{#                                    День рождения: {{ person.birthday }}<br>#}
+{#                                    Телефон: {{ person.phone }}<br>#}
+{#                                    Адрес: {{ person.residence }}<br>#}
+{#                                </div>#}
+{#                                <div class="card-action center">#}
+{#                                    <a class="btn waves-effect waves-light white-text" href="#">Редактировать</a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
                     </div>
                 </div>
             </div>
@@ -229,12 +253,12 @@
             <!-- Начало док-тов -->
             <div class="col s12" id="docs">
                 <div class="container">
-                    <table class="col s12 highlight">
+                    <table class="col s12 striped highlight">
                         <thead>
                         <tr>
-                            <th data-field="type">Тип документа</th>
-                            <th data-field="date">Дата публикации</th>
-                            <th data-field="download">Скачать</th>
+                            <th>Тип документа</th>
+                            <th>Дата публикации</th>
+                            <th>Скачать</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -255,7 +279,7 @@
             <div class="col s12" id="property">
                 <div class="container">
                     <div class="row">
-                        <table class="col s12 highlight">
+                        <table class="col s12 striped highlight">
                             <thead>
                             <tr>
                                 <th>Адрес</th>
@@ -280,7 +304,7 @@
             <div class="col s12" id="payments">
                 <div class="container">
                     <div class="row">
-                        <table class="col s12 highlight">
+                        <table class="col s12 striped highlight">
                             <thead>
                             <tr>
                                 <th>Номер</th>
@@ -314,7 +338,7 @@
                     {% csrf_token %}
                     {{ transaction_form.non_field_errors }}
                     {% for field in transaction_form %}
-                        <div class="fieldWrapper">
+                        <div class="fieldWrapper input-field">
                             {{ field.label_tag }}
                             {{ field }}
                             {{ field.errors }}
