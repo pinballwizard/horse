@@ -50,23 +50,20 @@ $( document ).ready(function(){
                 $("<td></td>").appendTo(row).text(residue2);
             }
         }
-        function animateTable(){
-            $("table").animate({
-                height:'100%'
-            }, "slow")
-        }
-        fullTable().animateTable()
     });
     $('.datepicker').pickadate({
-        monthsFull: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'Ноябрь', 'December'],
-        monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Ноя', 'Dec'],
-        weekdaysFull: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        monthsShort: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+        weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+        weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
 
         format: 'dd.mm.yyyy',
 
         // First day of the week
         firstDay: 'monday',
+
+        // Date limits
+        max: 'today',
 
         // Buttons
         today: 'Сегодня',
