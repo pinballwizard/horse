@@ -15,7 +15,8 @@
                     {{ form.search.errors }}
                 </div>
                 <div class="col l1 m1 s2">
-                    <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn" data-tooltip="Искать" type="submit">
+                    <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn"
+                            data-tooltip="Искать" type="submit">
                         <i class="material-icons">search</i>
                     </button>
                 </div>
@@ -40,6 +41,7 @@
                         {{ form.potential.errors }}
                     </p>
                 </div>
+
                 <!-- Switch -->
                 <div class="switch">
                     <label>
@@ -55,21 +57,25 @@
         <div class="card_view row">
             {% for client in clients %}
                 <div class="card col s12 m6 l4">
-                    <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
+                    <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom"
+                       data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
                         <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                     </a>
 
                     <!-- Задолженности и потенциальность-->
                     {% if client.is_potential %}
-                        <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
+                        <a class="tooltipped potential green-text text-darken-1 left top-icon"
+                           data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
                             <i class="material-icons small">help_outline</i>
                         </a>
                     {% elif client.debt %}
-                        <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
+                        <a class="tooltipped warning yellow-text text-darken-3 left top-icon"
+                           data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
                             <i class="material-icons small">warning</i>
                         </a>
                     {% elif client.debt %}
-                        <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                        <a class="tooltipped debtor red-text text-darken-1 left top-icon"
+                           data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
                             <i class="material-icons small">error</i>
                         </a>
                     {% endif %}
@@ -85,7 +91,8 @@
                     </div>
                     <div class="card-action">
                         <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>
-                        <a class="tooltipped green-text right" data-position="bottom" data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+                        <a class="tooltipped green-text right" data-position="bottom"
+                           data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
                             <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
                         </a>
                     </div>
@@ -100,7 +107,7 @@
                     <tr>
                         <th>Статус</th>
                         <th data-field="id">ID</th>
-                        <th data-field="date">Дата публикации</th>
+                        <th data-field="date">Дата регистрации</th>
                         <th data-field="name">ФИО</th>
                         <th data-field="phone">Телефон</th>
                         <th>Управление</th>
@@ -112,29 +119,34 @@
                             <td>
                                 <!-- Задолженности и потенциальность-->
                                 {% if client.is_potential %}
-                                    <a class="tooltipped potential green-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
+                                    <a class="tooltipped potential green-text text-darken-1 left top-icon"
+                                       data-position="bottom" data-delay="50" data-tooltip="Потенциальный клиент">
                                         <i class="material-icons small">help_outline</i>
                                     </a>
                                 {% elif client.debt %}
-                                    <a class="tooltipped warning yellow-text text-darken-3 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
+                                    <a class="tooltipped warning yellow-text text-darken-3 left top-icon"
+                                       data-position="bottom" data-delay="50" data-tooltip="Задолженность за 1 месяц">
                                         <i class="material-icons small">warning</i>
                                     </a>
                                 {% elif client.debt %}
-                                    <a class="tooltipped debtor red-text text-darken-1 left top-icon" data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
+                                    <a class="tooltipped debtor red-text text-darken-1 left top-icon"
+                                       data-position="bottom" data-delay="50" data-tooltip="Задолженность за 2 или более месяцев">
                                         <i class="material-icons small">error</i>
                                     </a>
                                 {% endif %}
                             </td>
                             <td>{{ client.id }}</td>
                             <td>{{ client.pub_date }}</td>
-                            <td>{{ client.last_name }} {{ client.name }} {{ client.second_name }}</td>
+                            <td><a href="{% url 'client_page' client.id %}">{{ client.last_name }} {{ client.name }} {{ client.second_name }}</a></td>
                             <td>{{ client.phone }}</td>
                             <td>
-                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>
-                                <a class="tooltipped green-text right" data-position="bottom" data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+{#                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>#}
+                                <a class="tooltipped green-text" data-position="bottom" data-delay="50"
+                                   data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
                                     <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
                                 </a>
-                                <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom" data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
+                                <a class="tooltipped teal-text text-lighten-2 top-icon" data-position="bottom"
+                                   data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
                                     <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                                 </a>
                             </td>
@@ -146,18 +158,22 @@
         </div>
         {% endif %}
     </div>
-    <div class="pagination">
-        <span class="step-links">
-            {% if clients.has_previous %}
-                <a href="?page={{ clients.previous_page_number }}">previous</a>
-            {% endif %}
-            <span class="current">
+    <div class="center">
+        <ul class="step-links pagination">
+            <li class="waves-effect">
+                {% if clients.has_previous %}
+                    <a href="?page={{ clients.previous_page_number }}"><i class="material-icons">chevron_left</i></a>
+                {% endif %}
+            </li>
+            <li class="current">
                 Page {{ clients.number }} of {{ clients.paginator.num_pages }}.
-            </span>
-            {% if clients.has_next %}
-                <a href="?page={{ clients.next_page_number }}">next</a>
-            {% endif %}
-        </span>
+            </li>
+            <li class="waves-effect">
+                {% if clients.has_next %}
+                    <a href="?page={{ clients.next_page_number }}"><i class="material-icons">chevron_right</i></a>
+                {% endif %}
+            </li>
+        </ul>
     </div>
     <!-- Кнопка вызова модального окна добавления нового клиента -->
     <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
