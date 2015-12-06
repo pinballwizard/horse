@@ -1,4 +1,4 @@
-{% extends "flatlease/template.html" %}
+{% extends "base/template.html" %}
 {% load staticfiles %}
 {% block meta %}
 {% endblock meta %}
@@ -6,54 +6,67 @@
     Поиск
 {% endblock menu_name %}
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <form action="{% url 'search' %}" role="form" method="get">
-                {{ form.non_field_errors }}
-                <div class="col l4 m4 s10">
-                    {{ form.search }}
-                    {{ form.search.errors }}
-                </div>
-                <div class="col l1 m1 s2">
-                    <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn"
-                            data-tooltip="Искать" type="submit">
-                        <i class="material-icons">search</i>
-                    </button>
-                </div>
-                <div class="col l2 m2 s12 switch">
-                    <p>
-                        {{ form.debtor }}
-                        {{ form.debtor.label_tag }}
-                        {{ form.debtor.errors }}
-                    </p>
-                </div>
-                <div class="col l2 m2 s12 switch">
-                    <p>
-                        {{ form.my_clients }}
-                        {{ form.my_clients.label_tag }}
-                        {{ form.my_clients.errors }}
-                    </p>
-                </div>
-                <div class="col l2 m2 s12 switch">
-                    <p>
-                        {{ form.potential }}
-                        {{ form.potential.label_tag }}
-                        {{ form.potential.errors }}
-                    </p>
-                </div>
-
-                <!-- Switch -->
-                <div class="col l2 m2 s12 switch">
-                    <label>
-                        <i class="small material-icons">view_stream</i>
-                        {{ form.view }}
-                        <span class="lever"></span>
+    <div class="row">
+        <form action="{% url 'search' %}" role="form" method="get">
+            {{ form.non_field_errors }}
+            <div class="col l4 m4 s10">
+                {{ form.search }}
+                {{ form.search.errors }}
+            </div>
+            <div class="col l1 m1 s2">
+                <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn"
+                        data-tooltip="Искать" type="submit">
+                    <i class="material-icons">search</i>
+                </button>
+            </div>
+            <div class="col l2 m2 s12 switch">
+                <p>
+                    {{ form.debtor }}
+                    {{ form.debtor.label_tag }}
+                    {{ form.debtor.errors }}
+                </p>
+            </div>
+            <div class="col l2 m2 s12 switch">
+                <p>
+                    {{ form.my_clients }}
+                    {{ form.my_clients.label_tag }}
+                    {{ form.my_clients.errors }}
+                </p>
+            </div>
+            <div class="col l2 m2 s12 switch">
+                <label>
+                    {{ form.potential }}
+                    {{ form.potential.errors }}
+{#                    {{ form.potential.label_tag }}#}
+                    {% if form.potential.value %}
+                        <b class="teal-text text-darken-2">Потенциальные</b>
+                    {% else %}
+                        <p>Потенциальные</p>
+                    {% endif %}
+                </label>
+            </div>
+            <!-- Switch -->
+            <div class="col l2 m2 s12 switch">
+                <label>
+                    {{ form.view }}
+                    {{ form.view.errors }}
+                    {% if form.view.value %}
+                        <i class="teal-text text-darken-2 small material-icons">dashboard</i>
+                    {% else %}
                         <i class="small material-icons">dashboard</i>
-                    </label>
-                </div>
-            </form>
-        </div>
-        {% if form.view.value %}
+                    {% endif %}
+                </label>
+{#                <label>#}
+{#                    <i class="small material-icons">view_stream</i>#}
+{#                    {{ form.view }}#}
+{#                    <span class="lever"></span>#}
+{#                    <i class="small material-icons">dashboard</i>#}
+{#                </label>#}
+            </div>
+        </form>
+    </div>
+    {% if clients %}
+    {% if form.view.value %}
         <div class="card_view row">
             {% for client in clients %}
                 <div class="card col s12 m6 l4">
@@ -99,7 +112,7 @@
                 </div>
             {% endfor %}
         </div>
-        {% else %}
+    {% else %}
         <div class="table_view row">
             <div class="table col l12">
                 <table class="striped highlight">
@@ -140,7 +153,7 @@
                             <td><a href="{% url 'client_page' client.id %}">{{ client.last_name }} {{ client.name }} {{ client.second_name }}</a></td>
                             <td>{{ client.phone }}</td>
                             <td>
-{#                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>#}
+                                {#                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>#}
                                 <a class="tooltipped green-text" data-position="bottom" data-delay="50"
                                    data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
                                     <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
@@ -156,25 +169,49 @@
                 </table>
             </div>
         </div>
-        {% endif %}
-    </div>
-    <div class="center">
-        <ul class="step-links pagination">
-            <li class="waves-effect">
+    {% endif %}
+    {% else %}
+        <div class="col s12 center">
+            <h5>Нет клиентов для отображения</h5>
+        </div>
+    {% endif %}
+    {% if clients.has_other_pages %}
+        <div class="center">
+            <ul class="step-links pagination">
                 {% if clients.has_previous %}
-                    <a href="?page={{ clients.previous_page_number }}"><i class="material-icons">chevron_left</i></a>
+                    <li class="waves-effect">
+                        <a href="?page={{ clients.previous_page_number }}"><i class="material-icons">chevron_left</i></a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a><i class="material-icons">chevron_left</i></a>
+                    </li>
                 {% endif %}
-            </li>
-            <li class="current">
-                Page {{ clients.number }} of {{ clients.paginator.num_pages }}.
-            </li>
-            <li class="waves-effect">
+                {% if clients.has_previous %}
+                    <li class="waves-effect">
+                        {{ clients.previous_page_number }}
+                    </li>
+                {% endif %}
+                <li class="active">
+                    {{ clients.number }}
+                </li>
                 {% if clients.has_next %}
-                    <a href="?page={{ clients.next_page_number }}"><i class="material-icons">chevron_right</i></a>
+                    <li class="waves-effect">
+                        {{ clients.next_page_number }}
+                    </li>
                 {% endif %}
-            </li>
-        </ul>
-    </div>
+                {% if clients.has_next %}
+                    <li class="waves-effect">
+                        <a href="?page={{ clients.next_page_number }}"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a><i class="material-icons">chevron_right</i></a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
     <!-- Кнопка вызова модального окна добавления нового клиента -->
     <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
        data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="{% url 'update' %}">

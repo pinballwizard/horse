@@ -40,7 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'chart_tools',
+    'base',
     'flatlease',
+    'car_leasing',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -166,6 +168,22 @@ DATABASES = {
         'HOST': '52.28.14.84',
         'PORT': '5432',
         'NAME': 'horse',
+        'USER': 'django',
+        'PASSWORD': '14875264',
+    },
+    'flat': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '52.28.14.84',
+        'PORT': '5432',
+        'NAME': 'flat',
+        'USER': 'django',
+        'PASSWORD': '14875264',
+    },
+    'car': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '52.28.14.84',
+        'PORT': '5432',
+        'NAME': 'car',
         'USER': 'django',
         'PASSWORD': '14875264',
     }

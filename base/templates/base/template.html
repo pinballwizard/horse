@@ -5,12 +5,13 @@
     {% block meta %}
     {% endblock meta %}
     <meta charset="UTF-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
     <script src="{% static 'flatlease/script/main.js' %}"></script>
+    <script src="{% static 'base/script/main.js' %}"></script>
     <link href="{% static 'flatlease/style/main.css' %}" rel="stylesheet">
     <title></title>
 </head>
@@ -18,11 +19,11 @@
     <header>
         <nav>
             <div class="nav-wrapper">
-                <ul class="right" for="menu-lower-right">
+                <ul class="right">
                     <li>
                         {% if user.is_authenticated %}
-                            <ul id="dropdown-log" class="dropdown-content">
-                                <li><a href="admin/">Администрирование</a></li>
+                            <ul id="dropdown-logThis div is 7-columns wide on pushed to the right by 5-columns.5-columns wide pulled to the l" class="dropdown-content">
+                                <li><a href="../../../static/admin">Администрирование</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'logout' %}">Выход</a></li>
                             </ul>
@@ -49,7 +50,7 @@
         </nav>
         <ul id="nav-mobile" class="side-nav fixed right hide-on-med-and-down">
             <a href="http://www.hors-invest.ru/"><img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}"></a>
-            <a href="#" class="brand-logo center red-text">
+            <a href="{% url 'calculator' %}" class="brand-logo center red-text">
                 <p><b>Жилищная программа</b></p>
             </a>
             <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
@@ -57,9 +58,7 @@
             <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>
         </ul>
         <ul id="slide-out" class="side-nav">
-            <a href="#" class="brand-logo">
-                Жилищная программа
-            </a>
+            <a href="#" class="brand-logo">Жилищная программа</a>
             <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
             <li><a class="" href="{% url 'search' %}">Клиентская база</a></li>
             <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>

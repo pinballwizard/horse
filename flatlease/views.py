@@ -1,5 +1,6 @@
 import logging
 from flatlease.models import *
+from base.models import Client, Document, Passport, Spouse, Relative, Transaction
 from django import forms
 from django.http import Http404
 from django.shortcuts import render, redirect
@@ -55,7 +56,6 @@ class ClientAddForm(forms.ModelForm):
             }),
             'health': forms.Select(attrs={
                 'class': 'browser-default',
-                # 'multiple': True,
             }),
             'workplace': forms.TextInput(attrs={
             }),
@@ -266,7 +266,7 @@ def user_login(request):
             if user.is_active:
                 login(request, user)
                 return redirect('calculator')
-    return render(request, 'flatlease/login.html', data)
+    return render(request, 'base/login.html', data)
 
 
 def user_logout(request):
@@ -283,7 +283,7 @@ def test_page(request):
     data = {
         'var': User.objects.get(pk=3),
     }
-    return render(request, 'flatlease/test.html', data)
+    return render(request, 'base/test.html', data)
 
 
 @login_required
@@ -318,7 +318,6 @@ def client_page(request, client_id):
     }
 
     if request.method == 'POST':
-        print(request.FILES)
         transaction_form = TransactionAddForm(request.POST)
         if transaction_form.is_valid():
             t = transaction_form.save(commit=False)
@@ -352,20 +351,6 @@ def client_page(request, client_id):
             s.owner = client_obj
             s.save()
     return render(request, 'flatlease/client.html', data)
-
-
-# @login_required
-# def add(request):
-#     data = {
-#         'add_client_form': ClientAddForm(),
-#     }
-#     if request.method == 'POST':
-#         client_form = ClientAddForm(request.POST, request.FILES)
-#         if client_form.is_valid():
-#             client_form.save()
-#         else:
-#             data['add_client_form'] = client_form
-#     return render(request, 'flatlease/update.html', data)
 
 
 @login_required
@@ -426,7 +411,7 @@ def search(request):
                 queryset = queryset.filter(document__isnull = True)
             data['clients'] = queryset
             data['form'] = form
-    paginator = Paginator(data['clients'],2)
+    paginator = Paginator(data['clients'], 10)
     page = request.GET.get('page')
     try:
         data['clients'] = paginator.page(page)
