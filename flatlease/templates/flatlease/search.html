@@ -7,7 +7,7 @@
 {% endblock menu_name %}
 {% block body %}
     <div class="row">
-        <form action="{% url 'search' %}" role="form" method="get">
+        <form action="{% url 'flat:search' %}" role="form" method="get">
             {{ form.non_field_errors }}
             <div class="col l4 m4 s10">
                 {{ form.search }}

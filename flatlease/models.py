@@ -6,12 +6,12 @@ from base.models import Client
 from django.utils import timezone
 
 
-def photo_file_path(instance, filename):
-    return 'client_media/{0}/{1}'.format(instance.id, filename)
-
-
-def content_file_path(instance, filename):
-    return 'client_media/{0}/{1}'.format(instance.owner.id, filename)
+# def photo_file_path(instance, filename):
+#     return 'client_media/{0}/{1}'.format(instance.id, filename)
+#
+#
+# def content_file_path(instance, filename):
+#     return 'client_media/{0}/{1}'.format(instance.owner.id, filename)
 
 
 class FixedProperty(models.Model):

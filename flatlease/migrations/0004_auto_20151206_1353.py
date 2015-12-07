@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import migrations, models
 import flatlease.models
+import base.models
 
 
 class Migration(migrations.Migration):
@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='client',
             name='photo',
-            field=models.ImageField(default='/static/flatlease/images/userPlaceholder.png', verbose_name='Фотография', upload_to=flatlease.models.photo_file_path),
+            field=models.ImageField(default='/static/flatlease/images/userPlaceholder.png', verbose_name='Фотография', upload_to=base.models.photo_file_path),
         ),
         migrations.AlterField(
             model_name='document',

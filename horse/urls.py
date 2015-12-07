@@ -17,17 +17,17 @@ flatlease_url = [
 ]
 
 car_leasing_url = [
-    url(r'^search$', car_views.car_search, name='car_search'),
+    url(r'^search$', car_views.car_search, name='search'),
 ]
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls), name='admin'),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^login$', base_views.user_login, name='login'),
     url(r'^logout$', base_views.user_logout, name='logout'),
     url(r'^$', base_views.choice, name='choice'),
     url(r'^calculator$', flat_views.calculator, name='calculator'),
-    url(r'^flat/', include(flatlease_url)),
-    url(r'^car/', include(car_leasing_url)),
+    url(r'^flat/', include(flatlease_url, namespace='flat', app_name='flat')),
+    url(r'^car/', include(car_leasing_url, namespace='car', app_name='car')),
     url(r'^test', base_views.test_page, name='test_page'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='flatlease/robots.txt'), name='robots'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

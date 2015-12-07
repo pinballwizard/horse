@@ -247,15 +247,9 @@ class SearchForm(forms.Form):
     view.widget = forms.CheckboxInput()
 
 
-
-
-
 def calculator(request):
     logger.debug("user use calculator")
     return render(request, 'flatlease/calculator.html')
-
-
-
 
 
 @login_required
@@ -355,7 +349,7 @@ def update(request, client_id=None):
             return redirect('client_page', c.id)
         else:
             data['add_client_form'] = client_form
-    return render(request, 'flatlease/update.html', data)\
+    return render(request, 'flatlease/update.html', data)
 
 
 @login_required

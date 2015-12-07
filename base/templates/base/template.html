@@ -31,7 +31,7 @@
                                 {% endif %}
                             </a>
                             <ul id="dropdown-user" class="dropdown-content">
-                                <li><a href="/admin">Администрирование</a></li>
+                                <li><a href="{% url 'admin:index' %}">Администрирование</a></li>
                                 <li class="divider"></li>
                                 <li><a href="{% url 'logout' %}">Выход</a></li>
                             </ul>
@@ -50,18 +50,18 @@
         </nav>
         <ul id="nav-mobile" class="side-nav fixed right hide-on-med-and-down">
             <a href="http://www.hors-invest.ru/"><img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}"></a>
-            <a href="{% url 'calculator' %}" class="brand-logo center red-text">
+            <a href="{% url 'choice' %}" class="brand-logo center red-text">
                 <p><b>Жилищная программа</b></p>
             </a>
-            <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'search' %}">Клиентская база</a></li>
-            <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>
+            <li><a class="" href="{% url 'flat:calculator' %}">Калькулятор</a></li>
+            <li><a class="" href="{% url 'flat:search' %}">Клиентская база</a></li>
+            <li><a class="" href="{% url 'flat:statistics' %}">Статистика</a></li>
         </ul>
         <ul id="slide-out" class="side-nav">
             <a href="#" class="brand-logo">Жилищная программа</a>
-            <li><a class="" href="{% url 'calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'search' %}">Клиентская база</a></li>
-            <li><a class="" href="{% url 'statistics' %}">Статистика</a></li>
+            <li><a class="" href="{% url 'flat:calculator' %}">Калькулятор</a></li>
+            <li><a class="" href="{% url 'flat:search' %}">Клиентская база</a></li>
+            <li><a class="" href="{% url 'flat:statistics' %}">Статистика</a></li>
         </ul>
     </header>
     <main>

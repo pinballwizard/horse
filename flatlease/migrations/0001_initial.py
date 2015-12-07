@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import flatlease.models
+import base.models
 from django.conf import settings
 
 
@@ -30,7 +31,7 @@ class Migration(migrations.Migration):
                 ('work_position', models.CharField(blank=True, verbose_name='Должность', max_length=50)),
                 ('salary', models.DecimalField(decimal_places=2, verbose_name='Заработная плата', max_digits=10, default=0)),
                 ('profit', models.DecimalField(decimal_places=2, verbose_name='Дополнительный доход', max_digits=10, default=0)),
-                ('photo', models.ImageField(blank=True, verbose_name='Фотография', upload_to=flatlease.models.photo_file_path)),
+                ('photo', models.ImageField(blank=True, verbose_name='Фотография', upload_to=base.models.photo_file_path)),
                 ('monthly_payment', models.DecimalField(decimal_places=2, verbose_name='Ежемесячный платеж', max_digits=10, default=0)),
                 ('comment', models.TextField(blank=True, verbose_name='Дополнительный комментарий', max_length=500)),
             ],
@@ -44,7 +45,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, verbose_name='ID', primary_key=True, auto_created=True)),
                 ('type', models.CharField(verbose_name='Тип', choices=[('application', 'Заявление'), ('form', 'Анкета'), ('contract', 'Договор')], default='application', max_length=20)),
-                ('document', models.FileField(verbose_name='Документ', upload_to=flatlease.models.content_file_path)),
+                ('document', models.FileField(verbose_name='Документ', upload_to=base.models.content_file_path)),
                 ('pub_date', models.DateTimeField(verbose_name='Время добавления', auto_now_add=True)),
             ],
             options={
@@ -122,7 +123,7 @@ class Migration(migrations.Migration):
                 ('number', models.CharField(verbose_name='Серия и Номер', max_length=10)),
                 ('data', models.DateField(verbose_name='Дата выдачи')),
                 ('whom', models.TextField(verbose_name='Кем выдан', max_length=100)),
-                ('image', models.ImageField(verbose_name='Паспорт', upload_to=flatlease.models.content_file_path)),
+                ('image', models.ImageField(verbose_name='Паспорт', upload_to=base.models.content_file_path)),
                 ('birthplace', models.CharField(verbose_name='Место рождения', max_length=100)),
                 ('registration', models.CharField(verbose_name='Регистрация по месту жительства', max_length=100)),
             ],

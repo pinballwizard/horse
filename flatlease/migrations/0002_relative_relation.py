@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.AlterField(
             model_name='relative',
             name='relation',
             field=models.CharField(choices=[('father', 'Отец'), ('mother', 'Мать'), ('child', 'Ребенок')], verbose_name='Отношение', max_length=10, default='father'),
