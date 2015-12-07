@@ -14,13 +14,6 @@ def content_file_path(instance, filename):
     return 'client_media/{0}/{1}'.format(instance.owner.id, filename)
 
 
-def managers():
-    try:
-        return {'groups': Group.objects.get(name='managers')}
-    except ObjectDoesNotExist:
-        return {'is_stuff': True}
-
-
 class FixedProperty(models.Model):
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     location = models.CharField("Местоположение", max_length=50, unique=True)

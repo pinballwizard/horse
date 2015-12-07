@@ -1,0 +1,35 @@
+{% extends "base/template.html" %}
+{% load staticfiles %}
+{% block meta %}
+{% endblock meta %}
+{% block menu_name %}
+    Поиск автомобилей
+{% endblock menu_name %}
+{% block body %}
+    {% if cars %}
+        <div class="row">
+            <table class="striped highlight">
+                <thead>
+                <tr>
+                    <th>Модель</th>
+                    <th>Цвет</th>
+                    <th>Год выпуска</th>
+                    <th>Пробег</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for car in cars %}
+                    <tr>
+                        <td>{{ car.model }}</td>
+                        <td>{{ car.color }}</td>
+                        <td>{{ car.man_date }}</td>
+                        <td>{{ car.mileage }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h5 class="center">Нет автомобилей для отображения</h5>
+    {% endif %}
+{% endblock body %}

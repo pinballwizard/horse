@@ -25,6 +25,10 @@ relation_type_dict = (
     ('Мать', 'Мать'),
     ('Ребенок', 'Ребенок'),
 )
+project_type_dict = (
+    ('car', 'Автолизинг'),
+    ('flat', 'Недвижимость'),
+)
 
 
 def photo_file_path(instance, filename):
@@ -71,6 +75,7 @@ class Client(Person):
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
     photo = models.ImageField("Фотография", upload_to=photo_file_path, default="/static/flatlease/images/userPlaceholder.png")
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, default=0)
+    # project = models.CharField("Проект", max_length=10, choices=project_type_dict, blank=True)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
     class Meta:
