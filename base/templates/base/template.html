@@ -49,19 +49,37 @@
             </div>
         </nav>
         <ul id="nav-mobile" class="side-nav fixed right hide-on-med-and-down">
-            <a href="http://www.hors-invest.ru/"><img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}"></a>
+            <a href="http://www.hors-invest.ru/">
+                <img class="responsive-img" src="{% static 'flatlease/images/logo.png' %}">
+            </a>
             <a href="{% url 'choice' %}" class="brand-logo center red-text">
                 <p><b>Жилищная программа</b></p>
             </a>
-            <li><a class="" href="{% url 'flat:calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'flat:search' %}">Клиентская база</a></li>
-            <li><a class="" href="{% url 'flat:statistics' %}">Статистика</a></li>
+            {% if perms.base %}
+                <li><a href="{% url 'base:search' %}">Клиентская база</a></li>
+            {% endif %}
+            {% if perms.flatlease %}
+                <li><a href="{% url 'flat:calculator' %}">Калькулятор </a></li>
+                <li><a href="{% url 'flat:statistics' %}">Статистика</a></li>
+            {% endif %}
+            {% if perms.car_leasing %}
+                <li><a href="{% url 'car:search' %}">Поиск авто</a></li>
+            {% endif %}
         </ul>
         <ul id="slide-out" class="side-nav">
-            <a href="#" class="brand-logo">Жилищная программа</a>
-            <li><a class="" href="{% url 'flat:calculator' %}">Калькулятор</a></li>
-            <li><a class="" href="{% url 'flat:search' %}">Клиентская база</a></li>
-            <li><a class="" href="{% url 'flat:statistics' %}">Статистика</a></li>
+            <a href="{% url 'choice' %}" class="brand-logo">
+                <p><b>Жилищная программа</b></p>
+            </a>
+            {% if perms.base %}
+                <li><a href="{% url 'base:search' %}">Клиентская база</a></li>
+            {% endif %}
+            {% if perms.flatlease %}
+                <li><a href="{% url 'flat:calculator' %}">Калькулятор </a></li>
+                <li><a href="{% url 'flat:statistics' %}">Статистика</a></li>
+            {% endif %}
+            {% if perms.car_leasing %}
+                <li><a href="{% url 'car:search' %}">Поиск авто</a></li>
+            {% endif %}
         </ul>
     </header>
     <main>

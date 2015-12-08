@@ -42,7 +42,15 @@ def user_logout(request):
 
 
 def choice(request):
-    return render(request, 'base/choice.html')
+    if request.user.is_authenticated():
+        if request.user.has_module_perms('flatlease'):
+            return redirect('flat:calculator')
+        if request.user.has_module_perms('car_leasing'):
+            return redirect('car:search')
+        if request.user.has_module_perms('base'):
+            return redirect('flat:search')
+    else:
+        return redirect('login')
 
 
 def test_page(request):

@@ -38,12 +38,14 @@ class ClientAddForm(forms.ModelForm):
                 'class': 'validate',
             }),
             'birthday': forms.DateInput(attrs={
-                'class': 'datepicker',
+                'class': 'datepicker validate',
                 'placeholder': 'дд.мм.гггг',
             }),
             'residence': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'phone': forms.TextInput(attrs={
+                'class': 'validate',
                 'type': 'tel',
                 'required': True,
             }),
@@ -58,14 +60,19 @@ class ClientAddForm(forms.ModelForm):
                 'class': 'browser-default',
             }),
             'workplace': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'work_position': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'salary': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'profit': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'monthly_payment': forms.TextInput(attrs={
+                'class': 'validate',
             }),
             'comment': forms.Textarea(attrs={
                 'class': 'materialize-textarea',

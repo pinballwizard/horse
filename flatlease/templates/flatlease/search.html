@@ -7,46 +7,41 @@
 {% endblock menu_name %}
 {% block body %}
     <div class="row">
-        <form action="{% url 'flat:search' %}" role="form" method="get">
+        <form action="{% url 'base:search' %}" role="form" method="get">
             {{ form.non_field_errors }}
             <div class="col l4 m4 s10">
                 {{ form.search }}
                 {{ form.search.errors }}
             </div>
-            <div class="col l1 m1 s2">
-                <button class="btn-floating waves-effect waves-light black-text tooltipped search-btn"
+            <div class="col l1 m1 s2 search-btn">
+                <button class="btn-floating waves-effect waves-light black-text tooltipped"
                         data-tooltip="Искать" type="submit">
                     <i class="material-icons">search</i>
                 </button>
             </div>
-            <div class="col l2 m2 s12 switch">
+            <div class="col l2 m2 s12 switch search-btn">
                 <p>
                     {{ form.debtor }}
                     {{ form.debtor.label_tag }}
                     {{ form.debtor.errors }}
                 </p>
             </div>
-            <div class="col l2 m2 s12 switch">
+            <div class="col l2 m2 s12 switch search-btn">
                 <p>
                     {{ form.my_clients }}
                     {{ form.my_clients.label_tag }}
                     {{ form.my_clients.errors }}
                 </p>
             </div>
-            <div class="col l2 m2 s12 switch">
-                <label>
+            <div class="col l2 m2 s12 switch search-btn">
+                <p>
                     {{ form.potential }}
                     {{ form.potential.errors }}
-{#                    {{ form.potential.label_tag }}#}
-                    {% if form.potential.value %}
-                        <b class="teal-text text-darken-2">Потенциальные</b>
-                    {% else %}
-                        <p>Потенциальные</p>
-                    {% endif %}
-                </label>
+                    {{ form.potential.label_tag }}
+                </p>
             </div>
             <!-- Switch -->
-            <div class="col l2 m2 s12 switch">
+            <div class="col l1 m1 s2 switch search-btn">
                 <label>
                     {{ form.view }}
                     {{ form.view.errors }}
@@ -71,7 +66,7 @@
             {% for client in clients %}
                 <div class="card col s12 m6 l4">
                     <a class="tooltipped right teal-text text-lighten-2 top-icon" data-position="bottom"
-                       data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
+                       data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'base:update' client.id %}">
                         <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                     </a>
 
@@ -103,9 +98,9 @@
                         </p>
                     </div>
                     <div class="card-action">
-                        <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>
+                        <a class="btn white-text" href="{% url 'base:client_page' client.id %}">Открыть</a>
                         <a class="tooltipped green-text right" data-position="bottom"
-                           data-delay="50" data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+                           data-delay="50" data-tooltip="Добавить платеж" href="{% url 'base:client_page' client.id %}#payments">
                             <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
                         </a>
                     </div>
@@ -150,16 +145,16 @@
                             </td>
                             <td>{{ client.id }}</td>
                             <td>{{ client.pub_date }}</td>
-                            <td><a href="{% url 'client_page' client.id %}">{{ client.last_name }} {{ client.name }} {{ client.second_name }}</a></td>
+                            <td><a href="{% url 'base:client_page' client.id %}">{{ client.last_name }} {{ client.name }} {{ client.second_name }}</a></td>
                             <td>{{ client.phone }}</td>
                             <td>
                                 {#                                <a class="btn white-text" href="{% url 'client_page' client.id %}">Открыть</a>#}
                                 <a class="tooltipped green-text" data-position="bottom" data-delay="50"
-                                   data-tooltip="Добавить платеж" href="{% url 'client_page' client.id %}#payments">
+                                   data-tooltip="Добавить платеж" href="{% url 'base:client_page' client.id %}#payments">
                                     <i class="material-icons small" id="payment_{{ client.id }}">local_atm</i>
                                 </a>
                                 <a class="tooltipped teal-text text-lighten-2 top-icon" data-position="bottom"
-                                   data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'update' client.id %}">
+                                   data-delay="50" data-tooltip="Редактировать профиль" href="{% url 'base:update' client.id %}">
                                     <i class="material-icons small" id="edit_{{ client.id }}">mode_edit</i>
                                 </a>
                             </td>
@@ -214,7 +209,7 @@
     {% endif %}
     <!-- Кнопка вызова модального окна добавления нового клиента -->
     <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
-       data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="{% url 'update' %}">
+       data-position="top" data-delay="50" data-tooltip="Создать профиль клиента" href="{% url 'base:update' %}">
         <i class="material-icons">person_add</i>
     </a>
 {% endblock body %}
