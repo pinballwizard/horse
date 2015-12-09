@@ -104,7 +104,7 @@
                     </div>
                     <div class="card-action">
                         <a class="btn waves-effect waves-light white-text"
-                           href="{% url 'update' client.id %}">Редактировать</a>
+                           href="{% url 'base:update' client.id %}">Редактировать</a>
                     </div>
                 </div>
                 <div class="card">
@@ -366,7 +366,7 @@
 
         <!-- Модальное окно платежа -->
         <div id="payment-modal" class="modal">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
                     <h5 class="center">Добавление платежа</h5>
                     {% csrf_token %}
@@ -387,7 +387,7 @@
 
         <!-- Модальное окно недвижимости -->
         <div id="property-modal" class="modal">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
                     <h5>Добавление недвижимости</h5>
                     {% csrf_token %}
@@ -408,7 +408,7 @@
 
         <!-- Модальное окно документов -->
         <div id="docs-modal" class="modal">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                     <h5>Добавление документа</h5>
                     {% csrf_token %}
@@ -429,7 +429,7 @@
 
         <!-- Модальное окно родственников -->
         <div id="relatives-modal" class="modal modal-fixed-footer">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
                     <h5>Добавление родственника</h5>
                     {% csrf_token %}
@@ -450,7 +450,7 @@
 
         <!-- Модальное окно паспорта -->
         <div id="passport-modal" class="modal modal-fixed-footer">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post" enctype="multipart/form-data">
                 <div class="modal-content">
                     <h5>Редактирование паспортных данных</h5>
                     {% csrf_token %}
@@ -471,7 +471,7 @@
 
         <!-- Модальное окно супруга -->
         <div id="spouse-modal" class="modal modal-fixed-footer">
-            <form action="{% url 'client_page' client.id %}" role="form" method="post">
+            <form action="{% url 'base:client_page' client.id %}" role="form" method="post">
                 <div class="modal-content">
                     <h5>Редактирование данных о супруге</h5>
                     {% csrf_token %}

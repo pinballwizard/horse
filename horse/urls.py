@@ -8,10 +8,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 base_url = [
-    url(r'^search$', flat_views.search, name='search'),
-    url(r'^addition$', flat_views.update, name='update'),
-    url(r'^update_id=(?P<client_id>\d+)$', flat_views.update, name='update'),
-    url(r'^client_id=(?P<client_id>\d+)$', flat_views.client_page, name='client_page'),
+    url(r'^search$', base_views.search, name='search'),
+    url(r'^addition$', base_views.update, name='update'),
+    url(r'^update_id=(?P<client_id>\d+)$', base_views.update, name='update'),
+    url(r'^client_id=(?P<client_id>\d+)$', base_views.client_page, name='client_page'),
 ]
 
 flatlease_url = [
