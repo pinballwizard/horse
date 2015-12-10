@@ -3,6 +3,14 @@ from base.models import Client, Document, Transaction
 from django.utils import timezone
 
 
+def photo_file_path(instance, filename):
+    return 'client_media/{0}/{1}'.format(instance.id, filename)
+
+
+def content_file_path(instance, filename):
+    return 'client_media/{0}/{1}'.format(instance.owner.id, filename)
+
+
 class Brand(models.Model):
     name = models.CharField("Производитель", max_length=50)
     logo = models.ImageField("Лого", blank=True)
@@ -23,12 +31,12 @@ class Model(models.Model):
 
 
 class Car(models.Model):
-    owner = models.ForeignKey(Client, verbose_name="Клиент")
+    owner = models.ForeignKey(Client, verbose_name="Клиент", blank=True)
     model = models.ForeignKey(Model, verbose_name="Производитель", blank=True)
     color = models.CharField("Цвет", max_length=50, blank=True)
     man_date = models.DateField("Дата выпуска")
     mileage = models.IntegerField("Пробег", default=0)
-    photo = models.ImageField("Фотография", blank=True)
+    photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
     comment = models.TextField("Комментарий", max_length=500, blank=True)
 
     class Meta:

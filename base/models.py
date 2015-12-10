@@ -73,7 +73,7 @@ class Client(Person):
     work_position = models.CharField("Должность", max_length=50, blank=True)
     salary = models.DecimalField("Заработная плата", max_digits=10, decimal_places=2, default=0)
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
-    photo = models.ImageField("Фотография", upload_to=photo_file_path, default="/static/flatlease/images/userPlaceholder.png")
+    photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, default=0)
     # project = models.CharField("Проект", max_length=10, choices=project_type_dict, blank=True)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)

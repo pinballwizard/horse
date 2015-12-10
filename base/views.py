@@ -329,16 +329,14 @@ def update(request, client_id=None):
     }
 
     if request.method == 'POST':
-        if client is not None:
-            client = Client()
-            client.last_name = request.POST['last_name']
-            client.name = request.POST['name']
-            client.save()
-        client_form = ClientAddForm(request.POST, request.FILES, instance=client)
+        client_form = ClientAddForm(request.POST, instance=client)
         if client_form.is_valid():
             c = client_form.save(commit=False)
             c.manager = request.user
             c.save()
+            client_form = ClientAddForm(request.POST, request.FILES, instance=c)
+            if client_form.is_valid():
+                c.save()
             return redirect('base:client_page', c.id)
         else:
             data['add_client_form'] = client_form
