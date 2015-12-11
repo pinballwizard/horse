@@ -32,7 +32,7 @@ class Model(models.Model):
 
 class Car(models.Model):
     owner = models.ForeignKey(Client, verbose_name="Клиент", blank=True)
-    model = models.ForeignKey(Model, verbose_name="Производитель", blank=True)
+    model = models.ForeignKey(Model, verbose_name="Модель", blank=True)
     color = models.CharField("Цвет", max_length=50, blank=True)
     man_date = models.DateField("Дата выпуска")
     mileage = models.IntegerField("Пробег", default=0)

@@ -58,7 +58,7 @@ class ClientAddForm(forms.ModelForm):
                 'type': 'file',
             }),
             'health': forms.Select(attrs={
-                'class': 'browser-default',
+                'class': 'validate',
             }),
             'workplace': forms.TextInput(attrs={
                 'class': 'validate',
@@ -91,7 +91,7 @@ class TransactionAddForm(forms.ModelForm):
         }
         widgets = {
             'type': forms.Select(attrs={
-                'class': 'browser-default',
+                'class': 'validate',
                 'required': False,
             }),
             'count': forms.TextInput(attrs={
@@ -113,7 +113,7 @@ class DocumentAddForm(forms.ModelForm):
                 'required': True,
             }),
             'type': forms.Select(attrs={
-                'class': 'browser-default',
+                'class': 'validate',
                 'required': True,
             }),
         }
@@ -129,7 +129,7 @@ class RelativeAddForm(forms.ModelForm):
         }
         widgets = {
             'relation': forms.Select(attrs={
-                'class': 'browser-default',
+                'class': 'validate',
             }),
             'name': forms.TextInput(attrs={
                 'class': 'validate',

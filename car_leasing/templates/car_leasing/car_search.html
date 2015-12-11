@@ -27,6 +27,7 @@
             <table class="striped highlight">
                 <thead>
                 <tr>
+                    <th>Бренд</th>
                     <th>Модель</th>
                     <th>Цвет</th>
                     <th>Год выпуска</th>
@@ -36,6 +37,7 @@
                 <tbody>
                 {% for car in cars %}
                     <tr>
+                        <td>{{ car.model.brand }}</td>
                         <td>{{ car.model }}</td>
                         <td>{{ car.color }}</td>
                         <td>{{ car.man_date }}</td>
@@ -48,4 +50,30 @@
     {% else %}
         <h5 class="center">Нет автомобилей для отображения</h5>
     {% endif %}
+    <!-- Кнопка вызова модального окна добавления нового автомобиля -->
+    <a class="btn-floating btn-large waves-effect waves-light red add-client tooltipped modal-trigger"
+       data-position="top" data-delay="50" data-tooltip="Добавить автомобиль" href="#car-modal">
+        <i class="material-icons">person_add</i>
+    </a>
+
+    <div id="car-modal" class="modal">
+        <form action="{% url 'car:search' %}" role="form" method="post">
+            <div class="modal-content">
+                <h5>Добавление автомобиля</h5>
+                {% csrf_token %}
+                {{ car_form.non_field_errors }}
+                {% for field in car_form %}
+                    <div class="fieldWrapper input-field">
+                        {{ field }}
+                        {{ field.label_tag }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+
 {% endblock body %}
