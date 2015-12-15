@@ -11,8 +11,8 @@ class CarAdmin(admin.ModelAdmin):
 
 @admin.register(Model)
 class ModelAdmin(admin.ModelAdmin):
-    search_fields = ['brand', 'name']
-    list_display = ('brand', 'name')
+    search_fields = ['brand', 'name', 'year']
+    list_display = ('brand', 'name', 'year')
 
 
 @admin.register(Brand)

@@ -20,6 +20,9 @@ flatlease_url = [
 ]
 
 car_leasing_url = [
+    url(r'^car_to_pdf_id=(?P<car_id>\d+)$', car_views.car_to_pdf, name='car_to_pdf'),
+    url(r'^car_id=(?P<car_id>\d+)$', car_views.car_page, name='car_page'),
+    url(r'^brand_save$', car_views.brand_save, name='brand_save'),
     url(r'^search$', car_views.car_search, name='search'),
 ]
 
@@ -32,6 +35,6 @@ urlpatterns = [
     url(r'^', include(base_url, namespace='base', app_name='base')),
     url(r'^flat/', include(flatlease_url, namespace='flat', app_name='flat')),
     url(r'^car/', include(car_leasing_url, namespace='car', app_name='car')),
-    url(r'^test', base_views.test_page, name='test_page'),
+    url(r'^test', car_views.car_to_pdf, name='test_page'),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='flatlease/robots.txt'), name='robots'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -391,7 +391,7 @@ def user_login(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                return redirect('calculator')
+                return redirect('base:choice')
     return render(request, 'base/login.html', data)
 
 
