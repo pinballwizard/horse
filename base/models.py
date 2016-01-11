@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from datetime import date
 from django.contrib.auth.models import User, Group
 from django.utils import timezone
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 health_type_dict = (
     ('Здоров', 'Здоров'),
@@ -75,7 +77,6 @@ class Client(Person):
     profit = models.DecimalField("Дополнительный доход", max_digits=10, decimal_places=2, default=0)
     photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
     monthly_payment = models.DecimalField("Ежемесячный платеж", max_digits=10, decimal_places=2, default=0)
-    # project = models.CharField("Проект", max_length=10, choices=project_type_dict, blank=True)
     comment = models.TextField("Дополнительный комментарий", max_length=500, blank=True)
 
     class Meta:
@@ -103,9 +104,15 @@ class Client(Person):
 
 
 class Transaction(models.Model):
+
+    # transaction_type = ContentType.objects.get(app_label="car_leasing", model="car")
+
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
     type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
+    content_type=models.ForeignKey(ContentType)
+    object_id=models.PositiveIntegerField()
+    relate = GenericForeignKey('content_type', 'object_id')
     pub_date = models.DateTimeField("Дата платежа", auto_now_add=True)
 
     class Meta:

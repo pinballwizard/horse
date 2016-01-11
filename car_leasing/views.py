@@ -92,6 +92,36 @@ def brand_save(request):
 
 
 @login_required
+def update(request, car_id=None):
+    if car_id is not None:
+        try:
+            car = Car.objects.get(pk=car_id)
+        except Car.DoesNotExist:
+            raise Http404("Автомобилей с id = {0} не найдено".format(car_id))
+    else:
+        car = None
+
+    data = {
+        'car_id': car_id,
+        'car_form': CarAddForm(instance=car),
+    }
+
+    if request.method == 'POST':
+        car_form = CarAddForm(request.POST, instance=car)
+        if car_form.is_valid():
+            c = car_form.save(commit=False)
+            c.manager = request.user
+            c.save()
+            car_form = CarAddForm(request.POST, request.FILES, instance=c)
+            if car_form.is_valid():
+                c.save()
+            return redirect('car:car_page', c.id)
+        else:
+            data['add_car_form'] = car_form
+    return render(request, 'car_leasing/update.html', data)
+
+
+@login_required
 def car_search(request):
     data = {
         'cars': Car.objects.all(),

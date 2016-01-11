@@ -6,7 +6,7 @@ from car_leasing.models import *
 @admin.register(Car)
 class CarAdmin(admin.ModelAdmin):
     search_fields = ['model', 'owner']
-    list_display = ('model', 'owner', 'man_date', 'color', 'mileage')
+    list_display = ('model', 'owner', 'man_date', 'color', 'mileage', 'cost', 'payed', 'number', 'region')
 
 
 @admin.register(Model)

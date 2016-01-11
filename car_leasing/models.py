@@ -40,9 +40,13 @@ class Car(models.Model):
     owner = models.ForeignKey(Client, verbose_name="Клиент", blank=True, null=True)
     model = models.ForeignKey(Model, verbose_name="Модель", blank=True, null=True)
     color = models.CharField("Цвет", max_length=50, blank=True)
+    number = models.CharField("Гос. Номер", max_length=6, blank=True)
+    region = models.CharField("Регион", max_length=2, blank=True, default=23)
     man_date = models.DateField("Дата выпуска")
     mileage = models.IntegerField("Пробег", default=0)
     photo = models.ImageField("Фотография", upload_to=photo_file_path, blank=True)
+    cost = models.DecimalField("Стоимость", max_digits=10, decimal_places=2, default=0)
+    payed = models.DecimalField("Уплачено", max_digits=10, decimal_places=2, default=0)
     comment = models.TextField("Комментарий", max_length=500, blank=True)
 
     class Meta:
@@ -51,5 +55,3 @@ class Car(models.Model):
 
     def __str__(self):
         return " ".join([self.color, str(self.model)])
-
-

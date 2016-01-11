@@ -21,8 +21,10 @@ flatlease_url = [
 
 car_leasing_url = [
     url(r'^car_to_pdf_id=(?P<car_id>\d+)$', car_views.car_to_pdf, name='car_to_pdf'),
-    url(r'^car_id=(?P<car_id>\d+)$', car_views.car_page, name='car_page'),
+    url(r'^id=(?P<car_id>\d+)$', car_views.car_page, name='car_page'),
     url(r'^brand_save$', car_views.brand_save, name='brand_save'),
+    url(r'^add$', car_views.update, name='add'),
+    url(r'^update_id=(?P<car_id>\d+)$', car_views.update, name='update'),
     url(r'^search$', car_views.car_search, name='search'),
 ]
 
