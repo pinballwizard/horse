@@ -28,9 +28,9 @@ class CarAddForm(forms.ModelForm):
         model = Car
         fields = ['owner', 'model', 'color', 'man_date', 'mileage',
                   'photo', 'comment']
-        labels = {
-            'photo': '',
-        }
+        # labels = {
+        #     'photo': '',
+        # }
         widgets = {
             'color': forms.TextInput(attrs={
                 'class': 'validate',
@@ -104,6 +104,8 @@ def update(request, car_id=None):
     data = {
         'car_id': car_id,
         'car_form': CarAddForm(instance=car),
+        'brand_form': BrandAddForm(),
+        'model_form': ModelAddForm(),
     }
 
     if request.method == 'POST':
@@ -126,9 +128,6 @@ def car_search(request):
     data = {
         'cars': Car.objects.all(),
         'search_form': SearchForm(),
-        'car_form': CarAddForm(),
-        'brand_form': BrandAddForm(),
-        'model_form': ModelAddForm(),
     }
     if request.method == 'POST':
         car_form = CarAddForm(request.POST, request.FILES)

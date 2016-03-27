@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
+    # 'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'chart_tools',
+    # 'chart_tools',
     'base',
     'flatlease',
     'car_leasing',
@@ -165,7 +165,7 @@ WSGI_APPLICATION = 'horse.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '52.28.14.84',
+        'HOST': '54.93.55.209',
         'PORT': '5432',
         'NAME': 'horse',
         'USER': 'django',
@@ -173,7 +173,7 @@ DATABASES = {
     },
     'flat': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '52.28.14.84',
+        'HOST': '54.93.55.209',
         'PORT': '5432',
         'NAME': 'flat',
         'USER': 'django',
@@ -181,7 +181,7 @@ DATABASES = {
     },
     'car': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '52.28.14.84',
+        'HOST': '54.93.55.209',
         'PORT': '5432',
         'NAME': 'car',
         'USER': 'django',

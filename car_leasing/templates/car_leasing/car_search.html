@@ -42,7 +42,7 @@
                             <td><a href="{% url 'car:car_page' car.id %}">{{ car.model }}</a></td>
                             <td>{{ car.man_date }}</td>
                             <td>{{ car.mileage }}</td>
-                            <td><div style="background:{{ car.color }}; border-radius: 50%; width: 25px; height: 25px;"></div></td>
+                            <td><div class="color-div" style="background:{{ car.color }};"></div></td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -52,94 +52,11 @@
             <h5 class="center">Нет автомобилей для отображения</h5>
         {% endif %}
     </div>
-    <!-- Кнопка управления модальными окнами -->
-    <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 40px;">
-        <a class="btn-floating btn-large red lighten-1">
+    <!-- Кнопка добавления автомобиля -->
+    <div class="fixed-action-btn" style="bottom: 45px; right: 40px;">
+        <a class="btn-floating btn-large red lighten-1 tooltipped"
+           data-position="top" data-delay="50" data-tooltip="Добавить автомобиль" href="{% url 'car:add' %}">
             <i class="material-icons">add</i>
         </a>
-        <ul>
-            <li>
-                <a class="btn-floating red accent-1 tooltipped modal-trigger"
-                   data-position="top" data-delay="50" data-tooltip="Добавить брэнд" href="#brand-modal">
-                    <i class="material-icons">polymer</i>
-                </a>
-            </li>
-            <li>
-                <a class="btn-floating red lighten-3 tooltipped modal-trigger"
-                   data-position="top" data-delay="50" data-tooltip="Добавить модель" href="#model-modal">
-                    <i class="material-icons">grade</i>
-                </a>
-            </li>
-            <li>
-                <a class="btn-floating red lighten-2 tooltipped modal-trigger"
-                   data-position="top" data-delay="50" data-tooltip="Добавить автомобиль" href="{% url 'car:add' %}">
-                    <i class="material-icons">home</i>
-                </a>
-            </li>
-        </ul>
     </div>
-
-    <!-- Модальное окно автомобиля -->
-    <div id="car-modal" class="modal">
-        <form action="{% url 'car:search' %}" role="form" method="post">
-            <div class="modal-content">
-                <h5>Добавление автомобиля</h5>
-                {% csrf_token %}
-                {{ car_form.non_field_errors }}
-                {% for field in car_form %}
-                    <div class="fieldWrapper input-field">
-                        {{ field }}
-                        {{ field.label_tag }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Модальное окно модели -->
-    <div id="model-modal" class="modal">
-        <form action="{% url 'car:search' %}" role="form" method="post">
-            <div class="modal-content">
-                <h5>Добавление Модели</h5>
-                {% csrf_token %}
-                {{ car_form.non_field_errors }}
-                {% for field in model_form %}
-                    <div class="fieldWrapper input-field">
-                        {{ field }}
-                        {{ field.label_tag }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- Модальное окно бренда -->
-    <div id="brand-modal" class="modal">
-        <form action="{% url 'car:brand_save' %}" role="form" method="post">
-            <div class="modal-content">
-                <h5>Добавление Бренда</h5>
-                {% csrf_token %}
-                {{ brand_form.non_field_errors }}
-                {% for field in brand_form %}
-                    <div class="fieldWrapper input-field">
-                        {{ field }}
-                        {{ field.label_tag }}
-                        {{ field.errors }}
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="modal-footer">
-                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
-            </div>
-        </form>
-    </div>
-
 {% endblock body %}

@@ -1,5 +1,7 @@
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth import urls
+from django.contrib.auth import views as auth_views
 from base import views as base_views
 from flatlease import views as flat_views
 from car_leasing import views as car_views
@@ -30,8 +32,13 @@ car_leasing_url = [
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^login$', base_views.user_login, name='login'),
+    # url(r'^login/$', auth_views.login, {'template_name': 'base/login.html'}),
+    url(r'^login/$', base_views.user_login, name='login'),
     url(r'^logout$', base_views.user_logout, name='logout'),
+    url(r'^', include(urls)),
+    # url(r'^login/$', auth_views.login, name='login'),
+
+    # url(r'^logout$', base_views.user_logout, name='logout'),
     url(r'^$', base_views.choice, name='choice'),
     url(r'^calculator$', flat_views.calculator, name='calculator'),
     url(r'^', include(base_url, namespace='base', app_name='base')),

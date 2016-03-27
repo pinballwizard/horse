@@ -110,9 +110,9 @@ class Transaction(models.Model):
     owner = models.ForeignKey(Client, verbose_name="Клиент")
     count = models.DecimalField("Платеж", max_digits=10, decimal_places=2, default=0)
     type = models.CharField("Тип платежа", max_length=20, choices=pay_type_dict, default=pay_type_dict[0][0])
-    content_type=models.ForeignKey(ContentType)
-    object_id=models.PositiveIntegerField()
-    relate = GenericForeignKey('content_type', 'object_id')
+    # content_type=models.ForeignKey(ContentType)
+    # object_id=models.PositiveIntegerField()
+    # relate = GenericForeignKey('content_type', 'object_id')
     pub_date = models.DateTimeField("Дата платежа", auto_now_add=True)
 
     class Meta:

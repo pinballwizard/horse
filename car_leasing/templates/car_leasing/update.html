@@ -16,11 +16,10 @@
 {#                        Добавление автомобиля#}
 {#                    </div>#}
                     <div class="row">
-                        {{ car_form.non_field_errors }}
                         {% for field in car_form %}
-                            <div class="fieldWrapper input-field">
-                                {{ field }}
-                                {{ field.label_tag }}
+                            <div class="fieldWrapper">
+                                {{ field.label_tag }} {{ field }}
+{#                                {{ field.label_tag }}#}
                                 {{ field.errors }}
                             </div>
                         {% endfor %}
@@ -28,8 +27,64 @@
                 </div>
                 <div class="card-action">
                     <button type="reset" class="btn white-text waves-effect waves-light">Очистить</button>
+                    <a class="btn tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить брэнд" href="#brand-modal">
+                        +Брэнд
+                    </a>
+                    <a class="btn tooltipped modal-trigger"
+                       data-position="top" data-delay="50" data-tooltip="Добавить модель" href="#model-modal">
+                        +Модель
+                    </a>
                     <button type="submit" class="btn right waves-effect waves-light">Сохранить</button>
                 </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Модальное окно модели -->
+    <div id="model-modal" class="modal">
+        <form action="{{ update_url }}" role="form" method="post">
+            <div class="modal-content">
+                <h5>Добавление Модели</h5>
+                {% csrf_token %}
+                <div id="brand_add" class="row">
+                    {{ brand_form.non_field_errors }}
+                    <div class="col s6 fieldWrapper input-field">
+                        {{ brand_form.name }}
+                        {{ brand_form.name.label_tag }}
+                    </div>
+                    <div class="col s6 fieldWrapper">
+                        {{ brand_form.logo }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ model_form.non_field_errors }}
+                    <div id="brand_select" class="fieldWrapper row">
+                        <div class="col s10">
+                            {{ model_form.brand }}
+                        </div>
+                        <div class="col s2">
+                            <a class="btn-floating tooltipped" data-position="top" data-delay="50" data-tooltip="Добавить новый Брэнд">
+                                <i class="material-icons">add</i>
+                            </a>
+                        </div>
+                        {{ model_form.brand.errors }}
+                    </div>
+
+                    <div class="fieldWrapper input-field">
+                        {{ model_form.name }}
+                        {{ model_form.name.label_tag }}
+                        {{ model_form.name.errors }}
+                    </div>
+                    <div class="fieldWrapper">
+                        {{ model_form.year }}
+                        {{ model_form.year.label_tag }}
+                        {{ model_form.year.errors }}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn waves-effect waves-light" type="submit">Сохранить</button>
             </div>
         </form>
     </div>
